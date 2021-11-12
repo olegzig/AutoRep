@@ -18,6 +18,14 @@ namespace AutoRep.Controllers
         {
             _context = context;
         }
+        public ActionResult DropDownControl()
+        {
+            if (_context.User.Count() >0)
+            {
+                return View(_context.User.Select(x => new { x.Id, x.Name }).ToList());
+            }
+            return View();
+        }
 
         // GET: WorkC
         public async Task<IActionResult> Index()
