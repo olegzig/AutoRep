@@ -12,6 +12,7 @@ namespace AutoRep.Models
         public User Worker { get; set; }
         public string Client { get; set; }
         public WorkType[] ToDo { get; set; }//список работ которые нужно проделать
+        public DateTime Date { get; set; }//время на которое записали работника
 
     }
     
