@@ -4,14 +4,16 @@ using AutoRep.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AutoRep.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211112182433_fieldremoved")]
+    partial class fieldremoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +34,12 @@ namespace AutoRep.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("WorkId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WorkId");
 
                     b.ToTable("User");
                 });
@@ -50,17 +57,7 @@ namespace AutoRep.Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("WorkerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("workTypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("WorkerId");
-
-                    b.HasIndex("workTypeId");
 
                     b.ToTable("Work");
                 });
@@ -81,7 +78,12 @@ namespace AutoRep.Data.Migrations
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("WorkId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WorkId");
 
                     b.ToTable("WorkType");
                 });
@@ -286,15 +288,18 @@ namespace AutoRep.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("AutoRep.Models.Work", b =>
+            modelBuilder.Entity("AutoRep.Models.User", b =>
                 {
-                    b.HasOne("AutoRep.Models.User", "Worker")
-                        .WithMany()
-                        .HasForeignKey("WorkerId");
+                    b.HasOne("AutoRep.Models.Work", null)
+                        .WithMany("Worker")
+                        .HasForeignKey("WorkId");
+                });
 
-                    b.HasOne("AutoRep.Models.WorkType", "workType")
-                        .WithMany()
-                        .HasForeignKey("workTypeId");
+            modelBuilder.Entity("AutoRep.Models.WorkType", b =>
+                {
+                    b.HasOne("AutoRep.Models.Work", null)
+                        .WithMany("ToDo")
+                        .HasForeignKey("WorkId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

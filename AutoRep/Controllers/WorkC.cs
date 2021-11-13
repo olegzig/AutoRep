@@ -1,12 +1,14 @@
-﻿using System;
+﻿using AutoRep.Data;
+using AutoRep.Models;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AutoRep.Data;
-using AutoRep.Models;
 
 namespace AutoRep.Controllers
 {
@@ -17,14 +19,6 @@ namespace AutoRep.Controllers
         public WorkC(ApplicationDbContext context)
         {
             _context = context;
-        }
-        public ActionResult DropDownControl()
-        {
-            if (_context.User.Count() >0)
-            {
-                return View(_context.User.Select(x => new { x.Id, x.Name }).ToList());
-            }
-            return View();
         }
 
         // GET: WorkC
@@ -50,22 +44,46 @@ namespace AutoRep.Controllers
 
             return View(work);
         }
+        // GET: WorkC/Create
+        // make a list of workers
+        public void DropDownControl()
+        {
+            var connection = "Server=(localdb)\\mssqllocaldb;Database=AutoRepDB;Trusted_Connection=True;MultipleActiveResultSets=true";
+            SqlConnection con = new SqlConnection(connection);
+            SqlCommand cmd = new SqlCommand("select [Id], [Name] from [User]", con);
+            con.Open();
+            SqlDataReader idr = cmd.ExecuteReader();
 
+            List<Work> users = new List<Work>();
+            if (idr.HasRows)
+            {
+                while (idr.Read())
+                {
+                    users.Add(new Work { Worker = new User { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) } });
+                }
+            }
+
+            con.Close();
+            ViewBag.UsersBag = users;
+            return;
+        }
         // GET: WorkC/Create
         public IActionResult Create()
         {
+            DropDownControl();
             return View();
         }
 
         // POST: WorkC/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Client,Date")] Work work)
+        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date")] Work work)
         {
             if (ModelState.IsValid)
             {
+
                 _context.Add(work);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -90,7 +108,7 @@ namespace AutoRep.Controllers
         }
 
         // POST: WorkC/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]

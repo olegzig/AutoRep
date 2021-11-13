@@ -22,11 +22,13 @@
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
-            <div><div class="form-group">
-                <label asp-for="Worker" class="control-label"></label>
-                @*@Html.DropDownListFor(Model => Model.Worker, new SelectList(Model.Worker, "id","name"))*@
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div></div>
+            <div>
+                <div class="form-group">
+                    <label asp-for="Worker" class="control-label"></label>
+                    <p>@Html.DropDownListFor(x => x.Worker, new SelectList(ViewBag.UsersBag, "Worker", "Worker.Name"), new { @class = "form-control" })</p>
+                    <span asp-validation-for="Worker" class="text-danger"></span>
+                </div>
+            </div>
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
