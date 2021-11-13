@@ -54,12 +54,12 @@ namespace AutoRep.Controllers
             con.Open();
             SqlDataReader idr = cmd.ExecuteReader();
 
-            List<Work> users = new List<Work>();
+            List<User> users = new List<User>();
             if (idr.HasRows)
             {
                 while (idr.Read())
                 {
-                    users.Add(new Work { Worker = new User { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) } });
+                    users.Add(new User { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
                 }
             }
 
@@ -83,6 +83,10 @@ namespace AutoRep.Controllers
         {
             if (ModelState.IsValid)
             {
+                //User user = new User();
+                //string[] selectedWorkerString = Request.Form["SelectedWorker"].ToString().Split(' ');
+                //user.Id = Int32.Parse(selectedWorkerString[0]);
+                //work.Worker = user.Id;
 
                 _context.Add(work);
                 await _context.SaveChangesAsync();
