@@ -12,7 +12,6 @@ namespace AutoRep.Controllers
     public class UserC : Controller
     {
         private readonly ApplicationDbContext _context;
-
         public UserC(ApplicationDbContext context)
         {
             _context = context;

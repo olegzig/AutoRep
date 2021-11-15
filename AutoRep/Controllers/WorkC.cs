@@ -4,6 +4,7 @@ using AutoRep.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace AutoRep.Controllers
     public class WorkC : Controller
     {
         private readonly ApplicationDbContext _context;
+        public IConfiguration Configuration { get; }
 
         public WorkC(ApplicationDbContext context)
         {
@@ -52,7 +54,7 @@ namespace AutoRep.Controllers
         // make a viewbug of workers
         public List<User> GetUsersList()
         {
-            var connection = "Server=(localdb)\\mssqllocaldb;Database=AutoRepDB;Trusted_Connection=True;MultipleActiveResultSets=true";
+            var connection = Configuration.GetConnectionString("DefaultConnection");
             SqlConnection con = new SqlConnection(connection);
             SqlCommand cmd = new SqlCommand("select [Id], [Name] from [User]", con);
             con.Open();
@@ -75,7 +77,7 @@ namespace AutoRep.Controllers
         // make a viewbug of workTypes
         public List<WorkType> GetWorkTypeList()
         {
-            var connection = "Server=(localdb)\\mssqllocaldb;Database=AutoRepDB;Trusted_Connection=True;MultipleActiveResultSets=true";
+            var connection = Configuration.GetConnectionString("DefaultConnection");
             SqlConnection con = new SqlConnection(connection);
             SqlCommand cmd = new SqlCommand("select [id],[name] from [WorkType]", con);
             con.Open();
