@@ -19,9 +19,21 @@ namespace AutoRep.Controllers
         }
 
         // GET: WorkTypeC
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(WorkType.SortState sortOrder = WorkType.SortState.NameAsc)
         {
-            return View(await _context.WorkType.ToListAsync());
+            IQueryable<WorkType> worksTypes = _context.WorkType;
+
+            ViewData["NameSort"] = sortOrder == WorkType.SortState.NameDesc ? WorkType.SortState.NameAsc : WorkType.SortState.NameDesc;
+            ViewData["CostSort"] = sortOrder == WorkType.SortState.CostDesc ? WorkType.SortState.CostAsc : WorkType.SortState.CostDesc;
+
+            worksTypes = sortOrder switch
+            {
+                WorkType.SortState.NameDesc => worksTypes.OrderByDescending(x => x.Name),
+                WorkType.SortState.CostAsc => worksTypes.OrderBy(x => x.Cost),
+                WorkType.SortState.CostDesc => worksTypes.OrderByDescending(x => x.Cost),
+                _ => worksTypes.OrderBy(x => x.Name),
+            };
+            return View(await worksTypes.AsNoTracking().ToListAsync());
         }
 
         // GET: WorkTypeC/Details/5

@@ -13,23 +13,23 @@
     <thead>
         <tr>
             <th>
-                <p class="d-table-cell">Клиент</p>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.ClientSort">Клиент</a>
             </th>
             <th>
-                <p class="d-table-cell">Дата</p>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.DateSort">Дата</a>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (Work item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Client)
+                    @item.Client
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Date)
+                    @item.Date
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |

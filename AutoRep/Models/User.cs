@@ -15,5 +15,10 @@ namespace AutoRep.Models
         {
             return Id.ToString() + " " + Name + " " + IsOwner.ToString();
         }
+        public enum SortState
+        {
+            NameAsc,
+            NameDesc
+        }
     }
 }

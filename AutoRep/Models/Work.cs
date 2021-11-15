@@ -12,6 +12,14 @@ namespace AutoRep.Models
         public int Worker { get; set; }//работник который делает/сделает/записал
         public string Client { get; set; }//Клиент и его контактные данные
         public DateTime Date { get; set; }//время на которое записали работника
+
+        public enum SortState
+        {
+            ClientAsc,
+            ClientDesc,
+            DateAsc,
+            DateDesc,
+        }
     }
     
 }

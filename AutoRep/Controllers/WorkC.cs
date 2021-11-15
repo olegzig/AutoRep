@@ -18,7 +18,6 @@ namespace AutoRep.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration Configuration;
 
-
         public WorkC(ApplicationDbContext context, IConfiguration config)
         {
             _context = context;
@@ -26,9 +25,21 @@ namespace AutoRep.Controllers
         }
 
         // GET: WorkC
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Work.SortState sortOrder = Work.SortState.ClientAsc)
         {
-            return View(await _context.Work.ToListAsync());
+            IQueryable<Work> works = _context.Work;
+
+            ViewData["ClientSort"] = sortOrder == Work.SortState.ClientDesc ? Work.SortState.ClientAsc : Work.SortState.ClientDesc;
+            ViewData["DateSort"] = sortOrder == Work.SortState.DateDesc ? Work.SortState.DateAsc : Work.SortState.DateDesc;
+
+            works = sortOrder switch
+            {
+                Work.SortState.ClientDesc => works.OrderByDescending(x => x.Client),
+                Work.SortState.DateAsc => works.OrderBy(x => x.Date.Date),
+                Work.SortState.DateDesc => works.OrderByDescending(x => x.Date.Date),
+                _ => works.OrderBy(x => x.Client),
+            };
+            return View(await works.AsNoTracking().ToListAsync());
         }
 
         // GET: WorkC/Details/5

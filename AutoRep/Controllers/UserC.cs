@@ -18,9 +18,18 @@ namespace AutoRep.Controllers
         }
 
         // GET: UserC
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(User.SortState sortOrder = Models.User.SortState.NameAsc)
         {
-            return View(await _context.User.ToListAsync());
+            IQueryable<User> users = _context.User;
+
+            ViewData["NameSort"] = sortOrder == Models.User.SortState.NameDesc ? Models.User.SortState.NameAsc : Models.User.SortState.NameDesc;
+
+            users = sortOrder switch
+            {
+                Models.User.SortState.NameDesc => users.OrderByDescending(x => x.Name),
+                _ => users.OrderBy(x => x.Name),
+            };
+            return View(await users.AsNoTracking().ToListAsync());
         }
 
         // GET: UserC/Details/5

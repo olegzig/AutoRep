@@ -13,29 +13,29 @@
     <thead>
         <tr>
             <th>
-                <p class="d-table-cell">Наименование</p>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.NameSort">Наименование</a>
             </th>
             <th>
                 <p class="d-table-cell">Описание</p>
             </th>
             <th>
-                <p class="d-table-cell">Стоимость</p>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.CostSort">Стоимость</a>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (WorkType item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @item.Name
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Text)
+                    @item.Text
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cost)
+                    @item.Cost
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
