@@ -16,11 +16,13 @@ namespace AutoRep.Controllers
     public class WorkC : Controller
     {
         private readonly ApplicationDbContext _context;
-        public IConfiguration Configuration { get; }
+        private readonly IConfiguration Configuration;
 
-        public WorkC(ApplicationDbContext context)
+
+        public WorkC(ApplicationDbContext context, IConfiguration config)
         {
             _context = context;
+            Configuration = config;
         }
 
         // GET: WorkC
