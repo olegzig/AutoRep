@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
-using Newtonsoft.Json;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,12 +41,13 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
-            
+
             ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker).Name;
             ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == work.WorkType).Name;
 
             return View(work);
         }
+
         // GET: WorkC/Create
         // make a viewbug of workers
         public List<User> GetUsersList()
@@ -72,6 +71,7 @@ namespace AutoRep.Controllers
             ViewBag.UsersBag = users;
             return users;
         }
+
         // make a viewbug of workTypes
         public List<WorkType> GetWorkTypeList()
         {
@@ -94,6 +94,7 @@ namespace AutoRep.Controllers
             ViewBag.WorkTypeBag = workTypes;
             return workTypes;
         }
+
         // GET: WorkC/Create
         public IActionResult Create()
         {
