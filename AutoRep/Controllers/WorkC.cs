@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
+using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,12 +43,15 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
+            
+            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker).Name;
+            ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == work.WorkType).Name;
 
             return View(work);
         }
         // GET: WorkC/Create
-        // make a list of workers
-        public void DropDownControl()
+        // make a viewbug of workers
+        public List<User> GetUsersList()
         {
             var connection = "Server=(localdb)\\mssqllocaldb;Database=AutoRepDB;Trusted_Connection=True;MultipleActiveResultSets=true";
             SqlConnection con = new SqlConnection(connection);
@@ -65,12 +70,35 @@ namespace AutoRep.Controllers
 
             con.Close();
             ViewBag.UsersBag = users;
-            return;
+            return users;
+        }
+        // make a viewbug of workTypes
+        public List<WorkType> GetWorkTypeList()
+        {
+            var connection = "Server=(localdb)\\mssqllocaldb;Database=AutoRepDB;Trusted_Connection=True;MultipleActiveResultSets=true";
+            SqlConnection con = new SqlConnection(connection);
+            SqlCommand cmd = new SqlCommand("select [id],[name] from [WorkType]", con);
+            con.Open();
+            SqlDataReader idr = cmd.ExecuteReader();
+
+            List<WorkType> workTypes = new List<WorkType>();
+            if (idr.HasRows)
+            {
+                while (idr.Read())
+                {
+                    workTypes.Add(new WorkType { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
+                }
+            }
+
+            con.Close();
+            ViewBag.WorkTypeBag = workTypes;
+            return workTypes;
         }
         // GET: WorkC/Create
         public IActionResult Create()
         {
-            DropDownControl();
+            GetUsersList();
+            GetWorkTypeList();
             return View();
         }
 
@@ -79,7 +107,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date")] Work work)
+        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType")] Work work)
         {
             if (ModelState.IsValid)
             {
@@ -98,6 +126,9 @@ namespace AutoRep.Controllers
         // GET: WorkC/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            //Это (2 нижестоящие строки) в принципе не должно работать, но оно работает и славненько, ок?
+            GetUsersList();
+            GetWorkTypeList();
             if (id == null)
             {
                 return NotFound();
@@ -116,7 +147,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Client,Date")] Work work)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Client,Date,Worker,WorkType")] Work work)
         {
             if (id != work.Id)
             {
@@ -160,6 +191,8 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
+            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker).Name;
+            ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == work.WorkType).Name;
 
             return View(work);
         }
