@@ -1,6 +1,7 @@
 ﻿using AutoRep.Data;
 using AutoRep.Models;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ namespace AutoRep.Controllers
         }
 
         // GET: WorkTypeC
+        [Authorize]
         public async Task<IActionResult> Index(WorkType.SortState sortOrder = WorkType.SortState.NameAsc)
         {
             IQueryable<WorkType> worksTypes = _context.WorkType;

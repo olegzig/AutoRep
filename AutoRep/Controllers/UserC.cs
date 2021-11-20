@@ -1,6 +1,7 @@
 ﻿using AutoRep.Data;
 using AutoRep.Models;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,7 @@ namespace AutoRep.Controllers
         }
 
         // GET: UserC
+        [Authorize]
         public async Task<IActionResult> Index(User.SortState sortOrder = Models.User.SortState.NameAsc)
         {
             IQueryable<User> users = _context.User;
