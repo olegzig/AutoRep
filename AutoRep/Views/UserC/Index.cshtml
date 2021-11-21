@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    
 }
 
 <h1>Пользователи</h1>
@@ -9,8 +10,8 @@
 <p>
     <a asp-action="Create">Добавить пользователя</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-dark" style="background-color: gray">
+    <thead class="thead-dark">
         <tr>
             <th>
                 <a class="d-table-cell" asp-route-sortOrder="@ViewBag.NameSort">Пользователь</a>
@@ -25,7 +26,7 @@
                 <td>
                     @item.Name
                 </td>
-                <td>
+                <td class="table-menu text-center">
                     <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>

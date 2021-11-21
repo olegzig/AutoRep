@@ -9,8 +9,8 @@
 <p>
     <a asp-action="Create">Добавить</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-dark" style="background-color: gray">
+    <thead class="thead-dark">
         <tr>
             <th>
                 <a class="d-table-cell" asp-route-sortOrder="@ViewBag.ClientSort">Клиент</a>
@@ -31,7 +31,7 @@
                 <td>
                     @item.Date
                 </td>
-                <td>
+                <td class="table-menu text-center">
                     <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
