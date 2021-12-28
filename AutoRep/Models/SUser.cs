@@ -9,12 +9,11 @@ namespace AutoRep.Models
     // Add profile data for application users by adding properties to the SUser class
     public class SUser : IdentityUser
     {
-        public string Name { get; set; }//ФИО работника/гово
         public bool IsMananger { get; set; }//t = владелец, f = работник
 
         public override string ToString()
         {
-            return Id.ToString() + " " + Name + " " + IsMananger.ToString();
+            return Id.ToString() + " " + UserName + " " + IsMananger.ToString();
         }
 
         public enum SortState
