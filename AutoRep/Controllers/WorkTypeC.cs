@@ -39,7 +39,7 @@ namespace AutoRep.Controllers
         }
 
         // GET: WorkTypeC/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -99,7 +99,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,Text,Cost")] WorkType workType)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Text,Cost")] WorkType workType)
         {
             if (id != workType.Id)
             {
@@ -130,7 +130,7 @@ namespace AutoRep.Controllers
         }
 
         // GET: WorkTypeC/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -158,7 +158,7 @@ namespace AutoRep.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool WorkTypeExists(string id)
+        private bool WorkTypeExists(int? id)
         {
             return _context.WorkType.Any(e => e.Id == id);
         }

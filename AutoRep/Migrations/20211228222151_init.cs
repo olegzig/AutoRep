@@ -11,7 +11,8 @@ namespace AutoRep.Migrations
                 name: "Work",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     WorkType = table.Column<string>(nullable: true),
                     Worker = table.Column<string>(nullable: true),
                     Client = table.Column<string>(nullable: true),
@@ -26,7 +27,8 @@ namespace AutoRep.Migrations
                 name: "WorkType",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     Text = table.Column<string>(nullable: true),
                     Cost = table.Column<double>(nullable: false)

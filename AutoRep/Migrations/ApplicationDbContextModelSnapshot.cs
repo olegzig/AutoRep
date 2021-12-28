@@ -21,8 +21,10 @@ namespace AutoRep.Migrations
 
             modelBuilder.Entity("AutoRep.Models.Work", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Client")
                         .HasColumnType("nvarchar(max)");
@@ -43,8 +45,10 @@ namespace AutoRep.Migrations
 
             modelBuilder.Entity("AutoRep.Models.WorkType", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double>("Cost")
                         .HasColumnType("float");
