@@ -8,27 +8,12 @@ namespace AutoRep.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    IsOwner = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Work",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    WorkType = table.Column<int>(nullable: false),
-                    Worker = table.Column<int>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
+                    WorkType = table.Column<string>(nullable: true),
+                    Worker = table.Column<string>(nullable: true),
                     Client = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false)
                 },
@@ -41,11 +26,10 @@ namespace AutoRep.Migrations
                 name: "WorkType",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Text = table.Column<string>(nullable: true),
-                    Cost = table.Column<int>(nullable: false)
+                    Cost = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,9 +39,6 @@ namespace AutoRep.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "User");
-
             migrationBuilder.DropTable(
                 name: "Work");
 

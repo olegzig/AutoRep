@@ -1,4 +1,4 @@
-﻿@model AutoRep.Models.User
+﻿@model AutoRep.Models.SUser
 
 @{
     ViewData["Title"] = "Create";
@@ -13,13 +13,13 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsOwner" /> @Html.DisplayNameFor(model => model.IsOwner)
+                    <input class="form-check-input" asp-for="IsMananger" /> @Html.DisplayNameFor(model => model.IsMananger)
                 </label>
             </div>
             <div class="form-group">

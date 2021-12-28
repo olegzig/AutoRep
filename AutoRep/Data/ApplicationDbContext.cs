@@ -14,7 +14,6 @@ namespace AutoRep.Data
             : base(options)
         {
         }
-        public DbSet<AutoRep.Models.User> User { get; set; }
         public DbSet<AutoRep.Models.Work> Work { get; set; }
         public DbSet<AutoRep.Models.WorkType> WorkType { get; set; }
     }

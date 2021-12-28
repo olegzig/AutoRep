@@ -45,7 +45,7 @@ namespace AutoRep.Controllers
         }
 
         // GET: WorkC/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -59,7 +59,7 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
 
-            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker).Name;
+            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString()).UserName;
             ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == work.WorkType).Name;
 
             return View(work);
@@ -67,7 +67,7 @@ namespace AutoRep.Controllers
 
         // GET: WorkC/Create
         // make a viewbug of workers
-        public List<User> GetUsersList()
+        public List<SUser> GetUsersList()
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
             SqlConnection con = new SqlConnection(connection);
@@ -75,12 +75,12 @@ namespace AutoRep.Controllers
             con.Open();
             SqlDataReader idr = cmd.ExecuteReader();
 
-            List<User> users = new List<User>();
+            List<SUser> users = new List<SUser>();
             if (idr.HasRows)
             {
                 while (idr.Read())
                 {
-                    users.Add(new User { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
+                    users.Add(new SUser { Id = Convert.ToString(idr["Id"]), UserName = Convert.ToString(idr["Name"]) });
                 }
             }
 
@@ -103,7 +103,7 @@ namespace AutoRep.Controllers
             {
                 while (idr.Read())
                 {
-                    workTypes.Add(new WorkType { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
+                    workTypes.Add(new WorkType { Id = Convert.ToString(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
                 }
             }
 
@@ -165,7 +165,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Client,Date,Worker,WorkType")] Work work)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Client,Date,Worker,WorkType")] Work work)
         {
             if (id != work.Id)
             {
@@ -196,7 +196,7 @@ namespace AutoRep.Controllers
         }
 
         // GET: WorkC/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -209,7 +209,7 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
-            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker).Name;
+            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString()).UserName;
             ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == work.WorkType).Name;
 
             return View(work);
@@ -226,7 +226,7 @@ namespace AutoRep.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool WorkExists(int id)
+        private bool WorkExists(string id)
         {
             return _context.Work.Any(e => e.Id == id);
         }

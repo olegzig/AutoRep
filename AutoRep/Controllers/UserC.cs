@@ -20,15 +20,15 @@ namespace AutoRep.Controllers
 
         // GET: UserC
         [Authorize]
-        public async Task<IActionResult> Index(User.SortState sortOrder = Models.User.SortState.NameAsc)
+        public async Task<IActionResult> Index(SUser.SortState sortOrder = Models.SUser.SortState.NameAsc)
         {
             IQueryable<SUser> users = _context.Users;
 
-            ViewData["NameSort"] = sortOrder == Models.User.SortState.NameDesc ? Models.User.SortState.NameAsc : Models.User.SortState.NameDesc;
+            ViewData["NameSort"] = sortOrder == Models.SUser.SortState.NameDesc ? Models.SUser.SortState.NameAsc : Models.SUser.SortState.NameDesc;
 
             users = sortOrder switch
             {
-                Models.User.SortState.NameDesc => users.OrderByDescending(x => x.UserName),
+                Models.SUser.SortState.NameDesc => users.OrderByDescending(x => x.UserName),
                 _ => users.OrderBy(x => x.UserName),
             };
             return View(await users.AsNoTracking().ToListAsync());
@@ -63,7 +63,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,IsOwner")] User user)
+        public async Task<IActionResult> Create([Bind("Id,Name,IsOwner")] SUser user)//НУЖНО ОТРЕДАКТИТЬ
         {
             if (ModelState.IsValid)
             {
@@ -75,14 +75,14 @@ namespace AutoRep.Controllers
         }
 
         // GET: UserC/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.UserClaims.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -95,7 +95,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,IsOwner")] User user)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,UserName,IsMananger,Email,PhoneNumber")] SUser user)
         {
             if (id != user.Id)
             {
@@ -154,9 +154,10 @@ namespace AutoRep.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(string id)
         {
-            return _context.UserClaims.Any(e => e.Id == id);
+            //return _context.UserClaim.Any(e => e.Id == id);
+            return _context.Users.Contains(new SUser { Id = id });//might be bug
         }
     }
 }

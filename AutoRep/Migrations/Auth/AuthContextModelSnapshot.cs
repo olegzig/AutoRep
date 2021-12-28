@@ -19,7 +19,7 @@ namespace AutoRep.Migrations.Auth
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AutoRep.Areas.Identity.Data.SUser", b =>
+            modelBuilder.Entity("AutoRep.Models.SUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -36,6 +36,9 @@ namespace AutoRep.Migrations.Auth
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsMananger")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -230,7 +233,7 @@ namespace AutoRep.Migrations.Auth
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("AutoRep.Areas.Identity.Data.SUser", null)
+                    b.HasOne("AutoRep.Models.SUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -239,7 +242,7 @@ namespace AutoRep.Migrations.Auth
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("AutoRep.Areas.Identity.Data.SUser", null)
+                    b.HasOne("AutoRep.Models.SUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -254,7 +257,7 @@ namespace AutoRep.Migrations.Auth
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AutoRep.Areas.Identity.Data.SUser", null)
+                    b.HasOne("AutoRep.Models.SUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -263,7 +266,7 @@ namespace AutoRep.Migrations.Auth
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("AutoRep.Areas.Identity.Data.SUser", null)
+                    b.HasOne("AutoRep.Models.SUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
