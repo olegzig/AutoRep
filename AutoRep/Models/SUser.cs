@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +25,16 @@ namespace AutoRep.Models
 
         [Display(Name = "Имя")]
         public override string UserName { get => base.UserName; set => base.UserName = value; }
+
+        [NotMapped]
+        [Display(Name = "Пароль")]
+        public string  Password { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Подтвердите пароль")]
+        [Compare("Password", ErrorMessage = "Пароль не совпадает.")]
+        public string ConfirmPassword { get; set; }
+        //NotMapped не должен идти в БД
 
         public override string ToString()
         {

@@ -2,9 +2,11 @@
 using AutoRep.Models;
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,9 +15,13 @@ namespace AutoRep.Controllers
     public class UserC : Controller
     {
         private readonly AuthContext _context;
-        public UserC(AuthContext context)
+        private readonly UserManager<SUser> _userManager;
+        private readonly SignInManager<SUser> _signInManager;
+        public UserC(AuthContext context, UserManager<SUser> userManager, SignInManager<SUser> signInManager)
         {
+            _userManager = userManager;
             _context = context;
+            _signInManager = signInManager;
         }
 
         // GET: UserC
@@ -35,15 +41,14 @@ namespace AutoRep.Controllers
         }
 
         // GET: UserC/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.UserClaims
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -63,13 +68,17 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,IsOwner")] SUser user)//НУЖНО ОТРЕДАКТИТЬ
+        public async Task<IActionResult> Create([Bind("Id,UserName,IsMananger,Email,PhoneNumber,Password,ConfirmPassword")] SUser user)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //_context.Add(user);
+                //await _context.SaveChangesAsync();
+
+                var newUser = new SUser { UserName = user.Email, Email = user.Email, IsMananger = user.IsMananger, PhoneNumber = user.PhoneNumber };
+                var result = await _userManager.CreateAsync(newUser, user.Password);
+                if (result.Succeeded)
+                    return RedirectToAction(nameof(Index));
             }
             return View(user);
         }
@@ -89,7 +98,7 @@ namespace AutoRep.Controllers
             }
             return View(user);
         }
-
+        
         // POST: UserC/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -102,12 +111,21 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
 
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
+                    var oldUser = await _userManager.FindByIdAsync(id);
+                    oldUser.Email = user.Email;
+                    oldUser.PhoneNumber = user.PhoneNumber;
+                    oldUser.IsMananger = user.IsMananger;
+                    oldUser.UserName = user.UserName;
+                    var Result = await _userManager.UpdateAsync(user);
+                    if (!Result.Succeeded)
+                    {
+                        return NotFound(value:Result.Errors.ToString());//Я не знаю работает ли это, но да.
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -122,19 +140,19 @@ namespace AutoRep.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            await _signInManager.RefreshSignInAsync(user);
             return View(user);
         }
 
         // GET: UserC/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.UserClaims
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -146,11 +164,14 @@ namespace AutoRep.Controllers
         // POST: UserC/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var user = await _context.UserClaims.FindAsync(id);
-            _context.UserClaims.Remove(user);
-            await _context.SaveChangesAsync();
+            var user = await _context.Users.FindAsync(id);
+            var result = await _userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+            {
+                return NotFound(value: result.Errors.ToString());//Я не знаю работает ли это, но да.
+            }
             return RedirectToAction(nameof(Index));
         }
 
