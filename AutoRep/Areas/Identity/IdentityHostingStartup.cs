@@ -1,5 +1,5 @@
 ﻿using System;
-using AutoRep.Areas.Identity.Data;
+using AutoRep.Models;
 using AutoRep.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
