@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoRep.Models;
 using AutoRep.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,12 @@ namespace AutoRep.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
+                services.AddDbContext<AuthContext>(options =>
+                    options.UseSqlServer(
+                        context.Configuration.GetConnectionString("AuthContextConnection")));
+
+                services.AddDefaultIdentity<SUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<AuthContext>();
             });
         }
     }

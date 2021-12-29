@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AutoRep.Models.User>
+﻿@model IEnumerable<AutoRep.Models.SUser>
 
 @{
     ViewData["Title"] = "Index";
@@ -20,18 +20,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (User item in Model)
+        @foreach (SUser item in Model)
         {
-            <tr>
-                <td>
-                    @item.Name
-                </td>
-                <td class="table-menu text-center">
-                    <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @item.UserName
+            </td>
+            
+            <td class="table-menu text-center">
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

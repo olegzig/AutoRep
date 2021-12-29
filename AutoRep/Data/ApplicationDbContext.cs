@@ -8,13 +8,12 @@ using AutoRep.Models;
 
 namespace AutoRep.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
-        public DbSet<AutoRep.Models.User> User { get; set; }
         public DbSet<AutoRep.Models.Work> Work { get; set; }
         public DbSet<AutoRep.Models.WorkType> WorkType { get; set; }
     }

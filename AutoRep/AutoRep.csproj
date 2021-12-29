@@ -6,8 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Migrations\20211112180516_arraytolist2.cs" />
-    <Compile Remove="Data\Migrations\20211112180516_arraytolist2.Designer.cs" />
+    <Compile Remove="Migrations\20211228221030_idchange.cs" />
+    <Compile Remove="Migrations\20211228221030_idchange.Designer.cs" />
+    <Compile Remove="Migrations\20211228221629_idchange.cs" />
+    <Compile Remove="Migrations\20211228221629_idchange.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -158,7 +158,7 @@ namespace AutoRep.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool WorkTypeExists(int id)
+        private bool WorkTypeExists(int? id)
         {
             return _context.WorkType.Any(e => e.Id == id);
         }

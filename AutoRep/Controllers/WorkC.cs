@@ -59,28 +59,28 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
 
-            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker).Name;
-            ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == work.WorkType).Name;
+            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString()).UserName;
+            ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.WorkType)).Name;
 
             return View(work);
         }
 
         // GET: WorkC/Create
         // make a viewbug of workers
-        public List<User> GetUsersList()
+        public List<SUser> GetUsersList()
         {
-            var connection = Configuration.GetConnectionString("DefaultConnection");
+            var connection = Configuration.GetConnectionString("AuthContextConnection");
             SqlConnection con = new SqlConnection(connection);
-            SqlCommand cmd = new SqlCommand("select [Id], [Name] from [User]", con);
+            SqlCommand cmd = new SqlCommand("select [Id], [UserName] from [AspNetUsers]", con);
             con.Open();
             SqlDataReader idr = cmd.ExecuteReader();
 
-            List<User> users = new List<User>();
+            List<SUser> users = new List<SUser>();
             if (idr.HasRows)
             {
                 while (idr.Read())
                 {
-                    users.Add(new User { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
+                    users.Add(new SUser { Id = Convert.ToString(idr[0]), UserName = Convert.ToString(idr[1]) });
                 }
             }
 
@@ -209,8 +209,8 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
-            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker).Name;
-            ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == work.WorkType).Name;
+            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString()).UserName;
+            ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.WorkType)).Name;
 
             return View(work);
         }
