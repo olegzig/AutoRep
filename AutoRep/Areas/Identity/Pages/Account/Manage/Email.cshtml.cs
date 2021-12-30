@@ -46,7 +46,7 @@ namespace AutoRep.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = "Новая электронная почта")]
             public string NewEmail { get; set; }
         }
 

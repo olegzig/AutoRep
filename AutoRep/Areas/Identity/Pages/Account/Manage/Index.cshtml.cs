@@ -34,7 +34,7 @@ namespace AutoRep.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Телефонный номер")]
             public string PhoneNumber { get; set; }
         }
 
