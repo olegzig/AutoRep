@@ -9,6 +9,14 @@
 <p>
     <a asp-action="Create">Добавить</a>
 </p>
+@using (Html.BeginForm())
+{
+    <div class="row container mb-1 justify-content-around">
+        <input class="form-control col-11" type="search" name="SearchString" placeholder="Введите строку для поиска" value="@ViewBag.SearchString" />
+        <input class="btn btn-info col-1 align-self-end"type="submit" value="Search" />
+    </div>
+}
+
 <table class="table table-dark" style="background-color: gray">
     <thead class="thead-dark">
         <tr>

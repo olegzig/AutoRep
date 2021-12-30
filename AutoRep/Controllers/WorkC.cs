@@ -27,9 +27,12 @@ namespace AutoRep.Controllers
 
         // GET: WorkC
         [Authorize]
-        public async Task<IActionResult> Index(Work.SortState sortOrder = Work.SortState.ClientAsc)
+        public async Task<IActionResult> Index(string searchString, Work.SortState sortOrder = Work.SortState.ClientAsc)
         {
             IQueryable<Work> works = _context.Work;
+            ViewBag.SearchString = searchString;
+            if (searchString != null)
+                works = works.Where(x => x.Client == searchString);
 
             ViewData["ClientSort"] = sortOrder == Work.SortState.ClientDesc ? Work.SortState.ClientAsc : Work.SortState.ClientDesc;
             ViewData["DateSort"] = sortOrder == Work.SortState.DateDesc ? Work.SortState.DateAsc : Work.SortState.DateDesc;
