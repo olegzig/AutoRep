@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AutoRep.Data;
 using AutoRep.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutoRep.Controllers
 {
@@ -20,6 +21,7 @@ namespace AutoRep.Controllers
         }
 
         // GET: Requests
+        [Authorize]
         public async Task<IActionResult> Index(UserRequest.SortState sortOrder = Models.UserRequest.SortState.ClientAsc)
         {
             IQueryable<UserRequest> requests = _context.Request;
