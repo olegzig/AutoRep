@@ -20,8 +20,13 @@ namespace AutoRep.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("AuthContextConnection")));
 
-                services.AddDefaultIdentity<SUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<AuthContext>();
+                services.AddDefaultIdentity<SUser>(options =>
+                {
+                    options.User.AllowedUserNameCharacters = "$.@abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                    options.User.RequireUniqueEmail = true;//я не уверен, но пусть будет
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                }).AddEntityFrameworkStores<AuthContext>();
             });
         }
     }

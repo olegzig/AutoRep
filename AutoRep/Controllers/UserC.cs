@@ -124,7 +124,13 @@ namespace AutoRep.Controllers
                     var Result = await _userManager.UpdateAsync(oldUser);
                     if (!Result.Succeeded)
                     {
-                        return NotFound(value:Result.Errors.FirstOrDefault().Description);//Я не знаю работает ли это, но да.
+                        //return NotFound(value:Result.Errors.FirstOrDefault().Description);//Я не знаю работает ли это, но да.
+
+                        foreach (var error in Result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                        return View(user);
                     }
                 }
                 catch (DbUpdateConcurrencyException)
