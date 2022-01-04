@@ -10,6 +10,8 @@
     <Compile Remove="Migrations\20211228221030_idchange.Designer.cs" />
     <Compile Remove="Migrations\20211228221629_idchange.cs" />
     <Compile Remove="Migrations\20211228221629_idchange.Designer.cs" />
+    <Compile Remove="Migrations\Auth\20220104154137_justforchek.cs" />
+    <Compile Remove="Migrations\Auth\20220104154137_justforchek.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

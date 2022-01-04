@@ -121,10 +121,10 @@ namespace AutoRep.Controllers
                     oldUser.PhoneNumber = user.PhoneNumber;
                     oldUser.IsMananger = user.IsMananger;
                     oldUser.UserName = user.UserName;
-                    var Result = await _userManager.UpdateAsync(user);
+                    var Result = await _userManager.UpdateAsync(oldUser);
                     if (!Result.Succeeded)
                     {
-                        return NotFound(value:Result.Errors.ToString());//Я не знаю работает ли это, но да.
+                        return NotFound(value:Result.Errors.FirstOrDefault().Description);//Я не знаю работает ли это, но да.
                     }
                 }
                 catch (DbUpdateConcurrencyException)
