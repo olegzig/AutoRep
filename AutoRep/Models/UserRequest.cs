@@ -23,9 +23,7 @@ namespace AutoRep.Models
         public enum SortState
         {
             ClientAsc,
-            ClientDesc,
-            WorkAsc,
-            WorkDesc,
+            ClientDesc
         }
     }
 }

@@ -25,13 +25,10 @@ namespace AutoRep.Controllers
             IQueryable<UserRequest> requests = _context.Request;
 
             ViewData["NameSort"] = sortOrder == Models.UserRequest.SortState.ClientDesc ? Models.UserRequest.SortState.ClientAsc : Models.UserRequest.SortState.ClientDesc;
-            ViewData["DateSort"] = sortOrder == UserRequest.SortState.WorkDesc ? UserRequest.SortState.WorkAsc : UserRequest.SortState.WorkDesc;
 
             requests = sortOrder switch
             {
                 UserRequest.SortState.ClientDesc => requests.OrderByDescending(x => x.Name),
-                UserRequest.SortState.WorkAsc => requests.OrderBy(x => x.WorkType),
-                UserRequest.SortState.WorkDesc => requests.OrderByDescending(x => x.WorkType),
                 _ => requests.OrderBy(x => x.Name),
             };
 
