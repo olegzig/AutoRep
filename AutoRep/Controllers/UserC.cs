@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace AutoRep.Controllers
 {
+    [Authorize]
     public class UserC : Controller
     {
         private readonly AuthContext _context;
@@ -25,7 +26,6 @@ namespace AutoRep.Controllers
         }
 
         // GET: UserC
-        [Authorize]
         public async Task<IActionResult> Index(SUser.SortState sortOrder = Models.SUser.SortState.NameAsc)
         {
             IQueryable<SUser> users = _context.Users;

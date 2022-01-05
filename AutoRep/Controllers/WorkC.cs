@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace AutoRep.Controllers
 {
+    [Authorize]
     public class WorkC : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,7 +27,6 @@ namespace AutoRep.Controllers
         }
 
         // GET: WorkC
-        [Authorize]
         public async Task<IActionResult> Index(string searchString, Work.SortState sortOrder = Work.SortState.ClientAsc)
         {
             IQueryable<Work> works = _context.Work;

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AutoRep.Controllers
 {
+    [Authorize]
     public class RequestsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,7 +22,6 @@ namespace AutoRep.Controllers
         }
 
         // GET: Requests
-        [Authorize]
         public async Task<IActionResult> Index(UserRequest.SortState sortOrder = Models.UserRequest.SortState.ClientAsc)
         {
             IQueryable<UserRequest> requests = _context.Request;
@@ -56,6 +56,7 @@ namespace AutoRep.Controllers
         }
 
         // GET: Requests/Create
+        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();
@@ -64,6 +65,7 @@ namespace AutoRep.Controllers
         // POST: Requests/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,WorkType,Name,ContactData")] UserRequest request)
@@ -72,6 +74,10 @@ namespace AutoRep.Controllers
             {
                 _context.Add(request);
                 await _context.SaveChangesAsync();
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return View("../Home/Index");
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(request);

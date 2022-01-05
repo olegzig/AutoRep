@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace AutoRep.Controllers
 {
+    [Authorize]
     public class WorkTypeC : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,7 +21,6 @@ namespace AutoRep.Controllers
         }
 
         // GET: WorkTypeC
-        [Authorize]
         public async Task<IActionResult> Index(WorkType.SortState sortOrder = WorkType.SortState.NameAsc)
         {
             IQueryable<WorkType> worksTypes = _context.WorkType;
