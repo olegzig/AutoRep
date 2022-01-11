@@ -28,6 +28,7 @@
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                <a asp-controller="WorkC" asp-action="CreateOn" asp-route-id="@item.Id">Создать работу</a>
             </td>
         </tr>
 }

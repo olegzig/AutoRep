@@ -123,6 +123,25 @@ namespace AutoRep.Controllers
             return View();
         }
 
+        // GET: WorkC/CreateOn/5
+        public async Task<IActionResult> CreateOn(int? id)//Тут мы создаём на остовании заявки. Передаём через viewBag
+        {
+            GetUsersList();
+            GetWorkTypeList();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var work = await _context.Request.FindAsync(id);
+            if (work == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Name = work.ContactData;
+            return View();
+        }
+
         // POST: WorkC/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
