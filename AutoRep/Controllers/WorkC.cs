@@ -139,6 +139,7 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
             ViewBag.Name = work.ContactData;
+            ViewBag.MadeOnId = id;
             return View();
         }
 
@@ -147,7 +148,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType")] Work work)
+        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType,MadeOnId")] Work work)
         {
             if (ModelState.IsValid)
             {
@@ -157,6 +158,8 @@ namespace AutoRep.Controllers
                 //work.Worker = user.Id;
 
                 _context.Add(work);
+                if(work.MadeOnId != null)
+                _context.Request.Remove(_context.Request.Find(work.MadeOnId));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
