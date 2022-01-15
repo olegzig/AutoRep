@@ -1,36 +1,45 @@
-﻿@model IEnumerable<AutoRep.Models.UserRequest>
-
+﻿@model X.PagedList.IPagedList<AutoRep.Models.UserRequest>
 @{
     ViewData["Title"] = "Запросы";
 }
-
+@using X.PagedList.Web.Common;
+@using X.PagedList.Mvc.Core;
 <h1>Запросы</h1>
 
 <p>
     <a asp-action="Create">Создать</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-dark">
+    <thead class="thead-dark">
         <tr>
             <th>
-                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.NameSort">@Html.DisplayNameFor(model => model.Name)</a>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.NameSort">Наименование</a>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
-                <a asp-controller="WorkC" asp-action="CreateOn" asp-route-id="@item.Id">Создать заказ</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
+                    <a asp-controller="WorkC" asp-action="CreateOn" asp-route-id="@item.Id">Создать заказ</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<br />
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+{
+    DisplayLinkToIndividualPages = true,
+    DisplayPageCountAndCurrentLocation = false,
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+})

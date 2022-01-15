@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AutoRep.Data;
 using AutoRep.Models;
 using Microsoft.AspNetCore.Authorization;
+using X.PagedList;
 
 namespace AutoRep.Controllers
 {
@@ -22,7 +23,7 @@ namespace AutoRep.Controllers
         }
 
         // GET: Requests
-        public async Task<IActionResult> Index(UserRequest.SortState sortOrder = Models.UserRequest.SortState.ClientAsc)
+        public async Task<IActionResult> Index(int? page, UserRequest.SortState sortOrder = Models.UserRequest.SortState.ClientAsc)
         {
             IQueryable<UserRequest> requests = _context.Request;
 
@@ -34,7 +35,10 @@ namespace AutoRep.Controllers
                 _ => requests.OrderBy(x => x.Name),
             };
 
-            return View(await requests.AsNoTracking().ToListAsync());
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(requests.AsNoTracking().ToPagedList(pageNumber, pageSize));
+            //return View(await requests.AsNoTracking().ToListAsync());
         }
 
         // GET: Requests/Details/5
