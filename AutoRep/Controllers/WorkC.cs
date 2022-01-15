@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace AutoRep.Controllers
 {
+    [Authorize]
     public class WorkC : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,7 +27,6 @@ namespace AutoRep.Controllers
         }
 
         // GET: WorkC
-        [Authorize]
         public async Task<IActionResult> Index(string searchString, Work.SortState sortOrder = Work.SortState.ClientAsc)
         {
             IQueryable<Work> works = _context.Work;
@@ -63,7 +63,7 @@ namespace AutoRep.Controllers
             }
 
             ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString()).UserName;
-            ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.WorkType)).Name;
+            ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.WorkType)).Name;//Я таким образом показываю имя пользователя и тип работы. Просто не трогай
 
             return View(work);
         }
@@ -123,12 +123,32 @@ namespace AutoRep.Controllers
             return View();
         }
 
+        // GET: WorkC/CreateOn/5
+        public async Task<IActionResult> CreateOn(int? id)//Тут мы создаём на остовании заявки. Передаём через viewBag
+        {
+            GetUsersList();
+            GetWorkTypeList();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var work = await _context.Request.FindAsync(id);
+            if (work == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Name = work.ContactData;
+            ViewBag.MadeOnId = id;
+            return View();
+        }
+
         // POST: WorkC/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType")] Work work)
+        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType,MadeOnId")] Work work)
         {
             if (ModelState.IsValid)
             {
@@ -138,6 +158,8 @@ namespace AutoRep.Controllers
                 //work.Worker = user.Id;
 
                 _context.Add(work);
+                if(work.MadeOnId != null)
+                _context.Request.Remove(_context.Request.Find(work.MadeOnId));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
