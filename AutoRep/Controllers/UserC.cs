@@ -10,6 +10,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
+using X.PagedList;
+
 namespace AutoRep.Controllers
 {
     [Authorize]
@@ -26,8 +28,9 @@ namespace AutoRep.Controllers
         }
 
         // GET: UserC
-        public async Task<IActionResult> Index(SUser.SortState sortOrder = Models.SUser.SortState.NameAsc)
+        public async Task<IActionResult> Index(int? page, SUser.SortState sortOrder = Models.SUser.SortState.NameAsc)
         {
+            ViewBag.CurrentSort = sortOrder;
             IQueryable<SUser> users = _context.Users;
 
             ViewData["NameSort"] = sortOrder == Models.SUser.SortState.NameDesc ? Models.SUser.SortState.NameAsc : Models.SUser.SortState.NameDesc;
@@ -37,7 +40,9 @@ namespace AutoRep.Controllers
                 Models.SUser.SortState.NameDesc => users.OrderByDescending(x => x.UserName),
                 _ => users.OrderBy(x => x.UserName),
             };
-            return View(await users.AsNoTracking().ToListAsync());
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(await users.AsNoTracking().ToPagedListAsync(pageNumber,pageSize));
         }
 
         // GET: UserC/Details/5

@@ -1,9 +1,10 @@
-﻿@model IEnumerable<AutoRep.Models.Work>
+﻿@model X.PagedList.IPagedList<AutoRep.Models.Work>
 
 @{
     ViewData["Title"] = "Index";
 }
-
+@using X.PagedList.Web.Common;
+@using X.PagedList.Mvc.Core;
 <h1>Заказы</h1>
 
 <p>
@@ -12,8 +13,8 @@
 @using (Html.BeginForm())
 {
     <div class="row container mb-1 justify-content-around">
-        <input class="form-control col-11" type="search" name="SearchString" placeholder="Введите строку для поиска" value="@ViewBag.SearchString" />
-        <input class="btn btn-info col-1 align-self-end"type="submit" value="Search" />
+        <input class="form-control col-11" type="search" name="SearchString" placeholder="Введите строку для поиска" value="@ViewBag.CurrentFilter" />
+        <input class="btn btn-info col-1 align-self-end" type="submit" value="Search" />
     </div>
 }
 
@@ -21,10 +22,10 @@
     <thead class="thead-dark">
         <tr>
             <th>
-                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.ClientSort">Клиент</a>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.ClientSort" asp-route-page="@Model.PageNumber" asp-route-currentFilter="@ViewBag.CurrentFilter">Клиент</a>
             </th>
             <th>
-                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.DateSort">Дата</a>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.DateSort" asp-route-page="@Model.PageNumber" asp-route-currentFilter="@ViewBag.CurrentFilter">Дата</a>
             </th>
             <th></th>
         </tr>
@@ -48,3 +49,10 @@
         }
     </tbody>
 </table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+{
+    DisplayLinkToIndividualPages = true,
+    DisplayPageCountAndCurrentLocation = false,
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+})

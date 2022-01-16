@@ -25,6 +25,7 @@ namespace AutoRep.Controllers
         // GET: Requests
         public async Task<IActionResult> Index(int? page, UserRequest.SortState sortOrder = Models.UserRequest.SortState.ClientAsc)
         {
+            ViewBag.CurrentSort = sortOrder;
             IQueryable<UserRequest> requests = _context.Request;
 
             ViewData["NameSort"] = sortOrder == Models.UserRequest.SortState.ClientDesc ? Models.UserRequest.SortState.ClientAsc : Models.UserRequest.SortState.ClientDesc;
@@ -37,7 +38,7 @@ namespace AutoRep.Controllers
 
             int pageSize = 3;
             int pageNumber = (page ?? 1);
-            return View(requests.AsNoTracking().ToPagedList(pageNumber, pageSize));
+            return View(await requests.AsNoTracking().ToPagedListAsync(pageNumber, pageSize));
             //return View(await requests.AsNoTracking().ToListAsync());
         }
 

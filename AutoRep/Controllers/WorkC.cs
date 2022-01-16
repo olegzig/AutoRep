@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using X.PagedList;
+
 namespace AutoRep.Controllers
 {
     [Authorize]
@@ -27,16 +29,27 @@ namespace AutoRep.Controllers
         }
 
         // GET: WorkC
-        public async Task<IActionResult> Index(string searchString, Work.SortState sortOrder = Work.SortState.ClientAsc)
+        public async Task<IActionResult> Index(int? page, string searchString, string currentFilter, Work.SortState sortOrder = Work.SortState.ClientAsc)
         {
             IQueryable<Work> works = _context.Work;
+
+            ViewBag.CurrentFilter = searchString;
             ViewBag.SearchString = searchString;
-            if (searchString != null)
-                works = works.Where(x => x.Client == searchString);
+            ViewBag.CurrentSort = sortOrder;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            if (!String.IsNullOrEmpty(searchString))
+                works = works.Where(x => x.Client.Contains(searchString));
 
             ViewData["ClientSort"] = sortOrder == Work.SortState.ClientDesc ? Work.SortState.ClientAsc : Work.SortState.ClientDesc;
             ViewData["DateSort"] = sortOrder == Work.SortState.DateDesc ? Work.SortState.DateAsc : Work.SortState.DateDesc;
-
             works = sortOrder switch
             {
                 Work.SortState.ClientDesc => works.OrderByDescending(x => x.Client),
@@ -44,7 +57,10 @@ namespace AutoRep.Controllers
                 Work.SortState.DateDesc => works.OrderByDescending(x => x.Date.Date),
                 _ => works.OrderBy(x => x.Client),
             };
-            return View(await works.AsNoTracking().ToListAsync());
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(await works.AsNoTracking().ToPagedListAsync(pageNumber, pageSize));
         }
 
         // GET: WorkC/Details/5

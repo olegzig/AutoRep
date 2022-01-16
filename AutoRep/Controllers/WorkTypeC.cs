@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
+using X.PagedList;
+
 namespace AutoRep.Controllers
 {
     [Authorize]
@@ -21,8 +23,9 @@ namespace AutoRep.Controllers
         }
 
         // GET: WorkTypeC
-        public async Task<IActionResult> Index(WorkType.SortState sortOrder = WorkType.SortState.NameAsc)
+        public async Task<IActionResult> Index(int? page, WorkType.SortState sortOrder = WorkType.SortState.NameAsc)
         {
+            ViewBag.CurrentSort = sortOrder;
             IQueryable<WorkType> worksTypes = _context.WorkType;
 
             ViewData["NameSort"] = sortOrder == WorkType.SortState.NameDesc ? WorkType.SortState.NameAsc : WorkType.SortState.NameDesc;
@@ -35,7 +38,9 @@ namespace AutoRep.Controllers
                 WorkType.SortState.CostDesc => worksTypes.OrderByDescending(x => x.Cost),
                 _ => worksTypes.OrderBy(x => x.Name),
             };
-            return View(await worksTypes.AsNoTracking().ToListAsync());
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(await worksTypes.AsNoTracking().ToPagedListAsync(pageNumber, pageSize));
         }
 
         // GET: WorkTypeC/Details/5

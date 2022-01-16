@@ -13,7 +13,7 @@
     <thead class="thead-dark">
         <tr>
             <th>
-                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.NameSort">Наименование</a>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.NameSort" asp-route-page="@Model.PageNumber">Наименование</a>
             </th>
             <th></th>
         </tr>
@@ -36,7 +36,7 @@
     </tbody>
 </table>
 <br />
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort }), new PagedListRenderOptions
 {
     DisplayLinkToIndividualPages = true,
     DisplayPageCountAndCurrentLocation = false,

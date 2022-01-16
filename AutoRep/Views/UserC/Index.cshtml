@@ -1,10 +1,11 @@
-﻿@model IEnumerable<AutoRep.Models.SUser>
+﻿@model X.PagedList.IPagedList<AutoRep.Models.SUser>
 
 @{
     ViewData["Title"] = "Index";
-    
-}
 
+}
+@using X.PagedList.Web.Common;
+@using X.PagedList.Mvc.Core;
 <h1>Пользователи</h1>
 
 <p>
@@ -14,7 +15,7 @@
     <thead class="thead-dark">
         <tr>
             <th>
-                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.NameSort">Пользователь</a>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.NameSort" asp-route-page="@Model.PageNumber">Пользователь</a>
             </th>
             <th></th>
         </tr>
@@ -22,17 +23,24 @@
     <tbody>
         @foreach (SUser item in Model)
         {
-        <tr>
-            <td>
-                @item.UserName
-            </td>
-            
-            <td class="table-menu text-center">
-                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @item.UserName
+                </td>
+
+                <td class="table-menu text-center">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort }), new PagedListRenderOptions
+{
+    DisplayLinkToIndividualPages = true,
+    DisplayPageCountAndCurrentLocation = false,
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+})

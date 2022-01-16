@@ -1,9 +1,10 @@
-﻿@model IEnumerable<AutoRep.Models.WorkType>
+﻿@model X.PagedList.IPagedList<AutoRep.Models.WorkType>
 
 @{
     ViewData["Title"] = "Index";
 }
-
+@using X.PagedList.Web.Common;
+@using X.PagedList.Mvc.Core;
 <h1>Услуги</h1>
 
 <p>
@@ -13,13 +14,13 @@
     <thead class="thead-dark">
         <tr>
             <th>
-                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.NameSort">Наименование</a>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.NameSort" asp-route-page="@Model.PageNumber">Наименование</a>
             </th>
             <th>
                 <p class="d-table-cell">Описание</p>
             </th>
             <th>
-                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.CostSort">Стоимость</a>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.CostSort" asp-route-page="@Model.PageNumber">Стоимость</a>
             </th>
             <th></th>
         </tr>
@@ -46,3 +47,11 @@
         }
     </tbody>
 </table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort }), new PagedListRenderOptions
+{
+    DisplayLinkToIndividualPages = true,
+    DisplayPageCountAndCurrentLocation = false,
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+})
