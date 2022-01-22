@@ -25,7 +25,7 @@ namespace AutoRep.Controllers
         {
             //return View(await _context.MachineParts.ToListAsync());
             ViewBag.CurrentSort = sortOrder;
-            IQueryable<MachineParts> parts = _context.Details;
+            IQueryable<MachineParts> parts = _context.MachineParts;
 
             ViewData["NameSort"] = sortOrder == Models.MachineParts.SortState.NameDesc ? Models.MachineParts.SortState.NameAsc : Models.MachineParts.SortState.NameDesc;
             ViewData["CostSort"] = sortOrder ==MachineParts.SortState.CostDesc ? MachineParts.SortState.CostAsc : MachineParts.SortState.CostDesc;
@@ -54,7 +54,7 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
 
-            var details = await _context.Details
+            var details = await _context.MachineParts
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (details == null)
             {
@@ -94,7 +94,7 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
 
-            var details = await _context.Details.FindAsync(id);
+            var details = await _context.MachineParts.FindAsync(id);
             if (details == null)
             {
                 return NotFound();
@@ -107,7 +107,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Count,Discription,Cost")] MachineParts details)
+        public async Task<IActionResult> Edit(int? id, [Bind("Id,Name,Count,Discription,Cost")] MachineParts details)
         {
             if (id != details.Id)
             {
@@ -145,7 +145,7 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
 
-            var details = await _context.Details
+            var details = await _context.MachineParts
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (details == null)
             {
@@ -158,17 +158,17 @@ namespace AutoRep.Controllers
         // POST: MachineParts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var details = await _context.Details.FindAsync(id);
-            _context.Details.Remove(details);
+            var details = await _context.MachineParts.FindAsync(id);
+            _context.MachineParts.Remove(details);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DetailsExists(int id)
+        private bool DetailsExists(int? id)
         {
-            return _context.Details.Any(e => e.Id == id);
+            return _context.MachineParts.Any(e => e.Id == id);
         }
     }
 }

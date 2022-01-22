@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoRep.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220122193600_detailsRenameToMachineParts")]
-    partial class detailsRenameToMachineParts
+    [Migration("20220122202438_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,7 @@ namespace AutoRep.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Details");
+                    b.ToTable("MachineParts");
                 });
 
             modelBuilder.Entity("AutoRep.Models.UserRequest", b =>
@@ -78,6 +78,9 @@ namespace AutoRep.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("MachineParts")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WorkType")
                         .HasColumnType("nvarchar(max)");

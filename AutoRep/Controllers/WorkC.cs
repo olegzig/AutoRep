@@ -80,11 +80,11 @@ namespace AutoRep.Controllers
 
             ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString()).UserName;
             ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.WorkType)).Name;//Я таким образом показываю имя пользователя и тип работы. Просто не трогай
+            ViewData["SelectedMachinePart"] = GetmachinePartsList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.MachineParts)).Name;//я уже ничего не понимаю...
 
             return View(work);
         }
 
-        // GET: WorkC/Create
         // make a viewbug of workers
         public List<SUser> GetUsersList()
         {
@@ -130,12 +130,35 @@ namespace AutoRep.Controllers
             ViewBag.WorkTypeBag = workTypes;
             return workTypes;
         }
+        // make a viewbug of machineParts
+        public List<MachineParts> GetmachinePartsList()
+        {
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            SqlConnection con = new SqlConnection(connection);
+            SqlCommand cmd = new SqlCommand("select [id],[name] from [MachineParts]", con);
+            con.Open();
+            SqlDataReader idr = cmd.ExecuteReader();
+
+            List<MachineParts> machineParts = new List<MachineParts>();
+            if (idr.HasRows)
+            {
+                while (idr.Read())
+                {
+                    machineParts.Add(new MachineParts { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
+                }
+            }
+
+            con.Close();
+            ViewBag.MachinePartsBag = machineParts;
+            return machineParts;
+        }
 
         // GET: WorkC/Create
         public IActionResult Create()
         {
             GetUsersList();
             GetWorkTypeList();
+            GetmachinePartsList();
             return View();
         }
 
@@ -164,7 +187,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType,MadeOnId")] Work work)
+        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType,MadeOnId,MachineParts")] Work work)
         {
             if (ModelState.IsValid)
             {
@@ -188,6 +211,7 @@ namespace AutoRep.Controllers
             //Это (2 нижестоящие строки) в принципе не должно работать, но оно работает и славненько, ок?
             GetUsersList();
             GetWorkTypeList();
+            GetmachinePartsList();
             if (id == null)
             {
                 return NotFound();
@@ -206,7 +230,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Client,Date,Worker,WorkType")] Work work)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Client,Date,Worker,WorkType,MachineParts")] Work work)
         {
             if (id != work.Id)
             {
@@ -252,6 +276,7 @@ namespace AutoRep.Controllers
             }
             ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString()).UserName;
             ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.WorkType)).Name;
+            ViewData["SelectedMachinePart"] = GetmachinePartsList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.MachineParts)).Name;
 
             return View(work);
         }

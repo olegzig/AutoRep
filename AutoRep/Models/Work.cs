@@ -11,6 +11,9 @@ namespace AutoRep.Models
     {
         public int Id { get; set; }
         public string WorkType { get; set; }//работа которую нужно проделать
+
+        [Display(Name = "Детали")]
+        public string MachineParts { get; set; }//Используемые детали
         public string Worker { get; set; }//работник который делает/сделает/записал
         public string Client { get; set; }//Клиент и его контактные данные
         public DateTime Date { get; set; }//время на которое записали работника

@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AutoRep.Migrations
 {
-    public partial class detailsRenameToMachineParts : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Details",
+                name: "MachineParts",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -20,7 +20,7 @@ namespace AutoRep.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Details", x => x.Id);
+                    table.PrimaryKey("PK_MachineParts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,6 +45,7 @@ namespace AutoRep.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     WorkType = table.Column<string>(nullable: true),
+                    MachineParts = table.Column<string>(nullable: true),
                     Worker = table.Column<string>(nullable: true),
                     Client = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false)
@@ -73,7 +74,7 @@ namespace AutoRep.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Details");
+                name: "MachineParts");
 
             migrationBuilder.DropTable(
                 name: "Request");

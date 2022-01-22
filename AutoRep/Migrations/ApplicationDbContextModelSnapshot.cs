@@ -40,7 +40,7 @@ namespace AutoRep.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Details");
+                    b.ToTable("MachineParts");
                 });
 
             modelBuilder.Entity("AutoRep.Models.UserRequest", b =>
@@ -76,6 +76,9 @@ namespace AutoRep.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("MachineParts")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WorkType")
                         .HasColumnType("nvarchar(max)");

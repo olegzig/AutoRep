@@ -33,6 +33,11 @@
                 <div>@Html.DropDownListFor(x => x.WorkType, new SelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control" })</div>
                 <span asp-validation-for="WorkType" class="text-danger"></span>
             </div>
+            <div class="form-group">@*Я не уверен что это в принципе должно быть*@
+                <label asp-for="MachineParts" class="control-label"></label>
+                <div>@Html.DropDownListFor(x => x.MachineParts, new SelectList(ViewBag.MachinePartsBag, "Id", "Name"), new { @class = "form-control" })</div>
+                <span asp-validation-for="MachineParts" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Добавить" class="btn btn-primary" />
             </div>
