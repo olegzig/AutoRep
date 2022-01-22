@@ -11,17 +11,14 @@
 <p>
     <a asp-action="Create">Создать</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-dark">
+    <thead class="thead-dark">
         <tr>
             <th>
                 <a class="d-table-cell" asp-route-sortOrder="@ViewBag.NameSort" asp-route-page="@Model.PageNumber">Наименование</a>
             </th>
             <th>
                 <a class="d-table-cell" asp-route-sortOrder="@ViewBag.CountSort" asp-route-page="@Model.PageNumber">Количество</a>
-            </th>
-            <th>
-                <p class="d-table-cell">Описание</p>
             </th>
             <th>
                 <a class="d-table-cell" asp-route-sortOrder="@ViewBag.CostSort" asp-route-page="@Model.PageNumber">Стоимость</a>
@@ -38,9 +35,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Count)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Discription)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Cost)
