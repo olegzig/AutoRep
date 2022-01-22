@@ -17,5 +17,6 @@ namespace AutoRep.Data
         public DbSet<AutoRep.Models.Work> Work { get; set; }
         public DbSet<AutoRep.Models.WorkType> WorkType { get; set; }
         public DbSet<AutoRep.Models.UserRequest> Request { get; set; }
+        public DbSet<AutoRep.Models.Details> Details { get; set; }
     }
 }
