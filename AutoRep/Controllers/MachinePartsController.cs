@@ -7,25 +7,46 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AutoRep.Data;
 using AutoRep.Models;
+using X.PagedList;
 
 namespace AutoRep.Controllers
 {
-    public class DetailsController : Controller
+    public class MachinePartsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public DetailsController(ApplicationDbContext context)
+        public MachinePartsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Details
-        public async Task<IActionResult> Index()
+        // GET: MachineParts
+        public async Task<IActionResult> Index(int? page, MachineParts.SortState sortOrder = Models.MachineParts.SortState.NameAsc)
         {
-            return View(await _context.Details.ToListAsync());
+            //return View(await _context.MachineParts.ToListAsync());
+            ViewBag.CurrentSort = sortOrder;
+            IQueryable<MachineParts> parts = _context.Details;
+
+            ViewData["NameSort"] = sortOrder == Models.MachineParts.SortState.NameDesc ? Models.MachineParts.SortState.NameAsc : Models.MachineParts.SortState.NameDesc;
+            ViewData["CostSort"] = sortOrder ==MachineParts.SortState.CostDesc ? MachineParts.SortState.CostAsc : MachineParts.SortState.CostDesc;
+            ViewData["CountSort"] = sortOrder == MachineParts.SortState.CountDesc ? MachineParts.SortState.CountAsc : MachineParts.SortState.CountDesc;
+
+            parts = sortOrder switch
+            {
+                MachineParts.SortState.NameDesc => parts.OrderByDescending(x => x.Name),
+                MachineParts.SortState.CostAsc => parts.OrderBy(x => x.Cost),
+                MachineParts.SortState.CostDesc => parts.OrderByDescending(x => x.Cost),
+                MachineParts.SortState.CountAsc => parts.OrderBy(x => x.Count),
+                MachineParts.SortState.CountDesc => parts.OrderByDescending(x => x.Count),
+                _ => parts.OrderBy(x => x.Name),
+            };
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(await parts.AsNoTracking().ToPagedListAsync(pageNumber, pageSize));
         }
 
-        // GET: Details/Details/5
+        // GET: MachineParts/MachineParts/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,18 +64,18 @@ namespace AutoRep.Controllers
             return View(details);
         }
 
-        // GET: Details/Create
+        // GET: MachineParts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Details/Create
+        // POST: MachineParts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Count,Discription,Cost")] Details details)
+        public async Task<IActionResult> Create([Bind("Id,Name,Count,Discription,Cost")] MachineParts details)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +86,7 @@ namespace AutoRep.Controllers
             return View(details);
         }
 
-        // GET: Details/Edit/5
+        // GET: MachineParts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,12 +102,12 @@ namespace AutoRep.Controllers
             return View(details);
         }
 
-        // POST: Details/Edit/5
+        // POST: MachineParts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Count,Discription,Cost")] Details details)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Count,Discription,Cost")] MachineParts details)
         {
             if (id != details.Id)
             {
@@ -116,7 +137,7 @@ namespace AutoRep.Controllers
             return View(details);
         }
 
-        // GET: Details/Delete/5
+        // GET: MachineParts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +155,7 @@ namespace AutoRep.Controllers
             return View(details);
         }
 
-        // POST: Details/Delete/5
+        // POST: MachineParts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

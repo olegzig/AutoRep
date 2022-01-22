@@ -19,7 +19,7 @@ namespace AutoRep.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AutoRep.Models.Details", b =>
+            modelBuilder.Entity("AutoRep.Models.MachineParts", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

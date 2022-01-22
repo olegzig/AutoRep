@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AutoRep.Models
 {
-    public class Details
+    public class MachineParts
     {
         public int Id { get; set; }
 
@@ -22,14 +22,15 @@ namespace AutoRep.Models
 
         [Display(Name = "Стоимость")]
         public double Cost { get; set; }//время на которое записали работника
-        
 
         public enum SortState
         {
-            ClientAsc,
-            ClientDesc,
-            DateAsc,
-            DateDesc,
+            NameAsc,
+            NameDesc,
+            CostAsc,
+            CostDesc,
+            CountAsc,
+            CountDesc
         }
     }
 }
