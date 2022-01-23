@@ -22,11 +22,11 @@ namespace AutoRep.Areas.Identity
 
                 services.AddDefaultIdentity<SUser>(options =>
                 {
-                    options.User.AllowedUserNameCharacters = "$.@abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                    options.User.AllowedUserNameCharacters = "$.@abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ ";
                     options.User.RequireUniqueEmail = true;//я не уверен, но пусть будет
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
-                }).AddEntityFrameworkStores<AuthContext>();
+                }).AddRoles<IdentityRole>().AddEntityFrameworkStores<AuthContext>();
             });
         }
     }

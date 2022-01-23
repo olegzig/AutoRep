@@ -28,13 +28,17 @@ namespace AutoRep.Models
 
         [NotMapped]
         [Display(Name = "Пароль")]
+        [StringLength(100, ErrorMessage = "Пароль должен состоять из {2} символов как минимум, и быть не длиннее {1} символов.", MinimumLength = 6)]
         public string  Password { get; set; }
 
         [NotMapped]
         [Display(Name = "Подтвердите пароль")]
         [Compare("Password", ErrorMessage = "Пароль не совпадает.")]
         public string ConfirmPassword { get; set; }
-        //NotMapped не должен идти в БД
+
+        [NotMapped]
+        [Display(Name = "Роль")]
+        public string Role { get; set; }
 
         public override string ToString()
         {

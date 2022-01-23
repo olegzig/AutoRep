@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoRep.Migrations.Auth
 {
     [DbContext(typeof(AuthContext))]
-    [Migration("20211228185021_init")]
+    [Migration("20220123153314_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

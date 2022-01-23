@@ -198,7 +198,7 @@ namespace AutoRep.Controllers
 
                 _context.Add(work);
                 if(work.MadeOnId != null)
-                _context.Request.Remove(_context.Request.Find(work.MadeOnId));
+                    _context.Request.Remove(_context.Request.Find(work.MadeOnId));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

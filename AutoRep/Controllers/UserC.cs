@@ -4,8 +4,12 @@ using AutoRep.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,11 +24,15 @@ namespace AutoRep.Controllers
         private readonly AuthContext _context;
         private readonly UserManager<SUser> _userManager;
         private readonly SignInManager<SUser> _signInManager;
-        public UserC(AuthContext context, UserManager<SUser> userManager, SignInManager<SUser> signInManager)
+        private readonly RoleManager<IdentityRole> _roleMananger;
+        private readonly IConfiguration Configuration;
+        public UserC(AuthContext context, UserManager<SUser> userManager, SignInManager<SUser> signInManager, RoleManager<IdentityRole> roleMananger, IConfiguration config)
         {
             _userManager = userManager;
             _context = context;
             _signInManager = signInManager;
+            _roleMananger = roleMananger;
+            Configuration = config;
         }
 
         // GET: UserC
@@ -61,10 +69,33 @@ namespace AutoRep.Controllers
 
             return View(user);
         }
+        // make a viewbug of workers
+        public List<IdentityRole> GetRolesList()
+        {
+            var connection = Configuration.GetConnectionString("AuthContextConnection");
+            SqlConnection con = new SqlConnection(connection);
+            SqlCommand cmd = new SqlCommand("select [Id], [Name] from [AspNetRoles]", con);
+            con.Open();
+            SqlDataReader idr = cmd.ExecuteReader();
+
+            List<IdentityRole> roles = new List<IdentityRole>();
+            if (idr.HasRows)
+            {
+                while (idr.Read())
+                {
+                    roles.Add(new IdentityRole { Id = Convert.ToString(idr[0]), Name = Convert.ToString(idr[1]) });
+                }
+            }
+
+            con.Close();
+            ViewBag.RolesBag = roles;
+            return roles;
+        }
 
         // GET: UserC/Create
         public IActionResult Create()
         {
+            GetRolesList();
             return View();
         }
 
@@ -73,18 +104,29 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,IsMananger,Email,PhoneNumber,Password,ConfirmPassword")] SUser user)
+        public async Task<IActionResult> Create([Bind("Id,UserName,IsMananger,Email,PhoneNumber,Password,ConfirmPassword,Role")] SUser user)
         {
             if (ModelState.IsValid)
             {
                 //_context.Add(user);
                 //await _context.SaveChangesAsync();
-
-                var newUser = new SUser { UserName = user.Email, Email = user.Email, IsMananger = user.IsMananger, PhoneNumber = user.PhoneNumber };
+                var newUser = new SUser { UserName = user.UserName, Email = user.Email, IsMananger = user.IsMananger, PhoneNumber = user.PhoneNumber, Role = user.Role };
                 var result = await _userManager.CreateAsync(newUser, user.Password);
-                if (result.Succeeded)
+                var result2 = await _userManager.AddToRoleAsync(newUser, _roleMananger.FindByIdAsync(user.Role).Result.Name);
+                if (result.Succeeded && result2.Succeeded)
+                {
                     return RedirectToAction(nameof(Index));
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                    foreach (var error2 in result2.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error2.Description);
+                    }
+                }
             }
+            GetRolesList();//оно почему-то фиксит всё то, что не фиксится. Я не знаю. Работает - и хуй с ним
             return View(user);
         }
 

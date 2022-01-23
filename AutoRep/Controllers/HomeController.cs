@@ -1,5 +1,6 @@
 ﻿using AutoRep.Models;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -10,10 +11,17 @@ namespace AutoRep.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly RoleManager<IdentityRole> _roleMananger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, RoleManager<IdentityRole> roleMananger)
         {
             _logger = logger;
+            _roleMananger = roleMananger;
+
+            if(!_roleMananger.RoleExistsAsync("mananger").Result)
+                _roleMananger.CreateAsync(new IdentityRole ("mananger"));
+            if (!_roleMananger.RoleExistsAsync("master").Result)
+                _roleMananger.CreateAsync(new IdentityRole("master"));
         }
 
         public IActionResult Index()
