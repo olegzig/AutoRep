@@ -38,6 +38,7 @@ namespace AutoRep.Models
 
         [NotMapped]
         [Display(Name = "Роль")]
+        [Required(ErrorMessage = "Не выбрана роль")]
         public string Role { get; set; }
 
         public override string ToString()

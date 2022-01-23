@@ -66,6 +66,12 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
+            string role = _userManager.GetRolesAsync(user).Result.First();
+            if (role == null)
+            {
+                return NotFound();
+            }
+            ViewBag.RoleBag = role;
 
             return View(user);
         }
@@ -143,6 +149,8 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
+
+            GetRolesList();
             return View(user);
         }
         
@@ -151,7 +159,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,UserName,IsMananger,Email,PhoneNumber")] SUser user)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,UserName,IsMananger,Email,PhoneNumber,Role")] SUser user)
         {
             if (id != user.Id)
             {
@@ -163,17 +171,28 @@ namespace AutoRep.Controllers
             {
                 try
                 {
-                    var oldUser = await _userManager.FindByIdAsync(id);
+                    var oldUser = await _userManager.FindByIdAsync(id);//Я щас понял, что не знаю зачем old user существеует. Работает? Ну и хер с ним
                     oldUser.Email = user.Email;
                     oldUser.PhoneNumber = user.PhoneNumber;
                     oldUser.IsMananger = user.IsMananger;
                     oldUser.UserName = user.UserName;
+                    oldUser.Role = user.Role;
                     var Result = await _userManager.UpdateAsync(oldUser);
-                    if (!Result.Succeeded)
+                    var Result2 = await _userManager.RemoveFromRolesAsync(oldUser, _userManager.GetRolesAsync(oldUser).Result);
+                    var Result3 = await _userManager.AddToRoleAsync(oldUser, _roleMananger.FindByIdAsync(oldUser.Role).Result.Name);
+                    if (!Result.Succeeded && !Result2.Succeeded && !Result3.Succeeded)
                     {
                         //return NotFound(value:Result.Errors.FirstOrDefault().Description);//Я не знаю работает ли это, но да.
 
                         foreach (var error in Result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                        foreach (var error in Result2.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                        foreach (var error in Result3.Errors)
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
                         }
@@ -210,6 +229,13 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
+
+            string role = _userManager.GetRolesAsync(user).Result.First();
+            if (role == null)
+            {
+                return NotFound();
+            }
+            ViewBag.RoleBag = role;
 
             return View(user);
         }

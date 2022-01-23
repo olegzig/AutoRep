@@ -23,6 +23,12 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.IsMananger)
         </dd>
+        <dt class="col-sm-2">
+            <p>Роль</p>
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.RoleBag
+        </dd>
     </dl>
 
     <form asp-action="Delete">
