@@ -18,7 +18,7 @@ using X.PagedList;
 
 namespace AutoRep.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "mananger")]
     public class UserC : Controller
     {
         private readonly AuthContext _context;
@@ -66,10 +66,10 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
-            string role = _userManager.GetRolesAsync(user).Result.First();
+            string role = _userManager.GetRolesAsync(user).Result.FirstOrDefault();
             if (role == null)
             {
-                return NotFound();
+                role = "none";
             }
             ViewBag.RoleBag = role;
 
@@ -230,10 +230,10 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
 
-            string role = _userManager.GetRolesAsync(user).Result.First();
+            string role = _userManager.GetRolesAsync(user).Result.FirstOrDefault();
             if (role == null)
             {
-                return NotFound();
+                role = "none";
             }
             ViewBag.RoleBag = role;
 

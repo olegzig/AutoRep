@@ -22,8 +22,8 @@ namespace AutoRep.Areas.Identity
 
                 services.AddDefaultIdentity<SUser>(options =>
                 {
-                    options.User.AllowedUserNameCharacters = "$.@abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ ";
-                    options.User.RequireUniqueEmail = true;//я не уверен, но пусть будет
+                    options.User.AllowedUserNameCharacters = "$.@abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890-+=";
+                    options.User.RequireUniqueEmail = false;//я не уверен, но пусть будет. Возможно сделать true
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                 }).AddRoles<IdentityRole>().AddEntityFrameworkStores<AuthContext>();

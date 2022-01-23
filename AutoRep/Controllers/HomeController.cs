@@ -11,17 +11,10 @@ namespace AutoRep.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly RoleManager<IdentityRole> _roleMananger;
 
-        public HomeController(ILogger<HomeController> logger, RoleManager<IdentityRole> roleMananger)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _roleMananger = roleMananger;
-
-            if(!_roleMananger.RoleExistsAsync("mananger").Result)
-                _roleMananger.CreateAsync(new IdentityRole ("mananger"));
-            if (!_roleMananger.RoleExistsAsync("master").Result)
-                _roleMananger.CreateAsync(new IdentityRole("master"));
         }
 
         public IActionResult Index()

@@ -12,7 +12,7 @@ using X.PagedList;
 
 namespace AutoRep.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "mananger")]
     public class RequestsController : Controller
     {
         private readonly ApplicationDbContext _context;
