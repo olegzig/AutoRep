@@ -22,6 +22,8 @@
     <Compile Remove="Migrations\20220122202347_init.Designer.cs" />
     <Compile Remove="Migrations\Auth\20220123172657_reqadd.cs" />
     <Compile Remove="Migrations\Auth\20220123172657_reqadd.Designer.cs" />
+    <Compile Remove="Migrations\Auth\20220123205241_remake.cs" />
+    <Compile Remove="Migrations\Auth\20220123205241_remake.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

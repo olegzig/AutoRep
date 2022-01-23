@@ -116,8 +116,8 @@ namespace AutoRep.Controllers
             {
                 //_context.Add(user);
                 //await _context.SaveChangesAsync();
-                var newUser = new SUser { UserName = user.UserName, Email = user.Email, IsMananger = user.IsMananger, PhoneNumber = user.PhoneNumber, Role = user.Role };
-                var result = await _userManager.CreateAsync(newUser, user.Password);
+                var newUser = new SUser { UserName = user.UserName, Email = user.Email, IsMananger = user.IsMananger, PhoneNumber = user.PhoneNumber, Role = user.Role, Password = user.Password};
+                var result = await _userManager.CreateAsync(newUser, newUser.Password);
                 var result2 = await _userManager.AddToRoleAsync(newUser, _roleMananger.FindByIdAsync(user.Role).Result.Name);
                 if (result.Succeeded && result2.Succeeded)
                 {

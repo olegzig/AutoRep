@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using AutoRep.Models
+@inject SignInManager<SUser> SignInManager
+@inject UserManager<SUser> UserManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,21 +23,28 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="UserC" asp-action="Index">Пользователи</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="WorkC" asp-action="Index">Заказы</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="WorkTypeC" asp-action="Index">Услуги</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Requests" asp-action="Index">Запросы</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="MachineParts" asp-action="Index">Детали</a>
-                        </li>
+                        @if (User.IsInRole("mananger"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="UserC" asp-action="Index">Пользователи</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Requests" asp-action="Index">Запросы</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("mananger") || User.IsInRole("master"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="WorkC" asp-action="Index">Заказы</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="WorkTypeC" asp-action="Index">Услуги</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="MachineParts" asp-action="Index">Детали</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Requests" asp-action="Create">Создать запрос</a>
                         </li>
@@ -49,7 +60,7 @@
     </div>
 
     <footer class="border-top footer text-muted border-dark">
-        <div class="container text-white" >
+        <div class="container text-white">
             &copy; 2021 - AutoRep
             @*<a asp-area="" asp-controller="Home" asp-action="Privacy">*@
         </div>
