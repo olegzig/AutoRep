@@ -73,7 +73,7 @@ namespace AutoRep.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,WorkType,Name,ContactData")] UserRequest request)
+        public async Task<IActionResult> Create([Bind("Id,WorkType,Name,ContactData,Email")] UserRequest request)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +109,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,WorkType,Name,ContactData")] UserRequest request)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,WorkType,Name,ContactData,Email")] UserRequest request)
         {
             if (id != request.Id)
             {

@@ -15,11 +15,15 @@ namespace AutoRep.Models
         public string WorkType { get; set; }//работа которую нужно проделать
 
         [Display(Name = "Имя")]
-        public string Name { get; set; }//Клиент и его контактные данные
+        public string Name { get; set; }
 
         [Display(Name = "Контактные данные")]
-        public string ContactData { get; set; }//Контактная инфа
+        public string ContactData { get; set; }
 
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Электронная почта")]
+        public string Email { get; set; }
         public enum SortState
         {
             ClientAsc,
