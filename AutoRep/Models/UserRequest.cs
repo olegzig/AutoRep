@@ -18,7 +18,7 @@ namespace AutoRep.Models
         public string Name { get; set; }//Клиент и его контактные данные
 
         [Display(Name = "Контактные данные")]
-        public string ContactData { get; set; }//время на которое записали работника
+        public string ContactData { get; set; }//Контактная инфа
 
         public enum SortState
         {

@@ -44,8 +44,7 @@ namespace AutoRep.Areas.Identity.Pages.Account
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 if (user == null /*|| !(await _userManager.IsEmailConfirmedAsync(user))*/)
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return RedirectToPage("./ForgotPasswordConfirmation");
+                    return RedirectToPage("./ForgotPasswordConfirmation", new { result = "Пользователь не найден" });
                 }
 
                 // For more information on how to enable account confirmation and password reset please 
@@ -66,11 +65,11 @@ namespace AutoRep.Areas.Identity.Pages.Account
                 await emailService.SendEmailAsync(
                     Input.Email,
                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    $"Пожалуйста, установите ваш пароль. Для этого <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>нажмите здесь</a>.");
 
 
 
-                return RedirectToPage("./ForgotPasswordConfirmation");
+                return RedirectToPage("./ForgotPasswordConfirmation", new { result = "Перейдите по ссылке на почте для изменения пароля" });
             }
 
             return Page();
