@@ -1,5 +1,6 @@
 ﻿using AutoRep.Data;
 using AutoRep.Models;
+using AutoRep.Services;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -78,9 +79,9 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
 
-            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString()).UserName;
+            ViewData["SelectedMachinePart"] = GetmachinePartsList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.MachineParts)).Name;
+            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString());
             ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.WorkType)).Name;//Я таким образом показываю имя пользователя и тип работы. Просто не трогай
-            ViewData["SelectedMachinePart"] = GetmachinePartsList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.MachineParts)).Name;//я уже ничего не понимаю...
 
             return View(work);
         }
@@ -179,6 +180,7 @@ namespace AutoRep.Controllers
             }
             ViewBag.Name = work.ContactData;
             ViewBag.MadeOnId = id;
+            ViewBag.Email = work.Email;
             return View();
         }
 
@@ -197,8 +199,17 @@ namespace AutoRep.Controllers
                 //work.Worker = user.Id;
 
                 _context.Add(work);
-                if(work.MadeOnId != null)
+                if (work.MadeOnId != null)
+                {
+                    EmailService emailService = new EmailService();
+                    await emailService.SendEmailAsync(
+                        _context.Request.Find(work.MadeOnId).Email,
+                       "Автомастерская",
+                        $"Здравствуйте.\n" +
+                        $"Уведомляем вас, что вы записаны к нам на {GetWorkTypeList().Find(x => x.Id == Convert.ToInt32(work.WorkType)).Name} к {GetUsersList().Find(x => x.Id == work.Worker).UserName} на {work.Date}.");
+
                     _context.Request.Remove(_context.Request.Find(work.MadeOnId));
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -274,7 +285,7 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
-            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString()).UserName;
+            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString());
             ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.WorkType)).Name;
             ViewData["SelectedMachinePart"] = GetmachinePartsList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.MachineParts)).Name;
 

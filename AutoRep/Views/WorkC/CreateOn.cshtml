@@ -19,6 +19,11 @@
                 <span asp-validation-for="Client" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Client" class="control-label">Электронная почта клиента</label>
+                <input asp-for="Client" class="form-control" value="@ViewBag.Email" />
+                <span asp-validation-for="Client" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Date" class="control-label">Дата</label>
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
@@ -33,14 +38,9 @@
                 <div>@Html.DropDownListFor(x => x.WorkType, new SelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control" })</div>
                 <span asp-validation-for="WorkType" class="text-danger"></span>
             </div>
-            <div class="form-group">@*Я не уверен что это в принципе должно быть*@
-                <label asp-for="MachineParts" class="control-label"></label>
-                <div>@Html.DropDownListFor(x => x.MachineParts, new SelectList(ViewBag.MachinePartsBag, "Id", "Name"), new { @class = "form-control" })</div>
-                <span asp-validation-for="MachineParts" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Добавить" class="btn btn-primary" />
-            </div>
+        <div class="form-group">
+            <input type="submit" value="Добавить" class="btn btn-primary" />
+        </div>
         </form>
     </div>
 </div>
