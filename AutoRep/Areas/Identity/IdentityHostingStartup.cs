@@ -26,7 +26,7 @@ namespace AutoRep.Areas.Identity
                     options.User.RequireUniqueEmail = true;//ну да
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
-                }).AddRoles<IdentityRole>().AddEntityFrameworkStores<AuthContext>();
+                }).AddRoles<IdentityRole>().AddEntityFrameworkStores<AuthContext>().AddDefaultTokenProviders();
             });
         }
     }
