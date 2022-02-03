@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AutoRep.Data;
 using AutoRep.Models;
 using X.PagedList;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutoRep.Controllers
 {
@@ -21,6 +22,7 @@ namespace AutoRep.Controllers
         }
 
         // GET: MachineParts
+        [Authorize]
         public async Task<IActionResult> Index(int? page, MachineParts.SortState sortOrder = Models.MachineParts.SortState.NameAsc)
         {
             //return View(await _context.MachineParts.ToListAsync());
