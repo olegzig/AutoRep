@@ -23,6 +23,7 @@ namespace AutoRep.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
+        [Display(Name = "Имя")]
         public string Username { get; set; }
 
         [TempData]

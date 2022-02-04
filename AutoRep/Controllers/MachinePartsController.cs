@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AutoRep.Controllers
 {
+    [Authorize]
     public class MachinePartsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,7 +23,6 @@ namespace AutoRep.Controllers
         }
 
         // GET: MachineParts
-        [Authorize]
         public async Task<IActionResult> Index(int? page, MachineParts.SortState sortOrder = Models.MachineParts.SortState.NameAsc)
         {
             //return View(await _context.MachineParts.ToListAsync());
