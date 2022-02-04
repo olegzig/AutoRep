@@ -1,0 +1,518 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.AccessDeniedModel">
+    <Position X="3.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\AccessDenied.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Models.ErrorViewModel">
+    <Position X="15.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ErrorViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Models.MachineParts">
+    <Position X="24.5" Y="13.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="AutoRep.Models.MachineParts.SortState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\MachineParts.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAABQAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Models\MachineParts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Models.RoleInitializer">
+    <Position X="14" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\RoleInitializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Models.SUser">
+    <Position X="23.5" Y="2" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="AutoRep.Models.SUser.SortState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\SUser.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAEEAAAQAAAAAAAAAACAQAAAAAAMAA=</HashCode>
+      <FileName>Models\SUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Models.UserRequest">
+    <Position X="21" Y="13.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="AutoRep.Models.UserRequest.SortState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\UserRequest.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAACAAABACAAAAAAAAAAAAQAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\UserRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Models.Work">
+    <Position X="17.5" Y="13.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="AutoRep.Models.Work.SortState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\Work.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAACABAAAAAAAAAAAAAAAAAAAQAAAAIBEAAAAAAAAAQ=</HashCode>
+      <FileName>Models\Work.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Models.WorkType">
+    <Position X="19.25" Y="13.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="AutoRep.Models.WorkType.SortState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\WorkType.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Models\WorkType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Services.EmailService">
+    <Position X="14" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAQAAAAA=</HashCode>
+      <FileName>Services\EmailService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Program">
+    <Position X="17.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Startup">
+    <Position X="15.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAgAAACAAAAAA=</HashCode>
+      <FileName>Startup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Data.ApplicationDbContext">
+    <Position X="23.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAQAAgAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Data\ApplicationDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Data.AuthContext">
+    <Position X="23.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\AuthContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Controllers.HomeController">
+    <Position X="3.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAIAAAAQAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Controllers.MachinePartsController">
+    <Position X="12" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABBACAAAAAAAAAAAEAAEASAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\MachinePartsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Controllers.RequestsController">
+    <Position X="10.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABBACAAAAAAAAAAAEAAEACAAkAAAAAAAA=</HashCode>
+      <FileName>Controllers\RequestsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Controllers.UserC">
+    <Position X="8.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAIBBQSAAABAAAAAAAEAAEACgAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\UserC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Controllers.WorkC">
+    <Position X="6.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIIAAABBgKAAAAAAAAAAAEAAEACgAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\WorkC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Controllers.WorkTypeC">
+    <Position X="5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABBACAAAAAAAAAAAEAAEACAAEAAAAEAAA=</HashCode>
+      <FileName>Controllers\WorkTypeC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.ErrorModel">
+    <Position X="6.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAQAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Error.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.ChangePasswordModel">
+    <Position X="5" Y="4" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.ChangePasswordModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\Manage\ChangePassword.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAgAABAAAAAMAAAAAAAAAAEAIAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\ChangePassword.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.DeletePersonalDataModel">
+    <Position X="12" Y="6.75" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.DeletePersonalDataModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\Manage\DeletePersonalData.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAgAAABAAAAAMAAAAAAAAAQEAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\DeletePersonalData.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.Disable2faModel">
+    <Position X="15.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAIAAAAAAAAAQEAIAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\Disable2fa.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.DownloadPersonalDataModel">
+    <Position X="8.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\DownloadPersonalData.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.EmailModel">
+    <Position X="13.75" Y="6.75" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.EmailModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\Manage\Email.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABAAgACAAAAAgAQBAAAAAEACAAAAAAgABgIAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\Email.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.EnableAuthenticatorModel">
+    <Position X="1.5" Y="4.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.EnableAuthenticatorModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\Manage\EnableAuthenticator.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAABBAAAABAAiAQgAAAAAAAAMAAAAAgAACAEAIAAAAE=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\EnableAuthenticator.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.ExternalLoginsModel">
+    <Position X="17.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAABAIAEAAAAAIgAABAAAAAAAAAEAAAAAAAAJAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\ExternalLogins.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.GenerateRecoveryCodesModel">
+    <Position X="10.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAgAAAAAAAAIAAAAAgAAAAEAIAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\GenerateRecoveryCodes.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.IndexModel">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.IndexModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\Manage\Index.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABAAgAAAAAAAgAQBAAAAAEAAAAAAAAAAEAIAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\Index.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.ManageNavPages">
+    <Position X="22.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAABAACAggAAAKAgCQiAAAAAAAwAAAAUAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\ManageNavPages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.PersonalDataModel">
+    <Position X="19" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAIAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\PersonalData.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.ResetAuthenticatorModel">
+    <Position X="12" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAABAAAAAIAAAAAAAAAQEAIAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\ResetAuthenticator.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.SetPasswordModel">
+    <Position X="1.5" Y="1" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.SetPasswordModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\Manage\SetPassword.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAgAABAAAAAEAAAAAAAAAAEAIAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\SetPassword.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.ShowRecoveryCodesModel">
+    <Position X="8.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAQAAIAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\ShowRecoveryCodes.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.Manage.TwoFactorAuthenticationModel">
+    <Position X="10.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAABACAgAAAAAAAAABAAAAAIAAAAAACAAUBAIAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\TwoFactorAuthentication.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.ConfirmEmailModel">
+    <Position X="5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\ConfirmEmail.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.ConfirmEmailChangeModel">
+    <Position X="3.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAgAABAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\ConfirmEmailChange.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.ExternalLoginModel">
+    <Position X="19" Y="3.25" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AutoRep.Areas.Identity.Pages.Account.ExternalLoginModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\ExternalLogin.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CQAABAAAAAAAAAAgAABAAAgIMACAAAIAAAIAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\ExternalLogin.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.ForgotPasswordModel">
+    <Position X="15.5" Y="7.25" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AutoRep.Areas.Identity.Pages.Account.ForgotPasswordModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\ForgotPassword.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAEACAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\ForgotPassword.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.ForgotPasswordConfirmation">
+    <Position X="13.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\ForgotPasswordConfirmation.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.LockoutModel">
+    <Position X="5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Lockout.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.LoginModel">
+    <Position X="13.75" Y="2.75" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AutoRep.Areas.Identity.Pages.Account.LoginModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\Login.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AQAABAAAAAAAAAAgAABAAAAAMAAAAQAAAAIEAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Login.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.LoginWith2faModel">
+    <Position X="17.25" Y="1" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AutoRep.Areas.Identity.Pages.Account.LoginWith2faModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\LoginWith2fa.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <InheritanceLine Type="Microsoft.AspNetCore.Mvc.RazorPages.PageModel" FixedFromPoint="true">
+      <Path>
+        <Point X="23" Y="12.362" />
+        <Point X="23" Y="12.737" />
+        <Point X="18.873" Y="12.737" />
+        <Point X="18.873" Y="2.679" />
+        <Point X="18.75" Y="2.679" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAABAAAAAMAAAAAAAAAIEAAAgAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\LoginWith2fa.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.LoginWithRecoveryCodeModel">
+    <Position X="6.75" Y="1" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AutoRep.Areas.Identity.Pages.Account.LoginWithRecoveryCodeModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\LoginWithRecoveryCode.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAABAAAAAMAAAAAAAAAIEAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\LoginWithRecoveryCode.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.LogoutModel">
+    <Position X="12" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAABAAAAAIAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Logout.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.RegisterModel">
+    <Position X="6.75" Y="4.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AutoRep.Areas.Identity.Pages.Account.RegisterModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\Register.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAgAABAAAAAMACAAQAAAAIEAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Register.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.RegisterConfirmationModel">
+    <Position X="15.5" Y="1" Width="1.5" />
+    <InheritanceLine Type="Microsoft.AspNetCore.Mvc.RazorPages.PageModel" FixedFromPoint="true">
+      <Path>
+        <Point X="22.375" Y="12.362" />
+        <Point X="22.375" Y="12.737" />
+        <Point X="17.123" Y="12.737" />
+        <Point X="17.123" Y="2.453" />
+        <Point X="17" Y="2.453" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAABAMAACAAAAAggAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\RegisterConfirmation.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.ResetPasswordModel">
+    <Position X="3.25" Y="2.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AutoRep.Areas.Identity.Pages.Account.ResetPasswordModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\ResetPassword.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAEAAAAAAAAAQEAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\ResetPassword.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AutoRep.Areas.Identity.Pages.Account.ResetPasswordConfirmationModel">
+    <Position X="5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\ResetPasswordConfirmation.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Mvc.RazorPages.PageModel">
+    <Position X="21.5" Y="1" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Mvc.Controller" Collapsed="true">
+    <Position X="3.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Mvc.ControllerBase" Collapsed="true">
+    <Position X="1.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Identity.IdentityUser" Collapsed="true">
+    <Position X="23.5" Y="1" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.EntityFrameworkCore.DbContext" Collapsed="true">
+    <Position X="23.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext&lt;TUser&gt;" Collapsed="true">
+    <Position X="23.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
