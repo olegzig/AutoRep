@@ -1,12 +1,24 @@
-﻿@model AutoRep.Models.UserRequest
+﻿@using AutoRep.Models
+@using Microsoft.AspNetCore.Identity
 
+@inject SignInManager<SUser> SignInManager
+@inject UserManager<SUser> UserManager
+
+@model AutoRep.Models.UserRequest
 @{
     ViewData["Title"] = "Создать";
 }
 
-<h1>Create</h1>
-
-<h4>Request</h4>
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Создать</h1>
+    <h4>Запрос</h4>
+}
+else
+{
+    <h1>Подать</h1>
+    <h4>Заявку</h4>
+}
 <hr />
 <div class="row">
     <div class="col-md-4">
