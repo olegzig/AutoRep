@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using AutoRep.Services;
 
 namespace AutoRep.Areas.Identity.Pages.Account.Manage
 {
@@ -100,16 +101,22 @@ namespace AutoRep.Areas.Identity.Pages.Account.Manage
                     pageHandler: null,
                     values: new { userId = userId, email = Input.NewEmail, code = code },
                     protocol: Request.Scheme);
-                await _emailSender.SendEmailAsync(
-                    Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                //await _emailSender.SendEmailAsync(
+                //    Input.NewEmail,
+                //    "Подтвердите почту",
+                //    $"Пожалуйста, подтвердите вашу почту с помощью нажития <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>сюда</a>.");
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                EmailService emailService = new EmailService();
+                await emailService.SendEmailAsync(
+                        Input.NewEmail,
+                       "Подтвердите почту",
+                    $"Пожалуйста, подтвердите вашу почту с помощью нажития <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>сюда</a>.");
+
+                StatusMessage = "Письмо отправлено";
                 return RedirectToPage();
             }
 
-            StatusMessage = "Your email is unchanged.";
+            StatusMessage = "Электронная почта не была изменена";
             return RedirectToPage();
         }
 
@@ -136,12 +143,18 @@ namespace AutoRep.Areas.Identity.Pages.Account.Manage
                 pageHandler: null,
                 values: new { area = "Identity", userId = userId, code = code },
                 protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+            //await _emailSender.SendEmailAsync(
+            //    email,
+            //    "Подтвердите почту",
+            //    $"Пожалуйста, подтвердите вашу почту с помощью нажития <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>сюда</a>.");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            EmailService emailService = new EmailService();
+            await emailService.SendEmailAsync(
+                    email,
+                   "Подтвердите почту",
+                $"Пожалуйста, подтвердите вашу почту с помощью нажития <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>сюда</a>.");
+
+            StatusMessage = "Письмо отправлено.";
             return RedirectToPage();
         }
     }

@@ -69,7 +69,7 @@ namespace AutoRep.Areas.Identity.Pages.Account
 
 
 
-                return RedirectToPage("./ForgotPasswordConfirmation", new { result = "Перейдите по ссылке на почте для изменения пароля" });
+                return RedirectToPage("./ForgotPasswordConfirmation", new { result = "Перейдите по ссылке, которая была отправлена на почту, для изменения пароля" });
             }
 
             return Page();
