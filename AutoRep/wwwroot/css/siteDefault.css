@@ -1,15 +1,20 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-
+/*#FFA240 - main
+  #3AAACF - second
+*/
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
+}
+.nav-link{
+    font-size: 18px;
 }
 
 .btn-primary {
@@ -23,11 +28,15 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+.navbar {
+    background-color: #FFA240;
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
   font-size: 14px;
+  
 }
 @media (min-width: 768px) {
   html {
@@ -54,8 +63,9 @@ button.accept-policy {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    
 }
 
 body {
@@ -63,9 +73,43 @@ body {
   margin-bottom: 60px;
 }
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #FFA240;
 }
+
+.table-light {
+    background-color: #c1c1c1;
+}
+
+.pagination > li > a {
+    background-color: white;
+    color: #343a40;
+}
+
+    .pagination > li > a:focus,
+    .pagination > li > a:hover,
+    .pagination > li > span:focus,
+    .pagination > li > span:hover {
+        color: #5a5a5a;
+        background-color: #eee;
+        border-color: #ddd;
+    }
+
+.pagination > .active > a {
+    color: white;
+    background-color: #3AAACF !Important;
+    border: solid 1px #3AAACF !Important;
+}
+
+    .pagination > .active > a:hover {
+        background-color: #3AAACF !Important;
+        border: solid 1px #5A4181;
+    }
+.table-menu {
+    color: black;
+}
+

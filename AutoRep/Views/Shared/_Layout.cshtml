@@ -9,13 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AutoRep</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/siteDark.css" />
+    <link rel="stylesheet" href="~/css/siteDefault.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom border-dark box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AutoRep</a>
+                <a class="navbar-brand navbar-dark" asp-area="" asp-controller="Home" asp-action="Index">AutoRep</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,27 +26,27 @@
                         @if (User.IsInRole("mananger"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="UserC" asp-action="Index">Пользователи</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserC" asp-action="Index">Пользователи</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Requests" asp-action="Index">Запросы</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Requests" asp-action="Index">Запросы</a>
                             </li>
                         }
                         @if (User.IsInRole("mananger") || User.IsInRole("master"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="WorkC" asp-action="Index">Заказы</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="WorkC" asp-action="Index">Заказы</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="WorkTypeC" asp-action="Index">Услуги</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="WorkTypeC" asp-action="Index">Услуги</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="MachineParts" asp-action="Index">Детали</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="MachineParts" asp-action="Index">Детали</a>
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Requests" asp-action="Create">Создать запрос</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Requests" asp-action="Create">Создать запрос</a>
                         </li>
                     </ul>
                 </div>
@@ -60,9 +60,9 @@
     </div>
 
     <footer class="border-top footer text-muted border-dark">
-        <div class="container text-white">
+        <div class="container text-dark">
             &copy; 2021 - AutoRep
-            @*<a asp-area="" asp-controller="Home" asp-action="Privacy">*@
+            <a asp-area="" asp-controller="Home" asp-action="Privacy"/>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
