@@ -168,6 +168,7 @@ namespace AutoRep.Controllers
         {
             GetUsersList();
             GetWorkTypeList();
+            GetmachinePartsList();
             if (id == null)
             {
                 return NotFound();
@@ -178,9 +179,11 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Name = work.PhoneNumber;
+            ViewBag.Name = work.Name;
             ViewBag.MadeOnId = id;
             ViewBag.Email = work.Email;
+            ViewBag.Phone = work.PhoneNumber;
+            ViewBag.Work = work.WorkType;//пока нигде не используется!
             return View();
         }
 

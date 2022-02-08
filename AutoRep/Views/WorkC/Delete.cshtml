@@ -18,6 +18,30 @@
             @Html.DisplayFor(model => model.Client)
         </dd>
         <dt class="col-sm-2">
+            Телефонный номер
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            Электронная почта
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            Номер машины
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarNumber)
+        </dd>
+        <dt class="col-sm-2">
+            Модель машины
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarModel)
+        </dd>
+        <dt class="col-sm-2">
             Дата
         </dt>
         <dd class="col-sm-10">
@@ -40,6 +64,12 @@
         </dt>
         <dd class="col-sm-10">
             @ViewData["SelectedMachinePart"]
+        </dd>
+        <dt class="col-sm-2">
+            Завершено
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsCompleted)
         </dd>
     </dl>
 
