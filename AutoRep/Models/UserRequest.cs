@@ -17,8 +17,9 @@ namespace AutoRep.Models
         [Display(Name = "Имя")]
         public string Name { get; set; }
 
-        [Display(Name = "Контактные данные")]
-        public string ContactData { get; set; }
+        [Phone]
+        [Display(Name = "Номер телефона")]
+        public string PhoneNumber { get; set; }
 
         [Required]
         [EmailAddress]

@@ -178,7 +178,7 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Name = work.ContactData;
+            ViewBag.Name = work.PhoneNumber;
             ViewBag.MadeOnId = id;
             ViewBag.Email = work.Email;
             return View();
@@ -189,7 +189,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType,MadeOnId,MachineParts")] Work work)
+        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType,MadeOnId,MachineParts,PhoneNuber,CarNumber,CarModel,Email,IsCompleted")] Work work)
         {
             if (ModelState.IsValid)
             {
@@ -241,7 +241,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Client,Date,Worker,WorkType,MachineParts")] Work work)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Client,Worker,Date,WorkType,MadeOnId,MachineParts,PhoneNuber,CarNumber,CarModel,Email,IsCompleted")] Work work)
         {
             if (id != work.Id)
             {

@@ -14,9 +14,31 @@ namespace AutoRep.Models
 
         [Display(Name = "Детали")]
         public string MachineParts { get; set; }//Используемые детали
+
+        [Display(Name = "Работник")]
         public string Worker { get; set; }//работник который делает/сделает/записал
+
+        [Display(Name = "ФИО клиента")]
         public string Client { get; set; }//Клиент и его контактные данные
+
+        [Display(Name = "Мобильный телефон")]
+        public string PhoneNumber { get; set; }//Клиент и его контактные данные
+
+        [Display(Name = "Номер машины клиента")]
+        public string CarNumber { get; set; }
+
+        [Display(Name = "Модель машины клиента")]
+        public string CarModel { get; set; }
+
+        [EmailAddress]
+        [Display(Name = "Электронная почта")]
+        public string Email { get; set; }
+
+        [Display(Name = "Дата")]
         public DateTime Date { get; set; }//время на которое записали работника
+
+        [Display(Name = "Работа выполнена")]
+        public bool IsCompleted { get; set; }
 
         [NotMapped]
         [Display(Name = "Основан на id")]
