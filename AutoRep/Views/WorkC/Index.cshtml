@@ -32,10 +32,13 @@
     <thead class="thead-dark">
         <tr>
             <th>
-                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.ClientSort" asp-route-page="@Model.PageNumber" asp-route-currentFilter="@ViewBag.CurrentFilter"  asp-route-showAll="@(ViewBag.ShowAll  == "checked"? true: false)" asp-route-ShowOutdated="@(ViewBag.ShowOutdated  == "checked"? true: false )">Клиент</a>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.ClientSort" asp-route-page="@Model.PageNumber" asp-route-currentFilter="@ViewBag.CurrentFilter" asp-route-showAll="@(ViewBag.ShowAll  == "checked"? true: false)" asp-route-ShowOutdated="@(ViewBag.ShowOutdated  == "checked"? true: false )">Клиент</a>
             </th>
             <th>
                 <a class="d-table-cell" asp-route-sortOrder="@ViewBag.DateSort" asp-route-page="@Model.PageNumber" asp-route-currentFilter="@ViewBag.CurrentFilter" asp-route-showAll="@(ViewBag.ShowAll  == "checked"? true: false)" asp-route-ShowOutdated="@(ViewBag.ShowOutdated  == "checked"? true: false )">Дата</a>
+            </th>
+            <th>
+                <a class="d-table-cell">Завершён?</a>
             </th>
             <th></th>
         </tr>
@@ -43,19 +46,22 @@
     <tbody>
         @foreach (Work item in Model)
         {
-            <tr>
-                <td>
-                    @item.Client
-                </td>
-                <td>
-                    @item.Date
-                </td>
-                <td class="table-menu text-center">
-                    <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @item.Client
+            </td>
+            <td>
+                @item.Date
+            </td>
+            <td>
+                @(item.IsCompleted == true? "Завершён": "Не завершён")
+            </td>
+            <td class="table-menu text-center">
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
