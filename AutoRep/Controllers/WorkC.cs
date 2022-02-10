@@ -3,6 +3,7 @@ using AutoRep.Models;
 using AutoRep.Services;
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -22,17 +23,22 @@ namespace AutoRep.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration Configuration;
+        private readonly UserManager<SUser> _userManager;
 
-        public WorkC(ApplicationDbContext context, IConfiguration config)
+        public WorkC(ApplicationDbContext context, IConfiguration config, UserManager<SUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
             Configuration = config;
         }
 
         // GET: WorkC
-        public async Task<IActionResult> Index(int? page, string searchString, string currentFilter, Work.SortState sortOrder = Work.SortState.ClientAsc)
+        public async Task<IActionResult> Index(int? page, string searchString, string currentFilter, bool showOutdated, bool showAll, Work.SortState sortOrder = Work.SortState.ClientAsc)
         {
             IQueryable<Work> works = _context.Work;
+
+            ViewBag.ShowAll = showAll == true ? "checked" : "unchecked";//контроль вида
+            ViewBag.ShowOutdated = showOutdated == true ? "checked" : "unchecked";//контроль вида
 
             ViewBag.CurrentFilter = searchString;
             ViewBag.SearchString = searchString;
@@ -45,9 +51,25 @@ namespace AutoRep.Controllers
             else
             {
                 searchString = currentFilter;
+                ViewBag.CurrentFilter = currentFilter;
             }
             if (!String.IsNullOrEmpty(searchString))
                 works = works.Where(x => x.Client.Contains(searchString));
+
+            works = showAll switch 
+            {
+                true => works,
+                false => works.Where(x => x.Worker == _userManager.GetUserId(HttpContext.User)),
+
+            };
+            
+            works = showOutdated switch
+            {
+                true => works,
+                false => works.Where(x => x.IsCompleted == false),
+
+            };
+
 
             ViewData["ClientSort"] = sortOrder == Work.SortState.ClientDesc ? Work.SortState.ClientAsc : Work.SortState.ClientDesc;
             ViewData["DateSort"] = sortOrder == Work.SortState.DateDesc ? Work.SortState.DateAsc : Work.SortState.DateDesc;

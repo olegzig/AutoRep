@@ -11,20 +11,20 @@
     <a asp-action="Create">Добавить</a>
 </p>
 
-<div class="form-check form-check-inline">
-    <input class="form-check-input" type="checkbox">
-    <label class="form-check-label" for="inlineCheckbox1">Отображать все заказы</label>
-</div>
-<div class="form-check form-check-inline">
-    <input class="form-check-input" type="checkbox">
-    <label class="form-check-label" for="inlineCheckbox1">Отображать законченные заказы</label>
-</div>
-
 @using (Html.BeginForm())
 {
+    <div class="form-check form-check-inline">
+        <input id="inlineCheckbox1" class="form-check-input" type="checkbox" name="showAll" value="true" @ViewBag.ShowAll>
+        <label class="form-check-label" for="inlineCheckbox1">Отображать все заказы</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input id="inlineCheckbox2" class="form-check-input" type="checkbox" name="showOutdated" value="true" @ViewBag.ShowOutdated>
+        <label class="form-check-label" for="inlineCheckbox2">Отображать законченные заказы</label>
+    </div>
+
     <div class="form-inline my-1 px-0">
-        <input class="form-control flex-fill mr-1" type="search" name="SearchString" placeholder="Введите строку для поиска" value="@ViewBag.CurrentFilter" />
-        <input class="btn btn-info d-inline-flex" type="submit" value="Search" />
+        <input class="form-control flex-fill mr-1" type="search" name="SearchString" placeholder="Введите строку для поиска" value="@ViewBag.currentFilter"  />
+        <input class="btn btn-info d-inline-flex" type="submit" value="Search"  asp-route-showAll="false" asp-route-ShowOutdated="false"/>
     </div>
 }
 
@@ -32,10 +32,10 @@
     <thead class="thead-dark">
         <tr>
             <th>
-                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.ClientSort" asp-route-page="@Model.PageNumber" asp-route-currentFilter="@ViewBag.CurrentFilter">Клиент</a>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.ClientSort" asp-route-page="@Model.PageNumber" asp-route-currentFilter="@ViewBag.CurrentFilter"  asp-route-showAll="@(ViewBag.ShowAll  == "checked"? true: false)" asp-route-ShowOutdated="@(ViewBag.ShowOutdated  == "checked"? true: false )">Клиент</a>
             </th>
             <th>
-                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.DateSort" asp-route-page="@Model.PageNumber" asp-route-currentFilter="@ViewBag.CurrentFilter">Дата</a>
+                <a class="d-table-cell" asp-route-sortOrder="@ViewBag.DateSort" asp-route-page="@Model.PageNumber" asp-route-currentFilter="@ViewBag.CurrentFilter" asp-route-showAll="@(ViewBag.ShowAll  == "checked"? true: false)" asp-route-ShowOutdated="@(ViewBag.ShowOutdated  == "checked"? true: false )">Дата</a>
             </th>
             <th></th>
         </tr>
@@ -59,7 +59,7 @@
         }
     </tbody>
 </table>
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, showAll = @ViewBag.ShowAll == "checked"? true: false, showOutdated = ViewBag.ShowOutdated == "checked" ? true : false  }), new PagedListRenderOptions
 {
     DisplayLinkToIndividualPages = true,
     DisplayPageCountAndCurrentLocation = false,
