@@ -214,7 +214,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType,MadeOnId,MachineParts,PhoneNuber,CarNumber,CarModel,Email,IsCompleted")] Work work)
+        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType,MadeOnId,MachineParts,PhoneNuber,CarNumber,CarModel,Email,IsCompleted")] Work work, List<string> WorkTypeList)
         {
             if (ModelState.IsValid)
             {
