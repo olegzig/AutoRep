@@ -10,7 +10,13 @@ namespace AutoRep.Models
     public class Work
     {
         public int Id { get; set; }
+
+        [Display(Name = "Оказываемая услуга")]
         public string WorkType { get; set; }//работа которую нужно проделать
+
+        [NotMapped]
+        public string[] WorkTypeIds { get; set; }//Id работ которые нужно проделать
+
 
         [Display(Name = "Детали")]
         public string MachineParts { get; set; }//Используемые детали

@@ -49,7 +49,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="WorkType" class="control-label">Оказываемая услуга</label>
-                <div>@Html.ListBoxFor(x => x.WorkType, new MultiSelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control", id="multipleSelectWorkType", multiple="multiple" })</div>
+                <div>@Html.ListBoxFor(x => x.WorkTypeIds, new MultiSelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control", id="multipleSelectWorkType", multiple="multiple" })</div>
                 <span asp-validation-for="WorkType" class="text-danger"></span>
             </div>
             <div class="form-group">
