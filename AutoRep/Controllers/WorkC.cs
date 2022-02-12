@@ -62,7 +62,6 @@ namespace AutoRep.Controllers
                 false => works.Where(x => x.Worker == _userManager.GetUserId(HttpContext.User)),
 
             };
-            
             works = showOutdated switch
             {
                 true => works,
@@ -101,8 +100,10 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
 
-            ViewData["SelectedMachinePart"] = GetmachinePartsList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.MachineParts)).Name;
             ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString());
+            //ViewData["SelectedMachinePart"] = GetmachinePartsList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.MachineParts)).Name;
+            work.MachinePartsIds = work.MachineParts.Split(',');
+            ViewData["SelectedMachinePart"] = GetmachinePartsListString(work.MachinePartsIds);
             //ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.WorkType)).Name;//Я таким образом показываю имя пользователя и тип работы. Просто не трогай
             work.WorkTypeIds = work.WorkType.Split(',');
             ViewData["SelectedWorkType"] = GetWorkTypeListString(work.WorkTypeIds);
@@ -169,7 +170,7 @@ namespace AutoRep.Controllers
                 while (idr.Read())
                 {
                     if (WTIds.Contains(idr["id"].ToString()))
-                    workTypes.Add(new WorkType { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
+                        workTypes.Add(new WorkType { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
                 }
             }
 
@@ -198,6 +199,29 @@ namespace AutoRep.Controllers
             con.Close();
             ViewBag.MachinePartsBag = machineParts;
             return machineParts;
+        }
+        // make a viewbug of machineParts
+        public string GetmachinePartsListString(string[] MPIds)
+        {
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            SqlConnection con = new SqlConnection(connection);
+            SqlCommand cmd = new SqlCommand("select [id],[name] from [MachineParts]", con);
+            con.Open();
+            SqlDataReader idr = cmd.ExecuteReader();
+
+            List<MachineParts> machineParts = new List<MachineParts>();
+            if (idr.HasRows)
+            {
+                while (idr.Read())
+                {
+                    if (MPIds.Contains(idr["id"].ToString()))
+                        machineParts.Add(new MachineParts { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
+                }
+            }
+
+            con.Close();
+            string x = String.Join(", ", machineParts.Select(x => x.Name));
+            return x;
         }
 
         // GET: WorkC/Create
@@ -238,7 +262,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType,MadeOnId,MachineParts,PhoneNuber,CarNumber,CarModel,Email,IsCompleted,WorkTypeIds")] Work work)
+        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType,MadeOnId,MachineParts,PhoneNuber,CarNumber,CarModel,Email,IsCompleted,WorkTypeIds,MachinePartsIds")] Work work)
         {
             if (ModelState.IsValid)
             {
@@ -248,6 +272,7 @@ namespace AutoRep.Controllers
                 //work.Worker = user.Id;
 
                 work.WorkType = string.Join(",", work.WorkTypeIds);
+                work.MachineParts = string.Join(",", work.MachinePartsIds);
 
                 _context.Add(work);
                 //send email
@@ -286,6 +311,7 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
             work.WorkTypeIds = work.WorkType.Split(',');
+            work.MachinePartsIds = work.MachineParts.Split(',');
             return View(work);
         }
 
@@ -294,7 +320,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Client,Worker,Date,WorkType,MadeOnId,MachineParts,PhoneNuber,CarNumber,CarModel,Email,IsCompleted,WorkTypeIds")] Work work)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Client,Worker,Date,WorkType,MadeOnId,MachineParts,PhoneNuber,CarNumber,CarModel,Email,IsCompleted,WorkTypeIds,MachinePartsIds")] Work work)
         {
             if (id != work.Id)
             {
@@ -304,6 +330,7 @@ namespace AutoRep.Controllers
             if (ModelState.IsValid)
             {
                 work.WorkType = string.Join(",", work.WorkTypeIds);
+                work.MachineParts = string.Join(",", work.MachinePartsIds);
                 try
                 {
                     _context.Update(work);
@@ -340,7 +367,9 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
             ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString());
-            ViewData["SelectedMachinePart"] = GetmachinePartsList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.MachineParts)).Name;
+            //ViewData["SelectedMachinePart"] = GetmachinePartsList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.MachineParts)).Name;
+            work.MachinePartsIds = work.MachineParts.Split(',');
+            ViewData["SelectedMachinePart"] = GetmachinePartsListString(work.MachinePartsIds);
             //ViewData["SelectedWorkType"] = GetWorkTypeList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.WorkType)).Name;
             work.WorkTypeIds = work.WorkType.Split(',');
             ViewData["SelectedWorkType"] = GetWorkTypeListString(work.WorkTypeIds);

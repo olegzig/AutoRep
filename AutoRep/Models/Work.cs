@@ -21,6 +21,9 @@ namespace AutoRep.Models
         [Display(Name = "Детали")]
         public string MachineParts { get; set; }//Используемые детали
 
+        [NotMapped]
+        public string[] MachinePartsIds { get; set; }//Id работ которые нужно проделать
+
         [Display(Name = "Работник")]
         public string Worker { get; set; }//работник который делает/сделает/записал
 
