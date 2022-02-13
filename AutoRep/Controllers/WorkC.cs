@@ -100,7 +100,7 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
 
-            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString());
+            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker).UserName;
             //ViewData["SelectedMachinePart"] = GetmachinePartsList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.MachineParts)).Name;
             work.MachinePartsIds = work.MachineParts.Split(',');
             ViewData["SelectedMachinePart"] = GetmachinePartsListString(work.MachinePartsIds);
@@ -366,7 +366,7 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
-            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker.ToString());
+            ViewData["SelectedUser"] = GetUsersList().FirstOrDefault(x => x.Id == work.Worker).UserName;
             //ViewData["SelectedMachinePart"] = GetmachinePartsList().FirstOrDefault(x => x.Id == Convert.ToInt32(work.MachineParts)).Name;
             work.MachinePartsIds = work.MachineParts.Split(',');
             ViewData["SelectedMachinePart"] = GetmachinePartsListString(work.MachinePartsIds);
