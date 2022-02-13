@@ -34,6 +34,7 @@ namespace AutoRep.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
+            [Display(Name = "Электронная почта")]
             public string Email { get; set; }
         }
 

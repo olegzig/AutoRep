@@ -18,7 +18,8 @@ using AutoRep.Services;
 
 namespace AutoRep.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    //[AllowAnonymous]
+    [Authorize]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<SUser> _signInManager;
