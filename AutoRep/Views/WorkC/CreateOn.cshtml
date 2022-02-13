@@ -1,7 +1,7 @@
 ﻿@model AutoRep.Models.Work
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Создать на основании";
 }
 
 <h1>Добавить</h1>
@@ -15,17 +15,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Client" class="control-label"></label>
-                <input asp-for="Client" class="form-control" value="@ViewBag.Name"/>
+                <input asp-for="Client" class="form-control" value="@ViewBag.Name" />
                 <span asp-validation-for="Client" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" value="@ViewBag.Phone"/>
+                <input asp-for="PhoneNumber" class="form-control" value="@ViewBag.Phone" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" value="@ViewBag.Email"/>
+                <input asp-for="Email" class="form-control" value="@ViewBag.Email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,13 +49,13 @@
                 <span asp-validation-for="Worker" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WorkType" class="control-label">Оказываемая услуга</label>
-                <div>@Html.DropDownListFor(x => x.WorkType, new SelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control" })</div>
+                <label asp-for="WorkType" class="control-label"></label>
+                <div>@Html.ListBoxFor(x => x.WorkTypeIds, new MultiSelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control", id = "multipleSelectWorkType", multiple = "multiple" })</div>
                 <span asp-validation-for="WorkType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MachineParts" class="control-label"></label>
-                <div>@Html.DropDownListFor(x => x.MachineParts, new SelectList(ViewBag.MachinePartsBag, "Id", "Name"), new { @class = "form-control" })</div>
+                <div>@Html.ListBoxFor(x => x.MachinePartsIds, new SelectList(ViewBag.MachinePartsBag, "Id", "Name"), new { @class = "form-control", id = "multipleSelectParts", multiple = "multiple" })</div>
                 <span asp-validation-for="MachineParts" class="text-danger"></span>
             </div>
             <div class="form-check form-group">
@@ -76,4 +76,24 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+    $(function () {
+        $("#multipleSelectWorkType").chosen(
+            {
+                disable_search_threshold: 10,
+                no_results_text: "Не найдено: ",
+
+            }
+        );
+    });
+    $(function () {
+        $("#multipleSelectParts").chosen(
+            {
+                disable_search_threshold: 10,
+                no_results_text: "Не найдено: ",
+
+            }
+        );
+    });
+    </script>
 }
