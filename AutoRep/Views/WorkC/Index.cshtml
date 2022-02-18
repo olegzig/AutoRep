@@ -23,8 +23,8 @@
     </div>
 
     <div class="form-inline my-1 px-0">
-        <input class="form-control flex-fill mr-1" type="search" name="SearchString" placeholder="Введите строку для поиска" value="@ViewBag.currentFilter"  />
-        <input class="btn btn-info d-inline-flex" type="submit" value="Подтвердить фильтр"  asp-route-showAll="false" asp-route-ShowOutdated="false"/>
+        <input class="form-control flex-fill mr-1" type="search" name="SearchString" placeholder="Введите строку для поиска" value="@ViewBag.currentFilter" />
+        <input class="btn btn-info d-inline-flex" type="submit" value="Подтвердить фильтр" asp-route-showAll="false" asp-route-ShowOutdated="false" />
     </div>
 }
 
@@ -46,26 +46,26 @@
     <tbody>
         @foreach (Work item in Model)
         {
-        <tr>
-            <td>
-                @item.Client
-            </td>
-            <td>
-                @item.Date
-            </td>
-            <td>
-                @(item.IsCompleted == true? "Завершён": "Не завершён")
-            </td>
-            <td class="table-menu text-center">
-                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @item.Client
+                </td>
+                <td>
+                    @item.Date
+                </td>
+                <td>
+                    @(item.IsCompleted == true? "Завершён": "Не завершён")
+                </td>
+                <td class="table-menu text-center">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, showAll = @ViewBag.ShowAll == "checked"? true: false, showOutdated = ViewBag.ShowOutdated == "checked" ? true : false  }), new PagedListRenderOptions
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, showAll = @ViewBag.ShowAll == "checked" ? true : false, showOutdated = ViewBag.ShowOutdated == "checked" ? true : false }), new PagedListRenderOptions
 {
     DisplayLinkToIndividualPages = true,
     DisplayPageCountAndCurrentLocation = false,

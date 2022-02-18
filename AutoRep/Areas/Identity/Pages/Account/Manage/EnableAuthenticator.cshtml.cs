@@ -1,16 +1,15 @@
-﻿using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoRep.Models;
+﻿using AutoRep.Models;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace AutoRep.Areas.Identity.Pages.Account.Manage
 {
@@ -47,7 +46,7 @@ namespace AutoRep.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Данное поле необхдимо")]
             [StringLength(7, ErrorMessage = "{0} должен быть длинной от {2} до {1}.", MinimumLength = 6)]
             [DataType(DataType.Text)]
             [Display(Name = "Код верефикации")]

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 
 namespace AutoRep.Models
 {
@@ -28,7 +25,7 @@ namespace AutoRep.Models
         [Display(Name = "Пароль")]
         [StringLength(100, ErrorMessage = "Пароль должен состоять из {2} символов как минимум, и быть не длиннее {1} символов.", MinimumLength = 6)]
         [Required(ErrorMessage = "Данная информация необходима")]
-        public string  Password { get; set; }
+        public string Password { get; set; }
 
         [NotMapped]
         [Display(Name = "Подтвердите пароль")]

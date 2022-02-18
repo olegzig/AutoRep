@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,6 +25,7 @@ namespace AutoRep.Controllers
         private readonly SignInManager<SUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleMananger;
         private readonly IConfiguration Configuration;
+
         public UserC(AuthContext context, UserManager<SUser> userManager, SignInManager<SUser> signInManager, RoleManager<IdentityRole> roleMananger, IConfiguration config)
         {
             _userManager = userManager;
@@ -50,7 +50,7 @@ namespace AutoRep.Controllers
             };
             int pageSize = 3;
             int pageNumber = (page ?? 1);
-            return View(await users.AsNoTracking().ToPagedListAsync(pageNumber,pageSize));
+            return View(await users.AsNoTracking().ToPagedListAsync(pageNumber, pageSize));
         }
 
         // GET: UserC/Details/5
@@ -75,6 +75,7 @@ namespace AutoRep.Controllers
 
             return View(user);
         }
+
         // make a viewbug of workers
         public List<IdentityRole> GetRolesList()
         {
@@ -116,7 +117,7 @@ namespace AutoRep.Controllers
             {
                 //_context.Add(user);
                 //await _context.SaveChangesAsync();
-                var newUser = new SUser { UserName = user.UserName, Email = user.Email, PhoneNumber = user.PhoneNumber, Role = user.Role, Password = user.Password};
+                var newUser = new SUser { UserName = user.UserName, Email = user.Email, PhoneNumber = user.PhoneNumber, Role = user.Role, Password = user.Password };
                 var result = await _userManager.CreateAsync(newUser, newUser.Password);
                 var result2 = await _userManager.AddToRoleAsync(newUser, _roleMananger.FindByIdAsync(user.Role).Result.Name);
                 if (result.Succeeded && result2.Succeeded)
@@ -153,7 +154,7 @@ namespace AutoRep.Controllers
             GetRolesList();
             return View(user);
         }
-        
+
         // POST: UserC/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -165,7 +166,6 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
-
 
             if (ModelState.IsValid)
             {

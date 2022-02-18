@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoRep.Models;
+﻿using AutoRep.Models;
+using AutoRep.Services;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using AutoRep.Services;
+
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace AutoRep.Areas.Identity.Pages.Account.Manage
 {
@@ -46,7 +45,7 @@ namespace AutoRep.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Данное поле необхдимо")]
             [EmailAddress]
             [Display(Name = "Новая электронная почта")]
             public string NewEmail { get; set; }

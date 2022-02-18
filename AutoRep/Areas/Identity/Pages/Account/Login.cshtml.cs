@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using AutoRep.Models;
+﻿using AutoRep.Models;
+
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AutoRep.Areas.Identity.Pages.Account
 {
@@ -22,7 +21,7 @@ namespace AutoRep.Areas.Identity.Pages.Account
         private readonly SignInManager<SUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<SUser> signInManager, 
+        public LoginModel(SignInManager<SUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<SUser> userManager)
         {
@@ -43,12 +42,12 @@ namespace AutoRep.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Данное поле необхдимо")]
             [EmailAddress]
             [Display(Name = "Электронная почта")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Данное поле необхдимо")]
             [DataType(DataType.Password)]
             [Display(Name = "Пароль")]
             public string Password { get; set; }

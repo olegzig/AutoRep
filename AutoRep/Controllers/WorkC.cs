@@ -56,19 +56,16 @@ namespace AutoRep.Controllers
             if (!String.IsNullOrEmpty(searchString))
                 works = works.Where(x => x.Client.Contains(searchString));
 
-            works = showAll switch 
+            works = showAll switch
             {
                 true => works,
                 false => works.Where(x => x.Worker == _userManager.GetUserId(HttpContext.User)),
-
             };
             works = showOutdated switch
             {
                 true => works,
                 false => works.Where(x => x.IsCompleted == false),
-
             };
-
 
             ViewData["ClientSort"] = sortOrder == Work.SortState.ClientDesc ? Work.SortState.ClientAsc : Work.SortState.ClientDesc;
             ViewData["DateSort"] = sortOrder == Work.SortState.DateDesc ? Work.SortState.DateAsc : Work.SortState.DateDesc;
@@ -155,6 +152,7 @@ namespace AutoRep.Controllers
             ViewBag.WorkTypeBag = workTypes;
             return workTypes;
         }
+
         //make a string of worktypes that used in this work
         public string GetWorkTypeListString(string[] WTIds)
         {
@@ -175,9 +173,10 @@ namespace AutoRep.Controllers
             }
 
             con.Close();
-            string x = String.Join(", ",workTypes.Select(x => x.Name));
+            string x = String.Join(", ", workTypes.Select(x => x.Name));
             return x;
         }
+
         // make a viewbug of machineParts
         public List<MachineParts> GetmachinePartsList()
         {
@@ -200,6 +199,7 @@ namespace AutoRep.Controllers
             ViewBag.MachinePartsBag = machineParts;
             return machineParts;
         }
+
         // make a viewbug of machineParts
         public string GetmachinePartsListString(string[] MPIds)
         {

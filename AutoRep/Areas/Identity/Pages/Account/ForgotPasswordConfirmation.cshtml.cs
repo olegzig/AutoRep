@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AutoRep.Areas.Identity.Pages.Account
@@ -11,6 +7,7 @@ namespace AutoRep.Areas.Identity.Pages.Account
     public class ForgotPasswordConfirmation : PageModel
     {
         public string Result;
+
         public void OnGet(string result)
         {
             Result = result;

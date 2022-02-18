@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoRep.Models;
+
 using Microsoft.AspNetCore.Authorization;
-using AutoRep.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AutoRep.Areas.Identity.Pages.Account
 {
@@ -28,11 +27,11 @@ namespace AutoRep.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Данное поле необхдимо")]
             [EmailAddress]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Данное поле необхдимо")]
             [StringLength(100, ErrorMessage = "{0} должен быть длинной от {2} до {1}.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             public string Password { get; set; }

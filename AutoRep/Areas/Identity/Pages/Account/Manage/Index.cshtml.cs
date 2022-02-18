@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoRep.Models;
+﻿using AutoRep.Models;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace AutoRep.Areas.Identity.Pages.Account.Manage
 {
@@ -34,7 +33,7 @@ namespace AutoRep.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Phone]
+            [Phone(ErrorMessage = "Телефонный номер дожен состоять только из цифр")]
             [Display(Name = "Телефонный номер")]
             public string PhoneNumber { get; set; }
         }

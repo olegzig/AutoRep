@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoRep.Data;
+using AutoRep.Models;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AutoRep.Data;
-using AutoRep.Models;
+
 using X.PagedList;
-using Microsoft.AspNetCore.Authorization;
 
 namespace AutoRep.Controllers
 {
@@ -30,7 +30,7 @@ namespace AutoRep.Controllers
             IQueryable<MachineParts> parts = _context.MachineParts;
 
             ViewData["NameSort"] = sortOrder == Models.MachineParts.SortState.NameDesc ? Models.MachineParts.SortState.NameAsc : Models.MachineParts.SortState.NameDesc;
-            ViewData["CostSort"] = sortOrder ==MachineParts.SortState.CostDesc ? MachineParts.SortState.CostAsc : MachineParts.SortState.CostDesc;
+            ViewData["CostSort"] = sortOrder == MachineParts.SortState.CostDesc ? MachineParts.SortState.CostAsc : MachineParts.SortState.CostDesc;
             ViewData["CountSort"] = sortOrder == MachineParts.SortState.CountDesc ? MachineParts.SortState.CountAsc : MachineParts.SortState.CountDesc;
 
             parts = sortOrder switch
@@ -73,7 +73,7 @@ namespace AutoRep.Controllers
         }
 
         // POST: MachineParts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -105,7 +105,7 @@ namespace AutoRep.Controllers
         }
 
         // POST: MachineParts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]

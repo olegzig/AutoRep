@@ -1,5 +1,3 @@
-using System;
-
 namespace AutoRep.Models
 {
     public class ErrorViewModel

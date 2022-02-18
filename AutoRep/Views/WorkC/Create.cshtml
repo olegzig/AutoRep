@@ -49,7 +49,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="WorkType" class="control-label"></label>
-                <div>@Html.ListBoxFor(x => x.WorkTypeIds, new MultiSelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control", id="multipleSelectWorkType", multiple="multiple" })</div>
+                <div>@Html.ListBoxFor(x => x.WorkTypeIds, new MultiSelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control", id = "multipleSelectWorkType", multiple = "multiple" })</div>
                 <span asp-validation-for="WorkType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -75,13 +75,13 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-<script>
+    <script>
     $(function () {
         $("#multipleSelectWorkType").chosen(
             {
                 disable_search_threshold: 10,
                 no_results_text: "Не найдено: ",
-                
+
             }
         );
     });
@@ -94,5 +94,5 @@
             }
         );
     });
-</script>    
+    </script>
 }

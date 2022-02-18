@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MailKit.Net.Smtp;
+
 using MimeKit;
-using MailKit.Net.Smtp;
-using Microsoft.Extensions.Logging;
+
+using System.Threading.Tasks;
 
 namespace AutoRep.Services
 {
@@ -31,25 +29,26 @@ namespace AutoRep.Services
                 await client.DisconnectAsync(true);
             }
         }
+
         public void SendEmailTest()
         {
             var emailMessage = new MimeMessage();
-                emailMessage.From.Add(new MailboxAddress("Администрация сайта", "autorepxxz@gmail.com"));
-                emailMessage.To.Add(new MailboxAddress("", "boris37544@gmail.com"));
-                emailMessage.Subject = "hello?";
-                emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
-                {
-                    Text = "mama mia..."
-                };
+            emailMessage.From.Add(new MailboxAddress("Администрация сайта", "autorepxxz@gmail.com"));
+            emailMessage.To.Add(new MailboxAddress("", "boris37544@gmail.com"));
+            emailMessage.Subject = "hello?";
+            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = "mama mia..."
+            };
 
-                using (var client = new SmtpClient())
-                {
-                    client.Connect("smtp.gmail.com", 465, true);
-                    client.Authenticate("autorepxxz@gmail.com", "123EWQasd");
-                    client.Send(emailMessage);
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 465, true);
+                client.Authenticate("autorepxxz@gmail.com", "123EWQasd");
+                client.Send(emailMessage);
 
-                    client.Disconnect(true);
-                }
+                client.Disconnect(true);
+            }
         }
     }
 }

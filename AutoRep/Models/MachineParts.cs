@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AutoRep.Models
 {
@@ -14,7 +9,7 @@ namespace AutoRep.Models
         [Display(Name = "Наименование")]
         [Required(ErrorMessage = "Данная информация необходима")]
         public string Name { get; set; }//Название детали
-     
+
         [Display(Name = "Количество на складе")]
         [Required(ErrorMessage = "Данная информация необходима")]
         public int Count { get; set; }//работник который делает/сделает/записал

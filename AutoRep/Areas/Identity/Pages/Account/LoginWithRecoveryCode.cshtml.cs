@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoRep.Models;
+
 using Microsoft.AspNetCore.Authorization;
-using AutoRep.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace AutoRep.Areas.Identity.Pages.Account
 {
@@ -32,7 +32,7 @@ namespace AutoRep.Areas.Identity.Pages.Account
         public class InputModel
         {
             [BindProperty]
-            [Required]
+            [Required(ErrorMessage = "Данное поле необхдимо")]
             [DataType(DataType.Text)]
             [Display(Name = "Код восстановления")]
             public string RecoveryCode { get; set; }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoRep.Models;
+﻿using AutoRep.Models;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace AutoRep.Areas.Identity.Pages.Account.Manage
 {
@@ -31,7 +30,7 @@ namespace AutoRep.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Данное поле необхдимо")]
             [StringLength(100, ErrorMessage = "{0} должен быть длинной от {2} до {1}.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Новый пароль")]
@@ -39,7 +38,7 @@ namespace AutoRep.Areas.Identity.Pages.Account.Manage
 
             [DataType(DataType.Password)]
             [Display(Name = "Подтвердите новый пароль")]
-            [Compare("NewPassword",ErrorMessage = "Новый и старый пароли на совпадают.")]
+            [Compare("NewPassword", ErrorMessage = "Новый и старый пароли на совпадают.")]
             public string ConfirmPassword { get; set; }
         }
 
