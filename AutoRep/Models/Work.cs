@@ -12,6 +12,7 @@ namespace AutoRep.Models
         public int Id { get; set; }
 
         [Display(Name = "Оказываемая услуга")]
+        [Required(ErrorMessage = "Данная информация необходима")]
         public string WorkType { get; set; }//работа которую нужно проделать
 
         [NotMapped]
@@ -25,25 +26,32 @@ namespace AutoRep.Models
         public string[] MachinePartsIds { get; set; }//Id работ которые нужно проделать
 
         [Display(Name = "Работник")]
+        [Required(ErrorMessage = "Данная информация необходима")]
         public string Worker { get; set; }//работник который делает/сделает/записал
 
         [Display(Name = "ФИО клиента")]
+        [Required(ErrorMessage = "Данная информация необходима")]
         public string Client { get; set; }//Клиент и его контактные данные
 
         [Display(Name = "Мобильный телефон")]
+        [Required(ErrorMessage = "Данная информация необходима")]
         public string PhoneNumber { get; set; }//Клиент и его контактные данные
 
         [Display(Name = "Номер машины клиента")]
+        [Required(ErrorMessage = "Данная информация необходима")]
         public string CarNumber { get; set; }
 
         [Display(Name = "Модель машины клиента")]
+        [Required(ErrorMessage = "Данная информация необходима")]
         public string CarModel { get; set; }
 
         [EmailAddress]
         [Display(Name = "Электронная почта")]
+        [Required(ErrorMessage = "Данная информация необходима")]
         public string Email { get; set; }
 
         [Display(Name = "Дата")]
+        [Required(ErrorMessage = "Данная информация необходима")]
         public DateTime Date { get; set; }//время на которое записали работника
 
         [Display(Name = "Работа выполнена")]

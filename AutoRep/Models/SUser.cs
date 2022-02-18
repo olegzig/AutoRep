@@ -14,10 +14,8 @@ namespace AutoRep.Models
         [Display(Name = "Id")]
         public override string Id { get => base.Id; set => base.Id = value; }
 
-        [Display(Name = "Мененджер")]
-        public bool IsMananger { get; set; }//t = владелец, f = работник
-
         [Display(Name = "Электронная почта")]
+        [Required(ErrorMessage = "Данная информация необходима")]
         public override string Email { get => base.Email; set => base.Email = value; }
 
         [Display(Name = "Телефонный номер")]
@@ -29,6 +27,7 @@ namespace AutoRep.Models
         [NotMapped]
         [Display(Name = "Пароль")]
         [StringLength(100, ErrorMessage = "Пароль должен состоять из {2} символов как минимум, и быть не длиннее {1} символов.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Данная информация необходима")]
         public string  Password { get; set; }
 
         [NotMapped]
