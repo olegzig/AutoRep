@@ -59,7 +59,7 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAACAAABACAAAAAAAAAAAAQAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAACAAAAAAAAAAQAQAAQAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\UserRequest.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -73,7 +73,7 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAACABAAAAAAAAAAAAAAAAAAAQAAAAIBEAAAAAAAAAQ=</HashCode>
+      <HashCode>AAACABAAACAAAAAAAAgAQAAAAQAAgBKBEAAAAAAABAQ=</HashCode>
       <FileName>Models\Work.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -99,7 +99,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AutoRep.Program">
-    <Position X="17.5" Y="16.25" Width="1.5" />
+    <Position X="14" Y="16.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
@@ -157,7 +157,7 @@
   <Class Name="AutoRep.Controllers.WorkC">
     <Position X="6.75" Y="13.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAIIAAABBgKAAAAAAAAAAAEAAEACgAEAAAAAAAA=</HashCode>
+      <HashCode>AAAABAIIAAEBBgKAAAABAAAAAAEAAEACgAEAAAAAAAA=</HashCode>
       <FileName>Controllers\WorkC.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -515,4 +515,5 @@
     <TypeIdentifier />
   </Class>
   <Font Name="Segoe UI" Size="9" />
+	<Path color="black" />
 </ClassDiagram>
