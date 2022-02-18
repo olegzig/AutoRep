@@ -110,13 +110,13 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,IsMananger,Email,PhoneNumber,Password,ConfirmPassword,Role")] SUser user)
+        public async Task<IActionResult> Create([Bind("Id,UserName,Email,PhoneNumber,Password,ConfirmPassword,Role")] SUser user)
         {
             if (ModelState.IsValid)
             {
                 //_context.Add(user);
                 //await _context.SaveChangesAsync();
-                var newUser = new SUser { UserName = user.UserName, Email = user.Email, IsMananger = user.IsMananger, PhoneNumber = user.PhoneNumber, Role = user.Role, Password = user.Password};
+                var newUser = new SUser { UserName = user.UserName, Email = user.Email, PhoneNumber = user.PhoneNumber, Role = user.Role, Password = user.Password};
                 var result = await _userManager.CreateAsync(newUser, newUser.Password);
                 var result2 = await _userManager.AddToRoleAsync(newUser, _roleMananger.FindByIdAsync(user.Role).Result.Name);
                 if (result.Succeeded && result2.Succeeded)
@@ -159,7 +159,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,UserName,IsMananger,Email,PhoneNumber,Role")] SUser user)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,UserName,Email,PhoneNumber,Role")] SUser user)
         {
             if (id != user.Id)
             {
@@ -174,7 +174,6 @@ namespace AutoRep.Controllers
                     var oldUser = await _userManager.FindByIdAsync(id);//Я щас понял, что не знаю зачем old user существеует. Работает? Ну и хер с ним
                     oldUser.Email = user.Email;
                     oldUser.PhoneNumber = user.PhoneNumber;
-                    oldUser.IsMananger = user.IsMananger;
                     oldUser.UserName = user.UserName;
                     oldUser.Role = user.Role;
                     var Result = await _userManager.UpdateAsync(oldUser);

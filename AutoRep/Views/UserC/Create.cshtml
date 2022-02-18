@@ -28,11 +28,6 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsMananger" /> @Html.DisplayNameFor(model => model.IsMananger)
-                </label>
-            </div>
             <div class="form-group">
                 <label asp-for="Role" class="control-label"></label>
                 <div>@Html.DropDownListFor(x => x.Role, new SelectList(ViewBag.RolesBag, "Id", "Name"), new { @class = "form-control" })</div>

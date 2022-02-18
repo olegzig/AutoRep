@@ -42,7 +42,7 @@ namespace AutoRep.Models
 
         public override string ToString()
         {
-            return Id.ToString() + " " + UserName + " " + IsMananger.ToString();
+            return Id.ToString() + " " + UserName;
         }
 
         public enum SortState
