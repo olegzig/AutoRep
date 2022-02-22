@@ -136,6 +136,7 @@ namespace AutoRep.Controllers
                 if (!User.Identity.IsAuthenticated)
                 {
                     GetWorkTypeList();
+                    ModelState.Clear();
                     return View("../Home/Index");
                 }
                 return RedirectToAction(nameof(Index));
