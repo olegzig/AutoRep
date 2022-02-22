@@ -46,7 +46,7 @@ namespace AutoRep.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Required(ErrorMessage = "Данное поле необхдимо")]
-            [EmailAddress]
+            [EmailAddress(ErrorMessage = "Это не корректная электронная почта.")]
             [Display(Name = "Новая электронная почта")]
             public string NewEmail { get; set; }
         }

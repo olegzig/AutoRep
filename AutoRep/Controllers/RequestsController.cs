@@ -3,8 +3,12 @@ using AutoRep.Models;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,10 +20,12 @@ namespace AutoRep.Controllers
     public class RequestsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration Configuration;
 
-        public RequestsController(ApplicationDbContext context)
+        public RequestsController(ApplicationDbContext context, IConfiguration config)
         {
             _context = context;
+            Configuration = config;
         }
 
         // GET: Requests
@@ -64,19 +70,67 @@ namespace AutoRep.Controllers
         [AllowAnonymous]
         public IActionResult Create()
         {
+            GetWorkTypeList();
             return View();
         }
 
+        // make a viewbug of workTypes
+        public List<WorkType> GetWorkTypeList()
+        {
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            SqlConnection con = new SqlConnection(connection);
+            SqlCommand cmd = new SqlCommand("select [id],[name] from [WorkType]", con);
+            con.Open();
+            SqlDataReader idr = cmd.ExecuteReader();
+
+            List<WorkType> workTypes = new List<WorkType>();
+            if (idr.HasRows)
+            {
+                while (idr.Read())
+                {
+                    workTypes.Add(new WorkType { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
+                }
+            }
+
+            con.Close();
+            ViewBag.WorkTypeBag = workTypes;
+            return workTypes;
+        }
+
+        //make a string of worktypes that used in this work
+        public string GetWorkTypeListString(string[] WTIds)
+        {
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            SqlConnection con = new SqlConnection(connection);
+            SqlCommand cmd = new SqlCommand("select [id],[name] from [WorkType]", con);
+            con.Open();
+            SqlDataReader idr = cmd.ExecuteReader();
+
+            List<WorkType> workTypes = new List<WorkType>();
+            if (idr.HasRows)
+            {
+                while (idr.Read())
+                {
+                    if (WTIds.Contains(idr["id"].ToString()))
+                        workTypes.Add(new WorkType { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
+                }
+            }
+
+            con.Close();
+            string x = String.Join(", ", workTypes.Select(x => x.Name));
+            return x;
+        }
         // POST: Requests/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [AllowAnonymous]
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,WorkType,Name,PhoneNumber,Email")] UserRequest request)
+        public async Task<IActionResult> Create([Bind("Id,WorkType,Name,PhoneNumber,Email,WorkTypeIds")] UserRequest request)
         {
             if (ModelState.IsValid)
             {
+                request.WorkType = string.Join(",", request.WorkTypeIds);
                 _context.Add(request);
                 await _context.SaveChangesAsync();
                 if (!User.Identity.IsAuthenticated)
@@ -91,6 +145,7 @@ namespace AutoRep.Controllers
         // GET: Requests/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            GetWorkTypeList();
             if (id == null)
             {
                 return NotFound();
@@ -101,6 +156,7 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
+            request.WorkTypeIds = request.WorkType.Split(',');
             return View(request);
         }
 
@@ -109,7 +165,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,WorkType,Name,PhoneNumber,Email")] UserRequest request)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,WorkType,Name,PhoneNumber,Email,WorkTypeIds")] UserRequest request)
         {
             if (id != request.Id)
             {
@@ -118,6 +174,7 @@ namespace AutoRep.Controllers
 
             if (ModelState.IsValid)
             {
+                request.WorkType = string.Join(",", request.WorkTypeIds);
                 try
                 {
                     _context.Update(request);
@@ -153,6 +210,8 @@ namespace AutoRep.Controllers
             {
                 return NotFound();
             }
+            request.WorkTypeIds = request.WorkType.Split(',');
+            ViewData["SelectedWorkType"] = GetWorkTypeListString(request.WorkTypeIds);
 
             return View(request);
         }

@@ -41,7 +41,7 @@ namespace AutoRep.Models
         [Required(ErrorMessage = "Данная информация необходима")]
         public string CarModel { get; set; }
 
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Это не корректная электронная почта.")]
         [Display(Name = "Электронная почта")]
         [Required(ErrorMessage = "Данная информация необходима")]
         public string Email { get; set; }

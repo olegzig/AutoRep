@@ -15,7 +15,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="WorkType" class="control-label"></label>
-                <input asp-for="WorkType" class="form-control" />
+                <div>@Html.ListBoxFor(x => x.WorkTypeIds, new MultiSelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control", id = "multipleSelectWorkType", multiple = "multiple" })</div>
                 <span asp-validation-for="WorkType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -46,4 +46,15 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(function () {
+            $("#multipleSelectWorkType").chosen(
+                {
+                    disable_search_threshold: 10,
+                    no_results_text: "Не найдено: ",
+
+                }
+            );
+        });
+    </script>
 }

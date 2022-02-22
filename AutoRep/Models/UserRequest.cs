@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AutoRep.Models
 {
@@ -11,6 +12,9 @@ namespace AutoRep.Models
         [Required(ErrorMessage = "Данная информация необходима")]
         public string WorkType { get; set; }//работа которую нужно проделать
 
+        [NotMapped]
+        public string[] WorkTypeIds { get; set; }//Id работ которые нужно проделать
+
         [Display(Name = "Имя")]
         [Required(ErrorMessage = "Данная информация необходима")]
         public string Name { get; set; }
@@ -20,7 +24,7 @@ namespace AutoRep.Models
         [Required(ErrorMessage = "Данная информация необходима")]
         public string PhoneNumber { get; set; }
 
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Это не корректная электронная почта.")]
         [Display(Name = "Электронная почта")]
         [Required(ErrorMessage = "Данная информация необходима")]
         public string Email { get; set; }

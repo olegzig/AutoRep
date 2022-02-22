@@ -49,7 +49,7 @@ namespace AutoRep.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required(ErrorMessage = "Данное поле необхдимо")]
-            [EmailAddress]
+            [EmailAddress(ErrorMessage = "Это не корректная электронная почта.")]
             public string Email { get; set; }
         }
 

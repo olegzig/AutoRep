@@ -296,7 +296,7 @@ namespace AutoRep.Controllers
         // GET: WorkC/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            //Это (2 нижестоящие строки) в принципе не должно работать, но оно работает и славненько, ок?
+            //Это в принципе не должно работать, но оно работает и славненько, ок?
             GetUsersList();
             GetWorkTypeList();
             GetmachinePartsList();

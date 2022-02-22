@@ -20,7 +20,7 @@ a {
 /* Provide sufficient contrast against white background */
 table a {
     color: #fcc626;
-    -webkit-text-stroke: .01em black;
+    /*-webkit-text-stroke: .01em black;*/
 }
 
 footer a {
@@ -120,7 +120,7 @@ body {
 }
 
 .table-light {
-    background-color: #c1c1c1;
+    background-color: #f5f5f5;
 }
 
 .pagination > li > a {
@@ -155,17 +155,15 @@ body {
 }
 
 .table-menu {
-    color: white;
+    color: black;
 }
 
-.table-light {
-    background-color: #35363a;
-}
 
 td {
-    color: white;
+    color: black;
 }
 
 .table-dark {
-    background-color: #737376;
+    background-color: #f5f5f5;
+    border: 1px solid #343a40;
 }
