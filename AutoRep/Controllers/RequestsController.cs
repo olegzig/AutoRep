@@ -135,6 +135,7 @@ namespace AutoRep.Controllers
                 await _context.SaveChangesAsync();
                 if (!User.Identity.IsAuthenticated)
                 {
+                    GetWorkTypeList();
                     return View("../Home/Index");
                 }
                 return RedirectToAction(nameof(Index));

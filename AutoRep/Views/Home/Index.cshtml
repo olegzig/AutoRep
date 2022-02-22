@@ -241,28 +241,12 @@
                     <form asp-action="Index" class="appointment">
                         <div class="row">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" asp-for="Id" />
                             <div class="col-md-12">
-                                @*<div class="form-group">
-                                                <div class="form-field">
-                                                    <div class="select-wrap">
-                                                        <div class="icon"><span class="fa fa-chevron-down"></span></div>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">Select services</option>
-                                        <option value="">Change Oil</option>
-                                        <option value="">Engine Repair</option>
-                                        <option value="">Battery Replace</option>
-                                        <option value="">Change Tire</option>
-                                        <option value="">Tow Truck</option>
-                                    </select>
-                                                    </div>
-                                                </div>
-                                            </div>*@
                                 <div class="form-group">
                                     <div class="form-field">
                                         <div class="select-wrap">
                                             <div class="icon"><span class="fa fa-chevron-down"></span></div>
-                                            <div>@Html.ListBoxFor(x => x.WorkTypeIds, new MultiSelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control", id = "multipleSelectWorkType", multiple = "multiple", width="100%" })</div>
+                                            <div>@Html.ListBoxFor(x => x.WorkTypeIds, new MultiSelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control", id = "multipleSelectWorkType", multiple = "multiple"})</div>
                                             <span asp-validation-for="WorkType" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -294,7 +278,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Сообщение"></textarea> @*Наверное надо сделать*@
+                                    <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Сообщение" value=""></textarea> @*Наверное надо сделать*@
                                 </div>
                             </div>
                             <div class="col-md-12">
