@@ -120,6 +120,7 @@ namespace AutoRep.Controllers
             string x = String.Join(", ", workTypes.Select(x => x.Name));
             return x;
         }
+
         // POST: Requests/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -128,6 +129,7 @@ namespace AutoRep.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,WorkType,Name,PhoneNumber,Email,WorkTypeIds")] UserRequest request)
         {
+            GetWorkTypeList();
             if (ModelState.IsValid)
             {
                 request.WorkType = string.Join(",", request.WorkTypeIds);
@@ -135,7 +137,6 @@ namespace AutoRep.Controllers
                 await _context.SaveChangesAsync();
                 if (!User.Identity.IsAuthenticated)
                 {
-                    GetWorkTypeList();
                     ModelState.Clear();
                     return View("../Home/Index");
                 }

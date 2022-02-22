@@ -34,11 +34,13 @@ namespace AutoRep.Controllers
             GetWorkTypeList();
             return View();
         }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(UserRequest request)
         {
+            GetWorkTypeList();
             if (ModelState.IsValid)
             {
                 request.WorkType = string.Join(",", request.WorkTypeIds);
@@ -46,7 +48,6 @@ namespace AutoRep.Controllers
                 await _context.SaveChangesAsync();
                 if (!User.Identity.IsAuthenticated)
                 {
-                    GetWorkTypeList();
                     ModelState.Clear();
                     return View("../Home/Index");
                 }
@@ -59,6 +60,7 @@ namespace AutoRep.Controllers
         {
             return View();
         }
+
         // make a viewbug of workTypes
         public List<WorkType> GetWorkTypeList()
         {
