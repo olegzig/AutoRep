@@ -23,8 +23,8 @@ namespace AutoRep.Models
 
         [NotMapped]
         [Display(Name = "Пароль")]
-        [StringLength(100, ErrorMessage = "Пароль должен состоять из {2} символов как минимум, и быть не длиннее {1} символов.", MinimumLength = 6)]
         [Required(ErrorMessage = "Данная информация необходима")]
+        [StringLength(100, ErrorMessage = "Пароль должен состоять из {2} символов как минимум, и быть не длиннее {1} символов.", MinimumLength = 6)]
         public string Password { get; set; }
 
         [NotMapped]

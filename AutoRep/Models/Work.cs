@@ -9,7 +9,6 @@ namespace AutoRep.Models
         public int Id { get; set; }
 
         [Display(Name = "Оказываемая услуга")]
-        [Required(ErrorMessage = "Данная информация необходима")]
         public string WorkType { get; set; }//работа которую нужно проделать
 
         [NotMapped]
@@ -22,7 +21,6 @@ namespace AutoRep.Models
         public string[] MachinePartsIds { get; set; }//Id работ которые нужно проделать
 
         [Display(Name = "Работник")]
-        [Required(ErrorMessage = "Данная информация необходима")]
         public string Worker { get; set; }//работник который делает/сделает/записал
 
         [Display(Name = "ФИО клиента")]
@@ -41,9 +39,9 @@ namespace AutoRep.Models
         [Required(ErrorMessage = "Данная информация необходима")]
         public string CarModel { get; set; }
 
-        [EmailAddress(ErrorMessage = "Это не корректная электронная почта.")]
         [Display(Name = "Электронная почта")]
         [Required(ErrorMessage = "Данная информация необходима")]
+        [EmailAddress(ErrorMessage = "Это не корректная электронная почта.")]
         public string Email { get; set; }
 
         [Display(Name = "Дата")]

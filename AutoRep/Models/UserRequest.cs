@@ -9,7 +9,6 @@ namespace AutoRep.Models
         public int Id { get; set; }
 
         [Display(Name = "Услуга")]
-        [Required(ErrorMessage = "Данная информация необходима")]
         public string WorkType { get; set; }//работа которую нужно проделать
 
         [NotMapped]
