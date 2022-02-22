@@ -83,7 +83,6 @@
                             @*<p><a href="#" class="btn-custom">Read more</a></p>*@
                         </div>
                     </div>
-
                 </div>
                 <div class="col-md-4 services ftco-animate">
                     <div class="d-block d-flex">
@@ -140,8 +139,8 @@
                 <div class="col-md-6 d-flex">
                     <div class="img img-video d-flex align-self-stretch align-items-center justify-content-center mb-4 mb-sm-0" style="background-image: url('/images/about.jpg'); ">
                         @*<a href="https://vimeo.com/45830194" class="icon-video popup-vimeo d-flex justify-content-center align-items-center">
-                            <span class="fa fa-play"></span>
-                        </a>*@
+                                <span class="fa fa-play"></span>
+                            </a>*@
                     </div>
                 </div>
                 <div class="col-md-6 pl-md-5">
@@ -239,23 +238,32 @@
                 <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate heading-section heading-section-white">
                     <span class="subheading">Записаться</span>
                     @*<h2 class="mb-4">Список услуг</h2>*@
-                    <form asp-action="Edit" class="appointment">
+                    <form asp-action="Index" class="appointment">
                         <div class="row">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <input type="hidden" asp-for="Id" />
                             <div class="col-md-12">
+                                @*<div class="form-group">
+                                                <div class="form-field">
+                                                    <div class="select-wrap">
+                                                        <div class="icon"><span class="fa fa-chevron-down"></span></div>
+                                    <select name="" id="" class="form-control">
+                                        <option value="">Select services</option>
+                                        <option value="">Change Oil</option>
+                                        <option value="">Engine Repair</option>
+                                        <option value="">Battery Replace</option>
+                                        <option value="">Change Tire</option>
+                                        <option value="">Tow Truck</option>
+                                    </select>
+                                                    </div>
+                                                </div>
+                                            </div>*@
                                 <div class="form-group">
                                     <div class="form-field">
                                         <div class="select-wrap">
-                                            @*<div class="icon"><span class="fa fa-chevron-down"></span></div>
-                        <select name="" id="" class="form-control">
-                            <option value="">Select services</option>
-                            <option value="">Change Oil</option>
-                            <option value="">Engine Repair</option>
-                            <option value="">Battery Replace</option>
-                            <option value="">Change Tire</option>
-                            <option value="">Tow Truck</option>
-                        </select>*@
+                                            <div class="icon"><span class="fa fa-chevron-down"></span></div>
+                                            <div>@Html.ListBoxFor(x => x.WorkTypeIds, new MultiSelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control", id = "multipleSelectWorkType", multiple = "multiple", width="100%" })</div>
+                                            <span asp-validation-for="WorkType" class="text-danger"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -263,19 +271,21 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input asp-for="Name" class="form-control" type="text" placeholder="Ваше имя" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Номер машины">
+                                    <input asp-for="Email" class="form-control" placeholder="Электронная почта" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
                             </div>
                             @*<div class="col-md-6">
-                                <div class="form-group">
-                                    <input asp-for="" class="form-control" />
-                                    <span asp-validation-for="Date" class="text-danger"></span>
-                                </div>
-                            </div>*@
+                                    <div class="form-group">
+                                        <input asp-for="" class="form-control" />
+                                        <span asp-validation-for="Date" class="text-danger"></span>
+                                    </div>
+                                </div>*@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input asp-for="PhoneNumber" class="form-control" placeholder="Телефонный номер" />
@@ -284,7 +294,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Сообщение"></textarea>
+                                    <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Сообщение"></textarea> @*Наверное надо сделать*@
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -303,8 +313,8 @@
         <div class="container">
             <div class="row justify-content-center pb-5 mb-3">
                 <div class="col-md-7 heading-section heading-section-white text-center ftco-animate">
-                    <span class="subheading">Testimonies</span>
-                    <h2>Happy Clients &amp; Feedbacks</h2>
+                    <span class="subheading">Отзывы</span>
+                    <h2>Счастливые клиенты &amp; Отзывы</h2>
                 </div>
             </div>
             <div class="row ftco-animate">
@@ -314,12 +324,12 @@
                             <div class="testimony-wrap py-4">
                                 <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
                                 <div class="text">
-                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="mb-4">Отличное СТО с отличными мастерами. Всегда помогут и расскажут, дадут совет по эксплуатации авто. Обслуживался на многих СТО, но там всегда обманывали или было очень дорого. Тут можно быть уверенным, что работу проведут качественно, быстро и без обманов.</p>
                                     <div class="d-flex align-items-center">
                                         <div class="user-img" style="background-image: url('/images/person_1.jpg')"></div>
                                         <div class="pl-3">
-                                            <p class="name">Roger Scott</p>
-                                            <span class="position">Marketing Manager</span>
+                                            <p class="name">Федор Филатов</p>
+                                            <span class="position">Местный эксперт</span>
                                         </div>
                                     </div>
                                 </div>
@@ -329,12 +339,12 @@
                             <div class="testimony-wrap py-4">
                                 <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
                                 <div class="text">
-                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="mb-4">Хороший сервис, приветливые работники, доступные цены. Делали шиномонтаж, остались довольны работой слесаря-шиномонтажника Валеры. Приедем ещё.</p>
                                     <div class="d-flex align-items-center">
                                         <div class="user-img" style="background-image: url('/images/person_2.jpg')"></div>
                                         <div class="pl-3">
-                                            <p class="name">Roger Scott</p>
-                                            <span class="position">Marketing Manager</span>
+                                            <p class="name">Геннадий Малахов</p>
+                                            <span class="position">Пользователь</span>
                                         </div>
                                     </div>
                                 </div>
@@ -344,12 +354,17 @@
                             <div class="testimony-wrap py-4">
                                 <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
                                 <div class="text">
-                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="mb-4">
+                                        Отлично.
+                                        Дёшево.
+                                        Всё спокойно, аккуратно и цена хорошая.
+                                        Немаловажно и расположение.
+                                    </p>
                                     <div class="d-flex align-items-center">
                                         <div class="user-img" style="background-image: url('/images/person_3.jpg')"></div>
                                         <div class="pl-3">
-                                            <p class="name">Roger Scott</p>
-                                            <span class="position">Marketing Manager</span>
+                                            <p class="name">Анатолий Горцев</p>
+                                            <span class="position">Пользователь</span>
                                         </div>
                                     </div>
                                 </div>
@@ -359,12 +374,12 @@
                             <div class="testimony-wrap py-4">
                                 <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
                                 <div class="text">
-                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="mb-4">Отличное СТО. Александр знает свою работу, может что то порекомендовать или подсказать</p>
                                     <div class="d-flex align-items-center">
                                         <div class="user-img" style="background-image: url('/images/person_1.jpg')"></div>
                                         <div class="pl-3">
-                                            <p class="name">Roger Scott</p>
-                                            <span class="position">Marketing Manager</span>
+                                            <p class="name">Сергей Забавский</p>
+                                            <span class="position">Пользоватль</span>
                                         </div>
                                     </div>
                                 </div>
@@ -374,12 +389,12 @@
                             <div class="testimony-wrap py-4">
                                 <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
                                 <div class="text">
-                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="mb-4">Отгонял на ремонт суппорта. Все сделали четко, дали рекомендации. В общем рекомендую.</p>
                                     <div class="d-flex align-items-center">
                                         <div class="user-img" style="background-image: url('/images/person_2.jpg')"></div>
                                         <div class="pl-3">
-                                            <p class="name">Roger Scott</p>
-                                            <span class="position">Marketing Manager</span>
+                                            <p class="name">Андрей галудик</p>
+                                            <span class="position">Пользователь</span>
                                         </div>
                                     </div>
                                 </div>
@@ -391,7 +406,7 @@
         </div>
     </section>
 
-    <section class="ftco-section">
+    @*<section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center pb-5 mb-3">
                 <div class="col-md-7 heading-section text-center ftco-animate">
@@ -450,70 +465,70 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>*@
 
     <section class="ftco-section bg-light">
         <div class="container">
             <div class="row justify-content-center pb-5 mb-3">
                 <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Price &amp; Plans</span>
-                    <h2>Pricing</h2>
+                    <span class="subheading">Цены &amp; Услуги</span>
+                    <h2>Цены</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="block-7">
                         <div class="text-center">
-                            <span class="excerpt d-block">First PMS</span>
-                            <span class="price"><sup>$</sup> <span class="number">78.98</span></span>
+                            <span class="excerpt d-block">Компьютерная диагностика авто</span>
+                            <span class="price"><sup>BYN</sup> <span class="number">100</span></span>
 
                             <div class="pricing-text">
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                <p>Компьютерная диагностика – это один из наиболее современных, быстрых и точных способов определения поломок или неисправностей в самых различных узлах автомобильного транспорта.</p>
                             </div>
 
-                            <a href="#" class="btn btn-secondary d-block px-2 py-3">Get Started</a>
+                            <a asp-controller="Requests" asp-action="Create" class="btn btn-secondary d-block px-2 py-3">Подать заявку</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="block-7">
                         <div class="text-center">
-                            <span class="excerpt d-block">Engine Diagnostics</span>
-                            <span class="price"><sup>$</sup> <span class="number">83.75</span></span>
+                            <span class="excerpt d-block">Замена фильтров</span>
+                            <span class="price"><sup>BYN</sup> <span class="number">50</span></span>
 
                             <div class="pricing-text">
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                <p>Замена топливного, маслянного и воздушного фильтра.</p>
                             </div>
 
-                            <a href="#" class="btn btn-secondary d-block px-2 py-3">Get Started</a>
+                            <a asp-controller="Requests" asp-action="Create" class="btn btn-secondary d-block px-2 py-3">Подать заявку</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="block-7">
                         <div class="text-center">
-                            <span class="excerpt d-block">Tow Truck</span>
-                            <span class="price"><sup>$</sup> <span class="number">85.00</span></span>
+                            <span class="excerpt d-block">Ремонт двигателя</span>
+                            <span class="price"><sup>BYN</sup> <span class="number">85</span></span>
 
                             <div class="pricing-text">
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                <p>Двигатель – самый важный узел любого транспортного средства. Эксплуатация автомобиля сопровождается большой нагрузкой на этот силовой агрегат. Но со временем наступает износ мотора.</p>
                             </div>
 
-                            <a href="#" class="btn btn-secondary d-block px-2 py-3">Get Started</a>
+                            <a asp-controller="Requests" asp-action="Create" class="btn btn-secondary d-block px-2 py-3">Подать заявку</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="block-7">
                         <div class="text-center">
-                            <span class="excerpt d-block">Car Wash</span>
-                            <span class="price"><sup>$</sup> <span class="number">30.50</span></span>
+                            <span class="excerpt d-block">Ремонт подвески</span>
+                            <span class="price"><sup>BYN</sup> <span class="number">30</span></span>
 
                             <div class="pricing-text">
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                <p>Подвеска отвечает за обеспечение хорошего сцепления колес с дорогой, а также сохранения равновесия кузова. Неполадки с ней могут привести к ухудшению контроля машины во время движения, а также к заносам.</p>
                             </div>
 
-                            <a href="#" class="btn btn-secondary d-block px-2 py-3">Get Started</a>
+                            <a asp-controller="Requests" asp-action="Create" class="btn btn-secondary d-block px-2 py-3">Подать заявку</a>
                         </div>
                     </div>
                 </div>
@@ -525,8 +540,8 @@
         <div class="container">
             <div class="row justify-content-center pb-5 mb-3">
                 <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Projects</span>
-                    <h2>Done Projects</h2>
+                    <span class="subheading">Проекты</span>
+                    <h2>Наши проекты</h2>
                 </div>
             </div>
         </div>
@@ -534,39 +549,39 @@
             <div class="row no-gutters">
                 <div class="col-md-3 ftco-animate">
                     <div class="work img d-flex align-items-end" style="background-image: url('/images/work-1.jpg');">
-                        <a href="'/images/work-1.jpg'" class="icon image-popup d-flex justify-content-center align-items-center">
+                        <a href="/images/work-1.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
                             <span class="fa fa-expand"></span>
                         </a>
                         <div class="desc w-100 px-4">
                             <div class="text w-100 mb-3">
-                                <span>Engine</span>
-                                <h2><a href="work-single.html">Engine Testing Complated</a></h2>
+                                <span>Двигатель</span>
+                                <h2><a href="work-single.html">Проверка двигателя завершена</a></h2>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3 ftco-animate">
                     <div class="work img d-flex align-items-end" style="background-image: url('/images/work-2.jpg');">
-                        <a href="'/images/work-2.jpg'" class="icon image-popup d-flex justify-content-center align-items-center">
+                        <a href="/images/work-2.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
                             <span class="fa fa-expand"></span>
                         </a>
                         <div class="desc w-100 px-4">
                             <div class="text w-100 mb-3">
-                                <span>Oil Change</span>
-                                <h2><a href="work-single.html">Change Oil Completed</a></h2>
+                                <span>Замена маста</span>
+                                <h2><a href="work-single.html">Замена масла завершена</a></h2>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3 ftco-animate">
                     <div class="work img d-flex align-items-end" style="background-image: url('/images/work-3.jpg');">
-                        <a href="'/images/work-3.jpg'" class="icon image-popup d-flex justify-content-center align-items-center">
+                        <a href="/images/work-3.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
                             <span class="fa fa-expand"></span>
                         </a>
                         <div class="desc w-100 px-4">
                             <div class="text w-100 mb-3">
-                                <span>Engine</span>
-                                <h2><a href="work-single.html">Engine Diagnostics</a></h2>
+                                <span>Двигатель</span>
+                                <h2><a href="work-single.html">Диагностика двигателя завершена</a></h2>
                             </div>
                         </div>
                     </div>
@@ -574,13 +589,13 @@
 
                 <div class="col-md-3 ftco-animate">
                     <div class="work img d-flex align-items-end" style="background-image: url('/images/work-4.jpg');">
-                        <a href="'/images/work-4.jpg'" class="icon image-popup d-flex justify-content-center align-items-center">
+                        <a href="/images/work-4.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
                             <span class="fa fa-expand"></span>
                         </a>
                         <div class="desc w-100 px-4">
                             <div class="text w-100 mb-3">
-                                <span>Tire</span>
-                                <h2><a href="work-single.html">Tire Change</a></h2>
+                                <span>Шины</span>
+                                <h2><a href="work-single.html">Замена шин</a></h2>
                             </div>
                         </div>
                     </div>
@@ -588,7 +603,6 @@
             </div>
         </div>
     </section>
-
 
     <!-- loader -->
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
@@ -604,3 +618,18 @@
     <script src="~/js/scrollax.min.js"></script>
     <script src="~/js/main.js"></script>
 </body>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(function () {
+            $("#multipleSelectWorkType").chosen(
+                {
+                    disable_search_threshold: 10,
+                    no_results_text: "Не найдено: ",
+                    width: "100%",
+                    placeholder_text_multiple: "Услуги"
+                }
+            );
+        });
+    </script>
+}
