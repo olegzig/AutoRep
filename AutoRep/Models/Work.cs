@@ -11,12 +11,14 @@ namespace AutoRep.Models
         [Display(Name = "Оказываемая услуга")]
         public string WorkType { get; set; }//работа которую нужно проделать
 
+        [Required(ErrorMessage = "Выберите хотя бы один элемент")]
         [NotMapped]
         public string[] WorkTypeIds { get; set; }//Id работ которые нужно проделать
 
         [Display(Name = "Детали")]
         public string MachineParts { get; set; }//Используемые детали
 
+        [Required(ErrorMessage = "Выберите хотя бы один элемент")]
         [NotMapped]
         public string[] MachinePartsIds { get; set; }//Id работ которые нужно проделать
 
@@ -28,7 +30,7 @@ namespace AutoRep.Models
         public string Client { get; set; }//Клиент и его контактные данные
 
         [Display(Name = "Мобильный телефон")]
-        [Required]
+        [Required(ErrorMessage = "Данная информация необходима")]
         public string PhoneNumber { get; set; }//Клиент и его контактные данные
 
         [Display(Name = "Номер машины клиента")]

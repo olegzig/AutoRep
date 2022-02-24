@@ -254,7 +254,7 @@ namespace AutoRep.Controllers
             ViewBag.Email = work.Email;
             ViewBag.Phone = work.PhoneNumber;
             ViewBag.Work = work.WorkType.Split(',');//пока нигде не используется!
-            
+
             return View();
         }
 
