@@ -253,7 +253,8 @@ namespace AutoRep.Controllers
             ViewBag.MadeOnId = id;
             ViewBag.Email = work.Email;
             ViewBag.Phone = work.PhoneNumber;
-            ViewBag.Work = work.WorkType;//пока нигде не используется!
+            ViewBag.Work = work.WorkType.Split(',');//пока нигде не используется!
+            
             return View();
         }
 
@@ -262,8 +263,11 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Client,Worker,Date,WorkType,MadeOnId,MachineParts,PhoneNuber,CarNumber,CarModel,Email,IsCompleted,WorkTypeIds,MachinePartsIds")] Work work)
+        public async Task<IActionResult> Create(Work work)
         {
+            GetUsersList();
+            GetWorkTypeList();
+            GetmachinePartsList();
             if (ModelState.IsValid)
             {
                 //User user = new User();
@@ -320,8 +324,11 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Client,Worker,Date,WorkType,MadeOnId,MachineParts,PhoneNuber,CarNumber,CarModel,Email,IsCompleted,WorkTypeIds,MachinePartsIds")] Work work)
+        public async Task<IActionResult> Edit(int id, Work work)
         {
+            GetUsersList();
+            GetWorkTypeList();
+            GetmachinePartsList();
             if (id != work.Id)
             {
                 return NotFound();

@@ -28,7 +28,7 @@ namespace AutoRep.Models
         public string Client { get; set; }//Клиент и его контактные данные
 
         [Display(Name = "Мобильный телефон")]
-        [Required(ErrorMessage = "Данная информация необходима")]
+        [Required]
         public string PhoneNumber { get; set; }//Клиент и его контактные данные
 
         [Display(Name = "Номер машины клиента")]

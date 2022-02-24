@@ -62,11 +62,11 @@
             <div>@Html.ListBoxFor(x => x.MachinePartsIds, new SelectList(ViewBag.MachinePartsBag, "Id", "Name"), new { @class = "form-control", id = "multipleSelectParts", multiple = "multiple" })</div>
             <span asp-validation-for="MachineParts" class="text-danger"></span>
         </div>
-        <div class="form-check form-group col">
-            <input asp-for="IsCompleted" class="form-check-input" />
-            <label asp-for="IsCompleted" class="form-check-label"></label>
-            <span asp-validation-for="IsCompleted" class="text-danger"></span>
-        </div>
+    </div>
+    <div class="form-check form-group col">
+        <input asp-for="IsCompleted" class="form-check-input" />
+        <label asp-for="IsCompleted" class="form-check-label"></label>
+        <span asp-validation-for="IsCompleted" class="text-danger"></span>
     </div>
     <div class="form-group col px-0">
         <input type="submit" value="Сохранить" class="btn btn-primary" />
