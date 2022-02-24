@@ -173,8 +173,30 @@ namespace AutoRep.Controllers
             }
 
             con.Close();
-            string x = String.Join(", ", workTypes.Select(x => x.Name));
-            return x;
+            return String.Join(", ", workTypes.Select(x => x.Name));
+        }
+
+        //make cost of machineparts
+        public double GetWorkTypeCost(string[] MPIds)
+        {
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            SqlConnection con = new SqlConnection(connection);
+            SqlCommand cmd = new SqlCommand("select [id],[cost] from [WorkType]", con);
+            con.Open();
+            SqlDataReader idr = cmd.ExecuteReader();
+
+            List<MachineParts> WorkTypes = new List<MachineParts>();
+            if (idr.HasRows)
+            {
+                while (idr.Read())
+                {
+                    if (MPIds.Contains(idr["id"].ToString()))
+                        WorkTypes.Add(new MachineParts { Id = Convert.ToInt32(idr["Id"]), Cost = Convert.ToDouble(idr["Cost"]) });
+                }
+            }
+
+            con.Close();
+            return WorkTypes.Sum(x => x.Cost);
         }
 
         // make a viewbug of machineParts
@@ -220,8 +242,30 @@ namespace AutoRep.Controllers
             }
 
             con.Close();
-            string x = String.Join(", ", machineParts.Select(x => x.Name));
-            return x;
+            return String.Join(", ", machineParts.Select(x => x.Name));
+        }
+
+        //make cost of machineparts
+        public double GetmachinePartsCost(string[] MPIds)
+        {
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            SqlConnection con = new SqlConnection(connection);
+            SqlCommand cmd = new SqlCommand("select [id],[cost] from [MachineParts]", con);
+            con.Open();
+            SqlDataReader idr = cmd.ExecuteReader();
+
+            List<MachineParts> machineParts = new List<MachineParts>();
+            if (idr.HasRows)
+            {
+                while (idr.Read())
+                {
+                    if (MPIds.Contains(idr["id"].ToString()))
+                        machineParts.Add(new MachineParts { Id = Convert.ToInt32(idr["Id"]), Cost = Convert.ToDouble(idr["Cost"]) });
+                }
+            }
+
+            con.Close();
+            return machineParts.Sum(x => x.Cost);
         }
 
         // GET: WorkC/Create
@@ -277,7 +321,7 @@ namespace AutoRep.Controllers
 
                 work.WorkType = string.Join(",", work.WorkTypeIds);
                 work.MachineParts = string.Join(",", work.MachinePartsIds);
-
+                work.Cost = GetmachinePartsCost(work.MachinePartsIds) + GetWorkTypeCost(work.WorkTypeIds);
                 _context.Add(work);
                 //send email
                 if (work.MadeOnId != null)
@@ -316,6 +360,7 @@ namespace AutoRep.Controllers
             }
             work.WorkTypeIds = work.WorkType.Split(',');
             work.MachinePartsIds = work.MachineParts.Split(',');
+            work.Cost = GetmachinePartsCost(work.MachinePartsIds) + GetWorkTypeCost(work.WorkTypeIds);
             return View(work);
         }
 
@@ -338,6 +383,7 @@ namespace AutoRep.Controllers
             {
                 work.WorkType = string.Join(",", work.WorkTypeIds);
                 work.MachineParts = string.Join(",", work.MachinePartsIds);
+                work.Cost = GetmachinePartsCost(work.MachinePartsIds) + GetWorkTypeCost(work.WorkTypeIds);
                 try
                 {
                     _context.Update(work);
