@@ -57,6 +57,10 @@ namespace AutoRep.Models
         [Display(Name = "Основан на id")]
         public int? MadeOnId { get; set; }//для отслеживания на каком Id сделан
 
+        [Display(Name = "Итоговая стоимость")]
+        public double Cost { get; set; }
+
+
         public enum SortState
         {
             ClientAsc,
