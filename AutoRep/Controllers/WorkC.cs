@@ -135,7 +135,7 @@ namespace AutoRep.Controllers
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
             SqlConnection con = new SqlConnection(connection);
-            SqlCommand cmd = new SqlCommand("select [id],[name] from [WorkType]", con);
+            SqlCommand cmd = new SqlCommand("select [id],[name],[cost] from [WorkType]", con);
             con.Open();
             SqlDataReader idr = cmd.ExecuteReader();
 
@@ -144,7 +144,7 @@ namespace AutoRep.Controllers
             {
                 while (idr.Read())
                 {
-                    workTypes.Add(new WorkType { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
+                    workTypes.Add(new WorkType { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) + " | " + Convert.ToString(idr["Cost"]) + " BYN " });
                 }
             }
 
@@ -204,7 +204,7 @@ namespace AutoRep.Controllers
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
             SqlConnection con = new SqlConnection(connection);
-            SqlCommand cmd = new SqlCommand("select [id],[name] from [MachineParts]", con);
+            SqlCommand cmd = new SqlCommand("select [id],[name],[cost] from [MachineParts]", con);
             con.Open();
             SqlDataReader idr = cmd.ExecuteReader();
 
@@ -213,7 +213,7 @@ namespace AutoRep.Controllers
             {
                 while (idr.Read())
                 {
-                    machineParts.Add(new MachineParts { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
+                    machineParts.Add(new MachineParts { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) + " | " + Convert.ToString(idr["Cost"]) + " BYN " });
                 }
             }
 
