@@ -54,13 +54,13 @@
         <div class="form-group col">
             <label asp-for="WorkType" class="control-label">Оказываемая услуга</label>
             <div>@Html.ListBoxFor(x => x.WorkTypeIds, new MultiSelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control", id = "multipleSelectWorkType", multiple = "multiple" })</div>
-            <span asp-validation-for="WorkType" class="text-danger"></span>
+            <span asp-validation-for="WorkTypeIds" class="text-danger"></span>
         </div>
         <div class="w-100"></div>
         <div class="form-group col">
             <label asp-for="MachineParts" class="control-label"></label>
             <div>@Html.ListBoxFor(x => x.MachinePartsIds, new SelectList(ViewBag.MachinePartsBag, "Id", "Name"), new { @class = "form-control", id = "multipleSelectParts", multiple = "multiple" })</div>
-            <span asp-validation-for="MachineParts" class="text-danger"></span>
+            <span asp-validation-for="MachinePartsIds" class="text-danger"></span>
         </div>
     </div>
     <div class="form-check form-group col">
