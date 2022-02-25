@@ -1,607 +1,670 @@
 ﻿@model AutoRep.Models.UserRequest
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<SUser> SignInManager
+@inject UserManager<SUser> UserManager
 @{
     ViewData["Title"] = "Главная страница";
 }
-<body>
-    <div class="hero-wrap">
-        <div class="home-slider owl-carousel">
-            <div class="slider-item" style="background-image: url('/images/bg_1.jpg'); ">
-                <div class="overlay"></div>
-                <div class="container">
-                    <div class="row no-gutters slider-text align-items-center justify-content-start">
-                        <div class="col-md-6 ftco-animate">
-                            <div class="text w-100">
-                                <h2>Мы лучшая автомастерская в городе</h2>
-                                <h1 class="mb-4">Пусть ваша машина проработает дольше</h1>
-                                <p><a href="#" class="btn btn-primary">Подать заявку</a></p>
+@if (!SignInManager.IsSignedIn(User))
+{
+    <body>
+        <div class="hero-wrap">
+            <div class="home-slider owl-carousel">
+                <div class="slider-item" style="background-image: url('/images/bg_1.jpg'); ">
+                    <div class="overlay"></div>
+                    <div class="container">
+                        <div class="row no-gutters slider-text align-items-center justify-content-start">
+                            <div class="col-md-6 ftco-animate">
+                                <div class="text w-100">
+                                    <h2>Мы лучшая автомастерская в городе</h2>
+                                    <h1 class="mb-4">Пусть ваша машина проработает дольше</h1>
+                                    <p><a class="btn btn-primary" asp-area="" asp-controller="Requests" asp-action="Create">Подать заявку</a></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="slider-item" style="background-image: url('/images/bg_2.jpg'); ">
-                <div class="overlay"></div>
-                <div class="container">
-                    <div class="row no-gutters slider-text align-items-center justify-content-start">
-                        <div class="col-md-6 ftco-animate">
-                            <div class="text w-100">
-                                <h2>Мы позамотимся о вашей машине!</h2>
-                                <h1 class="mb-4">Время починить её!</h1>
-                                <p><a href="#" class="btn btn-primary">Подать заявку</a></p>
+                <div class="slider-item" style="background-image: url('/images/bg_2.jpg'); ">
+                    <div class="overlay"></div>
+                    <div class="container">
+                        <div class="row no-gutters slider-text align-items-center justify-content-start">
+                            <div class="col-md-6 ftco-animate">
+                                <div class="text w-100">
+                                    <h2>Мы позамотимся о вашей машине!</h2>
+                                    <h1 class="mb-4">Время починить её!</h1>
+                                    <p><a class="btn btn-primary" asp-area="" asp-controller="Requests" asp-action="Create">Подать заявку</a></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <section class="intro">
+            <div class="container intro-wrap">
+                <div class="row no-gutters">
+                    <div class="col-md-12 col-lg-9 bg-intro d-sm-flex align-items-center align-items-stretch">
+                        <div class="intro-box d-flex align-items-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <i class="flaticon-repair"></i>
+                            </div>
+                            <h2 class="mb-0">Вы готовы? <span>Давайте приступим!</span></h2>
+                        </div>
+                        <a class="bg-primary btn-custom d-flex align-items-center" asp-area="" asp-controller="Requests" asp-action="Create"><span>Подать заявку</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ftco-section">
+            <div class="container">
+                <div class="row justify-content-center pb-5 mb-3">
+                    <div class="col-md-7 heading-section text-center ftco-animate">
+                        <span class="subheading">Мы предоставляем услуги</span>
+                        <h2>Наши услуги</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 services ftco-animate">
+                        <div class="d-block d-flex">
+                            <div class="icon d-flex justify-content-center align-items-center">
+                                <span class="flaticon-car-service"></span>
+                            </div>
+                            <div class="media-body pl-3">
+                                <h3 class="heading">Замена масла</h3>
+                                <p>Замена масла выполняется при регулярном техническом обслуживании авто, и включает устанавку нового фильтра.</p>
+                                @*<p><a href="#" class="btn-custom">Read more</a></p>*@
+                            </div>
+                        </div>
+                        <div class="d-block d-flex">
+                            <div class="icon d-flex justify-content-center align-items-center">
+                                <span class="flaticon-tyre"></span>
+                            </div>
+                            <div class="media-body pl-3">
+                                <h3 class="heading">Замена шин</h3>
+                                <p>Шиномонтаж – это очень востребованная процедура среди автолюбителей. Существует несколько видов шиномонтажа: ремонт грыж, проколов, боковых порезов и дисков.</p>
+                                @*<p><a href="#" class="btn-custom">Read more</a></p>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 services ftco-animate">
+                        <div class="d-block d-flex">
+                            <div class="icon d-flex justify-content-center align-items-center">
+                                <span class="flaticon-battery"></span>
+                            </div>
+                            <div class="media-body pl-3">
+                                <h3 class="heading">Аккумуляторы</h3>
+                                <p>Мы проверим ваш аккумулятор, подберём и доставим новый, диагностируем вашу сисему энергосбережения.</p>
+                                @*<p><a href="#" class="btn-custom">Read more</a></p>*@
+                            </div>
+                        </div>
+                        <div class="d-block d-flex">
+                            <div class="icon d-flex justify-content-center align-items-center">
+                                <span class="flaticon-car-engine"></span>
+                            </div>
+                            <div class="media-body pl-3">
+                                <h3 class="heading">Ремонт двигателя</h3>
+                                <p>Ремонт двигателя осуществляется опытными мастерами на современном оборудовании.</p>
+                                @*<p><a href="#" class="btn-custom">Read more</a></p>*@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 services ftco-animate">
+                        <div class="d-block d-flex">
+                            <div class="icon d-flex justify-content-center align-items-center">
+                                <span class="flaticon-tow-truck"></span>
+                            </div>
+                            <div class="media-body pl-3">
+                                <h3 class="heading">Ремонт подвески</h3>
+                                <p>Индивидуальный подход к каждому клиенту!</p>
+                                @*<p><a href="#" class="btn-custom">Read more</a></p>*@
+                            </div>
+                        </div>
+                        <div class="d-block d-flex">
+                            <div class="icon d-flex justify-content-center align-items-center">
+                                <span class="flaticon-repair"></span>
+                            </div>
+                            <div class="media-body pl-3">
+                                <h3 class="heading">Техническое обслуживание автомобиля</h3>
+                                <p>Своевременное техническое обслуживание способствует выявлению имеющихся неисправностей, значительно снижает Ваши затраты на топливо, а так же продлевает срок службы автомобиля.</p>
+                                @*<p><a href="#" class="btn-custom">Read more</a></p>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ftco-section ftco-no-pt ftco-no-pb bg-light">
+            <div class="container">
+                <div class="row d-flex no-gutters">
+                    <div class="col-md-6 d-flex">
+                        <div class="img img-video d-flex align-self-stretch align-items-center justify-content-center mb-4 mb-sm-0" style="background-image: url('/images/about.jpg'); ">
+                            @*<a href="https://vimeo.com/45830194" class="icon-video popup-vimeo d-flex justify-content-center align-items-center">
+                                    <span class="fa fa-play"></span>
+                                </a>*@
+                        </div>
+                    </div>
+                    <div class="col-md-6 pl-md-5">
+                        <div class="row justify-content-start py-5">
+                            <div class="col-md-12 heading-section ftco-animate">
+                                <span class="subheading">Добро пожаловать в нашу автомастерскую</span>
+                                <h2 class="mb-4">Мы помогаем людям больше 5 лет</h2>
+                                <p>
+                                    Выполним профессиональный ремонт легковых автомобилей любых марок и моделей. СТО для ремонта авто оснащено самым современным оборудованием для проведения все видов диагностики, кузовных и других видов работ. Работают профессиональные сотрудники с большим практическим опытом. К каждому клиенту обеспечивается индивидуальный подход, а цены являются одними из самых низких на рынке.
+
+                                    Ремонт легковых автомобилей осуществляется в строгом соответствии с правилами и требованиями нормативов. Полностью соблюдаем регламент. Для выполнения ремонта легковых авто используются оригинальные запчасти, либо качественные аналоги. Как правило, для высоконагруженных элементов рекомендуется ставить оригинал, а для второстепенных элементов подойдут качественные аналоги, цены на которые ниже.
+                                </p>
+                                <div class="tabulation-2 mt-4">
+                                    <ul class="nav nav-pills nav-fill d-md-flex d-block">
+                                        <li class="nav-item mb-md-0 mb-2">
+                                            <a class="nav-link active py-2" data-toggle="tab" href="#home1">Наша миссия</a>
+                                        </li>
+                                        <li class="nav-item px-lg-2 mb-md-0 mb-2">
+                                            <a class="nav-link py-2" data-toggle="tab" href="#home2">Наше видение</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link py-2 mb-md-0 mb-2" data-toggle="tab" href="#home3">Почему мы?</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content rounded mt-2">
+                                        <div class="tab-pane container p-0 active" id="home1">
+                                            <p>Наша миссия – обеспечить вам безопасность благодаря быстрому и качественному ремонту вашего автомобиля.</p>
+                                        </div>
+                                        <div class="tab-pane container p-0 fade" id="home2">
+                                            <p>Мы – хорошая компания, уровню эффективности и качеству обслуживания клиентов. Мы повышаем уровень сервиса обслуживания автомобилей в Беларуси до мировых стандартов путем изменения всей отрасли</p>
+                                        </div>
+                                        <div class="tab-pane container p-0 fade" id="home3">
+                                            <p>Мы предлагаем широкий спектр услуг по доступным ценам. Наши мастера сделают диагностику, определят неисправности, подберут необходимые запчасти и рассчитают общую стоимость ремонта. Каждое наше действие мы согласуем с вами.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ftco-counter" id="section-counter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" data-number="5">0</strong>
+                            </div>
+                            <div class="text">
+                                <span>Лет опыта</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" data-number="1000">0</strong>
+                            </div>
+                            <div class="text">
+                                <span>Работ выполнено</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" data-number="500">0</strong>
+                            </div>
+                            <div class="text">
+                                <span>Довольных покупателей</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" data-number="2">0</strong>
+                            </div>
+                            <div class="text">
+                                <span>Награды получены</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img" style="background-image: url('/images/bg_3.jpg');">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row d-md-flex justify-content-end">
+                    <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate heading-section heading-section-white">
+                        <span class="subheading">Записаться</span>
+                        @*<h2 class="mb-4">Список услуг</h2>*@
+                        <form asp-action="Index" class="appointment">
+                            <div class="row">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="form-field">
+                                            <div class="select-wrap">
+                                                <div class="icon"><span class="fa fa-chevron-down"></span></div>
+                                                <div>@Html.ListBoxFor(x => x.WorkTypeIds, new MultiSelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control", id = "multipleSelectWorkType", multiple = "multiple" })</div>
+                                                <span asp-validation-for="WorkType" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input asp-for="Name" class="form-control" type="text" placeholder="Ваше имя" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input asp-for="Email" class="form-control" placeholder="Электронная почта" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                @*<div class="col-md-6">
+                                        <div class="form-group">
+                                            <input asp-for="" class="form-control" />
+                                            <span asp-validation-for="Date" class="text-danger"></span>
+                                        </div>
+                                    </div>*@
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input asp-for="PhoneNumber" class="form-control" placeholder="Телефонный номер" />
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Сообщение"></textarea> @*Наверное надо сделать*@
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="submit" value="Отправить" class="btn btn-dark py-3 px-4">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ftco-section testimony-section bg-light">
+            <div class="container">
+                <div class="row justify-content-center pb-5 mb-3">
+                    <div class="col-md-7 heading-section heading-section-white text-center ftco-animate">
+                        <span class="subheading">Отзывы</span>
+                        <h2>Счастливые клиенты &amp; Отзывы</h2>
+                    </div>
+                </div>
+                <div class="row ftco-animate">
+                    <div class="col-md-12">
+                        <div class="carousel-testimony owl-carousel ftco-owl">
+                            <div class="item">
+                                <div class="testimony-wrap py-4">
+                                    <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                                    <div class="text">
+                                        <p class="mb-4">Отличное СТО с отличными мастерами. Всегда помогут и расскажут, дадут совет по эксплуатации авто. Обслуживался на многих СТО, но там всегда обманывали или было очень дорого. Тут можно быть уверенным, что работу проведут качественно, быстро и без обманов.</p>
+                                        <div class="d-flex align-items-center">
+                                            <div class="user-img" style="background-image: url('/images/person_1.jpg')"></div>
+                                            <div class="pl-3">
+                                                <p class="name">Федор Филатов</p>
+                                                <span class="position">Местный эксперт</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="testimony-wrap py-4">
+                                    <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                                    <div class="text">
+                                        <p class="mb-4">Хороший сервис, приветливые работники, доступные цены. Делали шиномонтаж, остались довольны работой слесаря-шиномонтажника Валеры. Приедем ещё.</p>
+                                        <div class="d-flex align-items-center">
+                                            <div class="user-img" style="background-image: url('/images/person_2.jpg')"></div>
+                                            <div class="pl-3">
+                                                <p class="name">Геннадий Малахов</p>
+                                                <span class="position">Пользователь</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="testimony-wrap py-4">
+                                    <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                                    <div class="text">
+                                        <p class="mb-4">
+                                            Отлично.
+                                            Дёшево.
+                                            Всё спокойно, аккуратно и цена хорошая.
+                                            Немаловажно и расположение.
+                                        </p>
+                                        <div class="d-flex align-items-center">
+                                            <div class="user-img" style="background-image: url('/images/person_3.jpg')"></div>
+                                            <div class="pl-3">
+                                                <p class="name">Анатолий Горцев</p>
+                                                <span class="position">Пользователь</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="testimony-wrap py-4">
+                                    <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                                    <div class="text">
+                                        <p class="mb-4">Отличное СТО. Александр знает свою работу, может что то порекомендовать или подсказать</p>
+                                        <div class="d-flex align-items-center">
+                                            <div class="user-img" style="background-image: url('/images/person_1.jpg')"></div>
+                                            <div class="pl-3">
+                                                <p class="name">Сергей Забавский</p>
+                                                <span class="position">Пользоватль</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="testimony-wrap py-4">
+                                    <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                                    <div class="text">
+                                        <p class="mb-4">Отгонял на ремонт суппорта. Все сделали четко, дали рекомендации. В общем рекомендую.</p>
+                                        <div class="d-flex align-items-center">
+                                            <div class="user-img" style="background-image: url('/images/person_2.jpg')"></div>
+                                            <div class="pl-3">
+                                                <p class="name">Андрей галудик</p>
+                                                <span class="position">Пользователь</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        @*<section class="ftco-section">
+                <div class="container">
+                    <div class="row justify-content-center pb-5 mb-3">
+                        <div class="col-md-7 heading-section text-center ftco-animate">
+                            <span class="subheading">News &amp; Blog</span>
+                            <h2>Latest news from our blog</h2>
+                        </div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col-md-4 d-flex ftco-animate">
+                            <div class="blog-entry align-self-stretch">
+                                <a href="blog-single.html" class="block-20 rounded" style="background-image: url('/images/image_1.jpg');">
+                                </a>
+                                <div class="text mt-3">
+                                    <div class="posted mb-3 d-flex">
+                                        <div class="img author" style="background-image: url('/images/person_2.jpg');"></div>
+                                        <div class="desc pl-3">
+                                            <span>Posted by John doe</span>
+                                            <span>24 February 2020</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="heading"><a href="#">Best wheel alignment &amp; air conditioning</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex ftco-animate">
+                            <div class="blog-entry align-self-stretch">
+                                <a href="blog-single.html" class="block-20 rounded" style="background-image: url('/images/image_2.jpg');">
+                                </a>
+                                <div class="text mt-3">
+                                    <div class="posted mb-3 d-flex">
+                                        <div class="img author" style="background-image: url('/images/person_3.jpg');"></div>
+                                        <div class="desc pl-3">
+                                            <span>Posted by John doe</span>
+                                            <span>24 February 2020</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="heading"><a href="#">Best wheel alignment &amp; air conditioning</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex ftco-animate">
+                            <div class="blog-entry align-self-stretch">
+                                <a href="blog-single.html" class="block-20 rounded" style="background-image: url('/images/image_3.jpg');">
+                                </a>
+                                <div class="text mt-3">
+                                    <div class="posted mb-3 d-flex">
+                                        <div class="img author" style="background-image: url('/images/person_1.jpg');"></div>
+                                        <div class="desc pl-3">
+                                            <span>Posted by John doe</span>
+                                            <span>24 February 2020</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="heading"><a href="#">Best wheel alignment &amp; air conditioning</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>*@
+
+        <section class="ftco-section bg-light">
+            <div class="container">
+                <div class="row justify-content-center pb-5 mb-3">
+                    <div class="col-md-7 heading-section text-center ftco-animate">
+                        <span class="subheading">Цены &amp; Услуги</span>
+                        <h2>Цены</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 ftco-animate">
+                        <div class="block-7">
+                            <div class="text-center">
+                                <span class="excerpt d-block">Компьютерная диагностика авто</span>
+                                <span class="price"><sup>BYN</sup> <span class="number">100</span></span>
+
+                                <div class="pricing-text">
+                                    <p>Компьютерная диагностика – это один из наиболее современных, быстрых и точных способов определения поломок или неисправностей в самых различных узлах автомобильного транспорта.</p>
+                                </div>
+
+                                <a asp-controller="Requests" asp-action="Create" class="btn btn-secondary d-block px-2 py-3">Подать заявку</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 ftco-animate">
+                        <div class="block-7">
+                            <div class="text-center">
+                                <span class="excerpt d-block">Замена фильтров</span>
+                                <span class="price"><sup>BYN</sup> <span class="number">50</span></span>
+
+                                <div class="pricing-text">
+                                    <p>Замена топливного, маслянного и воздушного фильтра.</p>
+                                </div>
+
+                                <a asp-controller="Requests" asp-action="Create" class="btn btn-secondary d-block px-2 py-3">Подать заявку</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 ftco-animate">
+                        <div class="block-7">
+                            <div class="text-center">
+                                <span class="excerpt d-block">Ремонт двигателя</span>
+                                <span class="price"><sup>BYN</sup> <span class="number">85</span></span>
+
+                                <div class="pricing-text">
+                                    <p>Двигатель – самый важный узел любого транспортного средства. Эксплуатация автомобиля сопровождается большой нагрузкой на этот силовой агрегат. Но со временем наступает износ мотора.</p>
+                                </div>
+
+                                <a asp-controller="Requests" asp-action="Create" class="btn btn-secondary d-block px-2 py-3">Подать заявку</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 ftco-animate">
+                        <div class="block-7">
+                            <div class="text-center">
+                                <span class="excerpt d-block">Ремонт подвески</span>
+                                <span class="price"><sup>BYN</sup> <span class="number">30</span></span>
+
+                                <div class="pricing-text">
+                                    <p>Подвеска отвечает за обеспечение хорошего сцепления колес с дорогой, а также сохранения равновесия кузова. Неполадки с ней могут привести к ухудшению контроля машины во время движения, а также к заносам.</p>
+                                </div>
+
+                                <a asp-controller="Requests" asp-action="Create" class="btn btn-secondary d-block px-2 py-3">Подать заявку</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ftco-section ftco-no-pb">
+            <div class="container">
+                <div class="row justify-content-center pb-5 mb-3">
+                    <div class="col-md-7 heading-section text-center ftco-animate">
+                        <span class="subheading">Проекты</span>
+                        <h2>Наши проекты</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row no-gutters">
+                    <div class="col-md-3 ftco-animate">
+                        <div class="work img d-flex align-items-end" style="background-image: url('/images/work-1.jpg');">
+                            <a href="/images/work-1.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
+                                <span class="fa fa-expand"></span>
+                            </a>
+                            <div class="desc w-100 px-4">
+                                <div class="text w-100 mb-3">
+                                    <span>Двигатель</span>
+                                    <h2><a href="work-single.html">Проверка двигателя завершена</a></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 ftco-animate">
+                        <div class="work img d-flex align-items-end" style="background-image: url('/images/work-2.jpg');">
+                            <a href="/images/work-2.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
+                                <span class="fa fa-expand"></span>
+                            </a>
+                            <div class="desc w-100 px-4">
+                                <div class="text w-100 mb-3">
+                                    <span>Замена маста</span>
+                                    <h2><a href="work-single.html">Замена масла завершена</a></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 ftco-animate">
+                        <div class="work img d-flex align-items-end" style="background-image: url('/images/work-3.jpg');">
+                            <a href="/images/work-3.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
+                                <span class="fa fa-expand"></span>
+                            </a>
+                            <div class="desc w-100 px-4">
+                                <div class="text w-100 mb-3">
+                                    <span>Двигатель</span>
+                                    <h2><a href="work-single.html">Диагностика двигателя завершена</a></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 ftco-animate">
+                        <div class="work img d-flex align-items-end" style="background-image: url('/images/work-4.jpg');">
+                            <a href="/images/work-4.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
+                                <span class="fa fa-expand"></span>
+                            </a>
+                            <div class="desc w-100 px-4">
+                                <div class="text w-100 mb-3">
+                                    <span>Шины</span>
+                                    <h2><a href="work-single.html">Замена шин</a></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- loader -->
+        <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+        <script src="~/js/jquery.min.js"></script>
+        <script src="~/js/jquery-migrate-3.0.1.min.js"></script>
+        <script src="~/js/jquery.easing.1.3.js"></script>
+        <script src="~/js/jquery.waypoints.min.js"></script>
+        <script src="~/js/jquery.stellar.min.js"></script>
+        <script src="~/js/jquery.animateNumber.min.js"></script>
+        <script src="~/js/jquery.timepicker.min.js"></script>
+        <script src="~/js/owl.carousel.min.js"></script>
+        <script src="~/js/jquery.magnific-popup.min.js"></script>
+        <script src="~/js/scrollax.min.js"></script>
+        <script src="~/js/main.js"></script>
+    </body>
+}
+else
+{
+    <h1 class="text-center">Главная</h1>
+    <hr />
+
+    <div class="container px-0">
+        <div class="row">
+            @if (User.IsInRole("mananger"))
+            {
+                <div class="col">
+                    <a class="btn btn-outline-primary col" asp-area="" asp-controller="UserC" asp-action="Index">Пользователи</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-primary col" asp-area="" asp-controller="Requests" asp-action="Index">Запросы</a>
+                </div>
+            }
+            @if (User.IsInRole("mananger") || User.IsInRole("master"))
+            {
+
+                <div class="col">
+                    <a class="btn btn-outline-primary col" asp-area="" asp-controller="WorkC" asp-action="Index">Заказы</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-primary col" asp-area="" asp-controller="WorkTypeC" asp-action="Index">Услуги</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-primary col" asp-area="" asp-controller="MachineParts" asp-action="Index">Детали</a>
+                </div>
+            }
+            <div class="w-100"></div>
+            <hr />
+            @if (User.IsInRole("mananger"))
+            {
+                <div class="col">
+                    <a class="btn btn-outline-primary col" asp-area="" asp-controller="UserC" asp-action="Create">Добавить пользователя</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-primary col" asp-area="" asp-controller="Requests" asp-action="Create">Добавить запрос</a>
+                </div>
+            }
+            @if (User.IsInRole("mananger") || User.IsInRole("master"))
+            {
+
+                <div class="col">
+                    <a class="btn btn-outline-primary col" asp-area="" asp-controller="WorkC" asp-action="Create">Добавить заказ</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-primary col" asp-area="" asp-controller="WorkTypeC" asp-action="Create">Добавить услугу</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-outline-primary col" asp-area="" asp-controller="MachineParts" asp-action="Create">Добавить деталь</a>
+                </div>
+            }
         </div>
     </div>
 
-    <section class="intro">
-        <div class="container intro-wrap">
-            <div class="row no-gutters">
-                <div class="col-md-12 col-lg-9 bg-intro d-sm-flex align-items-center align-items-stretch">
-                    <div class="intro-box d-flex align-items-center">
-                        <div class="icon d-flex align-items-center justify-content-center">
-                            <i class="flaticon-repair"></i>
-                        </div>
-                        <h2 class="mb-0">Вы готовы? <span>Давайте приступим!</span></h2>
-                    </div>
-                    <a href="#" class="bg-primary btn-custom d-flex align-items-center"><span>Подать заявку</span></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center pb-5 mb-3">
-                <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Мы предоставляем услуги</span>
-                    <h2>Наши услуги</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 services ftco-animate">
-                    <div class="d-block d-flex">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="flaticon-car-service"></span>
-                        </div>
-                        <div class="media-body pl-3">
-                            <h3 class="heading">Замена масла</h3>
-                            <p>Замена масла выполняется при регулярном техническом обслуживании авто, и включает устанавку нового фильтра.</p>
-                            @*<p><a href="#" class="btn-custom">Read more</a></p>*@
-                        </div>
-                    </div>
-                    <div class="d-block d-flex">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="flaticon-tyre"></span>
-                        </div>
-                        <div class="media-body pl-3">
-                            <h3 class="heading">Замена шин</h3>
-                            <p>Шиномонтаж – это очень востребованная процедура среди автолюбителей. Существует несколько видов шиномонтажа: ремонт грыж, проколов, боковых порезов и дисков.</p>
-                            @*<p><a href="#" class="btn-custom">Read more</a></p>*@
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 services ftco-animate">
-                    <div class="d-block d-flex">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="flaticon-battery"></span>
-                        </div>
-                        <div class="media-body pl-3">
-                            <h3 class="heading">Аккумуляторы</h3>
-                            <p>Мы проверим ваш аккумулятор, подберём и доставим новый, диагностируем вашу сисему энергосбережения.</p>
-                            @*<p><a href="#" class="btn-custom">Read more</a></p>*@
-                        </div>
-                    </div>
-                    <div class="d-block d-flex">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="flaticon-car-engine"></span>
-                        </div>
-                        <div class="media-body pl-3">
-                            <h3 class="heading">Ремонт двигателя</h3>
-                            <p>Ремонт двигателя осуществляется опытными мастерами на современном оборудовании.</p>
-                            @*<p><a href="#" class="btn-custom">Read more</a></p>*@
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 services ftco-animate">
-                    <div class="d-block d-flex">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="flaticon-tow-truck"></span>
-                        </div>
-                        <div class="media-body pl-3">
-                            <h3 class="heading">Ремонт подвески</h3>
-                            <p>Индивидуальный подход к каждому клиенту!</p>
-                            @*<p><a href="#" class="btn-custom">Read more</a></p>*@
-                        </div>
-                    </div>
-                    <div class="d-block d-flex">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="flaticon-repair"></span>
-                        </div>
-                        <div class="media-body pl-3">
-                            <h3 class="heading">Техническое обслуживание автомобиля</h3>
-                            <p>Своевременное техническое обслуживание способствует выявлению имеющихся неисправностей, значительно снижает Ваши затраты на топливо, а так же продлевает срок службы автомобиля.</p>
-                            @*<p><a href="#" class="btn-custom">Read more</a></p>*@
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="ftco-section ftco-no-pt ftco-no-pb bg-light">
-        <div class="container">
-            <div class="row d-flex no-gutters">
-                <div class="col-md-6 d-flex">
-                    <div class="img img-video d-flex align-self-stretch align-items-center justify-content-center mb-4 mb-sm-0" style="background-image: url('/images/about.jpg'); ">
-                        @*<a href="https://vimeo.com/45830194" class="icon-video popup-vimeo d-flex justify-content-center align-items-center">
-                                <span class="fa fa-play"></span>
-                            </a>*@
-                    </div>
-                </div>
-                <div class="col-md-6 pl-md-5">
-                    <div class="row justify-content-start py-5">
-                        <div class="col-md-12 heading-section ftco-animate">
-                            <span class="subheading">Добро пожаловать в нашу автомастерскую</span>
-                            <h2 class="mb-4">Мы помогаем людям больше 5 лет</h2>
-                            <p>
-                                Выполним профессиональный ремонт легковых автомобилей любых марок и моделей. СТО для ремонта авто оснащено самым современным оборудованием для проведения все видов диагностики, кузовных и других видов работ. Работают профессиональные сотрудники с большим практическим опытом. К каждому клиенту обеспечивается индивидуальный подход, а цены являются одними из самых низких на рынке.
-
-                                Ремонт легковых автомобилей осуществляется в строгом соответствии с правилами и требованиями нормативов. Полностью соблюдаем регламент. Для выполнения ремонта легковых авто используются оригинальные запчасти, либо качественные аналоги. Как правило, для высоконагруженных элементов рекомендуется ставить оригинал, а для второстепенных элементов подойдут качественные аналоги, цены на которые ниже.
-                            </p>
-                            <div class="tabulation-2 mt-4">
-                                <ul class="nav nav-pills nav-fill d-md-flex d-block">
-                                    <li class="nav-item mb-md-0 mb-2">
-                                        <a class="nav-link active py-2" data-toggle="tab" href="#home1">Наша миссия</a>
-                                    </li>
-                                    <li class="nav-item px-lg-2 mb-md-0 mb-2">
-                                        <a class="nav-link py-2" data-toggle="tab" href="#home2">Наше видение</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link py-2 mb-md-0 mb-2" data-toggle="tab" href="#home3">Почему мы?</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content rounded mt-2">
-                                    <div class="tab-pane container p-0 active" id="home1">
-                                        <p>Наша миссия – обеспечить вам безопасность благодаря быстрому и качественному ремонту вашего автомобиля.</p>
-                                    </div>
-                                    <div class="tab-pane container p-0 fade" id="home2">
-                                        <p>Мы – хорошая компания, уровню эффективности и качеству обслуживания клиентов. Мы повышаем уровень сервиса обслуживания автомобилей в Беларуси до мировых стандартов путем изменения всей отрасли</p>
-                                    </div>
-                                    <div class="tab-pane container p-0 fade" id="home3">
-                                        <p>Мы предлагаем широкий спектр услуг по доступным ценам. Наши мастера сделают диагностику, определят неисправности, подберут необходимые запчасти и рассчитают общую стоимость ремонта. Каждое наше действие мы согласуем с вами.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="ftco-counter" id="section-counter">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
-                    <div class="block-18 text-center">
-                        <div class="text">
-                            <strong class="number" data-number="5">0</strong>
-                        </div>
-                        <div class="text">
-                            <span>Лет опыта</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
-                    <div class="block-18 text-center">
-                        <div class="text">
-                            <strong class="number" data-number="1000">0</strong>
-                        </div>
-                        <div class="text">
-                            <span>Работ выполнено</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
-                    <div class="block-18 text-center">
-                        <div class="text">
-                            <strong class="number" data-number="500">0</strong>
-                        </div>
-                        <div class="text">
-                            <span>Довольных покупателей</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
-                    <div class="block-18 text-center">
-                        <div class="text">
-                            <strong class="number" data-number="2">0</strong>
-                        </div>
-                        <div class="text">
-                            <span>Награды получены</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="ftco-appointment ftco-section ftco-no-pt ftco-no-pb img" style="background-image: url('/images/bg_3.jpg');">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row d-md-flex justify-content-end">
-                <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5 ftco-animate heading-section heading-section-white">
-                    <span class="subheading">Записаться</span>
-                    @*<h2 class="mb-4">Список услуг</h2>*@
-                    <form asp-action="Index" class="appointment">
-                        <div class="row">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="form-field">
-                                        <div class="select-wrap">
-                                            <div class="icon"><span class="fa fa-chevron-down"></span></div>
-                                            <div>@Html.ListBoxFor(x => x.WorkTypeIds, new MultiSelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control", id = "multipleSelectWorkType", multiple = "multiple"})</div>
-                                            <span asp-validation-for="WorkType" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input asp-for="Name" class="form-control" type="text" placeholder="Ваше имя" />
-                                    <span asp-validation-for="Name" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input asp-for="Email" class="form-control" placeholder="Электронная почта" />
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-                            </div>
-                            @*<div class="col-md-6">
-                                    <div class="form-group">
-                                        <input asp-for="" class="form-control" />
-                                        <span asp-validation-for="Date" class="text-danger"></span>
-                                    </div>
-                                </div>*@
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input asp-for="PhoneNumber" class="form-control" placeholder="Телефонный номер" />
-                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Сообщение"></textarea> @*Наверное надо сделать*@
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <input type="submit" value="Отправить" class="btn btn-dark py-3 px-4">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="ftco-section testimony-section bg-light">
-        <div class="container">
-            <div class="row justify-content-center pb-5 mb-3">
-                <div class="col-md-7 heading-section heading-section-white text-center ftco-animate">
-                    <span class="subheading">Отзывы</span>
-                    <h2>Счастливые клиенты &amp; Отзывы</h2>
-                </div>
-            </div>
-            <div class="row ftco-animate">
-                <div class="col-md-12">
-                    <div class="carousel-testimony owl-carousel ftco-owl">
-                        <div class="item">
-                            <div class="testimony-wrap py-4">
-                                <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
-                                <div class="text">
-                                    <p class="mb-4">Отличное СТО с отличными мастерами. Всегда помогут и расскажут, дадут совет по эксплуатации авто. Обслуживался на многих СТО, но там всегда обманывали или было очень дорого. Тут можно быть уверенным, что работу проведут качественно, быстро и без обманов.</p>
-                                    <div class="d-flex align-items-center">
-                                        <div class="user-img" style="background-image: url('/images/person_1.jpg')"></div>
-                                        <div class="pl-3">
-                                            <p class="name">Федор Филатов</p>
-                                            <span class="position">Местный эксперт</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="testimony-wrap py-4">
-                                <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
-                                <div class="text">
-                                    <p class="mb-4">Хороший сервис, приветливые работники, доступные цены. Делали шиномонтаж, остались довольны работой слесаря-шиномонтажника Валеры. Приедем ещё.</p>
-                                    <div class="d-flex align-items-center">
-                                        <div class="user-img" style="background-image: url('/images/person_2.jpg')"></div>
-                                        <div class="pl-3">
-                                            <p class="name">Геннадий Малахов</p>
-                                            <span class="position">Пользователь</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="testimony-wrap py-4">
-                                <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
-                                <div class="text">
-                                    <p class="mb-4">
-                                        Отлично.
-                                        Дёшево.
-                                        Всё спокойно, аккуратно и цена хорошая.
-                                        Немаловажно и расположение.
-                                    </p>
-                                    <div class="d-flex align-items-center">
-                                        <div class="user-img" style="background-image: url('/images/person_3.jpg')"></div>
-                                        <div class="pl-3">
-                                            <p class="name">Анатолий Горцев</p>
-                                            <span class="position">Пользователь</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="testimony-wrap py-4">
-                                <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
-                                <div class="text">
-                                    <p class="mb-4">Отличное СТО. Александр знает свою работу, может что то порекомендовать или подсказать</p>
-                                    <div class="d-flex align-items-center">
-                                        <div class="user-img" style="background-image: url('/images/person_1.jpg')"></div>
-                                        <div class="pl-3">
-                                            <p class="name">Сергей Забавский</p>
-                                            <span class="position">Пользоватль</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="testimony-wrap py-4">
-                                <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
-                                <div class="text">
-                                    <p class="mb-4">Отгонял на ремонт суппорта. Все сделали четко, дали рекомендации. В общем рекомендую.</p>
-                                    <div class="d-flex align-items-center">
-                                        <div class="user-img" style="background-image: url('/images/person_2.jpg')"></div>
-                                        <div class="pl-3">
-                                            <p class="name">Андрей галудик</p>
-                                            <span class="position">Пользователь</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    @*<section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center pb-5 mb-3">
-                <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">News &amp; Blog</span>
-                    <h2>Latest news from our blog</h2>
-                </div>
-            </div>
-            <div class="row d-flex">
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20 rounded" style="background-image: url('/images/image_1.jpg');">
-                        </a>
-                        <div class="text mt-3">
-                            <div class="posted mb-3 d-flex">
-                                <div class="img author" style="background-image: url('/images/person_2.jpg');"></div>
-                                <div class="desc pl-3">
-                                    <span>Posted by John doe</span>
-                                    <span>24 February 2020</span>
-                                </div>
-                            </div>
-                            <h3 class="heading"><a href="#">Best wheel alignment &amp; air conditioning</a></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20 rounded" style="background-image: url('/images/image_2.jpg');">
-                        </a>
-                        <div class="text mt-3">
-                            <div class="posted mb-3 d-flex">
-                                <div class="img author" style="background-image: url('/images/person_3.jpg');"></div>
-                                <div class="desc pl-3">
-                                    <span>Posted by John doe</span>
-                                    <span>24 February 2020</span>
-                                </div>
-                            </div>
-                            <h3 class="heading"><a href="#">Best wheel alignment &amp; air conditioning</a></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20 rounded" style="background-image: url('/images/image_3.jpg');">
-                        </a>
-                        <div class="text mt-3">
-                            <div class="posted mb-3 d-flex">
-                                <div class="img author" style="background-image: url('/images/person_1.jpg');"></div>
-                                <div class="desc pl-3">
-                                    <span>Posted by John doe</span>
-                                    <span>24 February 2020</span>
-                                </div>
-                            </div>
-                            <h3 class="heading"><a href="#">Best wheel alignment &amp; air conditioning</a></h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>*@
-
-    <section class="ftco-section bg-light">
-        <div class="container">
-            <div class="row justify-content-center pb-5 mb-3">
-                <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Цены &amp; Услуги</span>
-                    <h2>Цены</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="block-7">
-                        <div class="text-center">
-                            <span class="excerpt d-block">Компьютерная диагностика авто</span>
-                            <span class="price"><sup>BYN</sup> <span class="number">100</span></span>
-
-                            <div class="pricing-text">
-                                <p>Компьютерная диагностика – это один из наиболее современных, быстрых и точных способов определения поломок или неисправностей в самых различных узлах автомобильного транспорта.</p>
-                            </div>
-
-                            <a asp-controller="Requests" asp-action="Create" class="btn btn-secondary d-block px-2 py-3">Подать заявку</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="block-7">
-                        <div class="text-center">
-                            <span class="excerpt d-block">Замена фильтров</span>
-                            <span class="price"><sup>BYN</sup> <span class="number">50</span></span>
-
-                            <div class="pricing-text">
-                                <p>Замена топливного, маслянного и воздушного фильтра.</p>
-                            </div>
-
-                            <a asp-controller="Requests" asp-action="Create" class="btn btn-secondary d-block px-2 py-3">Подать заявку</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="block-7">
-                        <div class="text-center">
-                            <span class="excerpt d-block">Ремонт двигателя</span>
-                            <span class="price"><sup>BYN</sup> <span class="number">85</span></span>
-
-                            <div class="pricing-text">
-                                <p>Двигатель – самый важный узел любого транспортного средства. Эксплуатация автомобиля сопровождается большой нагрузкой на этот силовой агрегат. Но со временем наступает износ мотора.</p>
-                            </div>
-
-                            <a asp-controller="Requests" asp-action="Create" class="btn btn-secondary d-block px-2 py-3">Подать заявку</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="block-7">
-                        <div class="text-center">
-                            <span class="excerpt d-block">Ремонт подвески</span>
-                            <span class="price"><sup>BYN</sup> <span class="number">30</span></span>
-
-                            <div class="pricing-text">
-                                <p>Подвеска отвечает за обеспечение хорошего сцепления колес с дорогой, а также сохранения равновесия кузова. Неполадки с ней могут привести к ухудшению контроля машины во время движения, а также к заносам.</p>
-                            </div>
-
-                            <a asp-controller="Requests" asp-action="Create" class="btn btn-secondary d-block px-2 py-3">Подать заявку</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="ftco-section ftco-no-pb">
-        <div class="container">
-            <div class="row justify-content-center pb-5 mb-3">
-                <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Проекты</span>
-                    <h2>Наши проекты</h2>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row no-gutters">
-                <div class="col-md-3 ftco-animate">
-                    <div class="work img d-flex align-items-end" style="background-image: url('/images/work-1.jpg');">
-                        <a href="/images/work-1.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
-                            <span class="fa fa-expand"></span>
-                        </a>
-                        <div class="desc w-100 px-4">
-                            <div class="text w-100 mb-3">
-                                <span>Двигатель</span>
-                                <h2><a href="work-single.html">Проверка двигателя завершена</a></h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 ftco-animate">
-                    <div class="work img d-flex align-items-end" style="background-image: url('/images/work-2.jpg');">
-                        <a href="/images/work-2.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
-                            <span class="fa fa-expand"></span>
-                        </a>
-                        <div class="desc w-100 px-4">
-                            <div class="text w-100 mb-3">
-                                <span>Замена маста</span>
-                                <h2><a href="work-single.html">Замена масла завершена</a></h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 ftco-animate">
-                    <div class="work img d-flex align-items-end" style="background-image: url('/images/work-3.jpg');">
-                        <a href="/images/work-3.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
-                            <span class="fa fa-expand"></span>
-                        </a>
-                        <div class="desc w-100 px-4">
-                            <div class="text w-100 mb-3">
-                                <span>Двигатель</span>
-                                <h2><a href="work-single.html">Диагностика двигателя завершена</a></h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 ftco-animate">
-                    <div class="work img d-flex align-items-end" style="background-image: url('/images/work-4.jpg');">
-                        <a href="/images/work-4.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
-                            <span class="fa fa-expand"></span>
-                        </a>
-                        <div class="desc w-100 px-4">
-                            <div class="text w-100 mb-3">
-                                <span>Шины</span>
-                                <h2><a href="work-single.html">Замена шин</a></h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- loader -->
-    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="~/js/jquery.easing.1.3.js"></script>
-    <script src="~/js/jquery.waypoints.min.js"></script>
-    <script src="~/js/jquery.stellar.min.js"></script>
-    <script src="~/js/jquery.animateNumber.min.js"></script>
-    <script src="~/js/jquery.timepicker.min.js"></script>
-    <script src="~/js/owl.carousel.min.js"></script>
-    <script src="~/js/jquery.magnific-popup.min.js"></script>
-    <script src="~/js/scrollax.min.js"></script>
-    <script src="~/js/main.js"></script>
-</body>
+}
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
