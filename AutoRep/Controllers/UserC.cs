@@ -113,6 +113,7 @@ namespace AutoRep.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserName,Email,PhoneNumber,Password,ConfirmPassword,Role")] SUser user)
         {
+            GetRolesList();
             if (ModelState.IsValid)
             {
                 //_context.Add(user);
@@ -133,13 +134,13 @@ namespace AutoRep.Controllers
                     }
                 }
             }
-            GetRolesList();//оно почему-то фиксит всё то, что не фиксится. Я не знаю. Работает - и хуй с ним
             return View(user);
         }
 
         // GET: UserC/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
+            GetRolesList();
             if (id == null)
             {
                 return NotFound();
@@ -151,7 +152,6 @@ namespace AutoRep.Controllers
                 return NotFound();
             }
 
-            GetRolesList();
             return View(user);
         }
 
@@ -160,8 +160,9 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,UserName,Email,PhoneNumber,Role")] SUser user)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,UserName,Email,PhoneNumber,Role,Password,ConfirmPassword")] SUser user)
         {
+            GetRolesList();
             if (id != user.Id)
             {
                 return NotFound();

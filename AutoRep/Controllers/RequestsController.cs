@@ -170,6 +170,7 @@ namespace AutoRep.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,WorkType,Name,PhoneNumber,Email,WorkTypeIds")] UserRequest request)
         {
+            GetWorkTypeList();
             if (id != request.Id)
             {
                 return NotFound();
