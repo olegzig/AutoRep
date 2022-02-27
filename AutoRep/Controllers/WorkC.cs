@@ -204,7 +204,7 @@ namespace AutoRep.Controllers
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
             SqlConnection con = new SqlConnection(connection);
-            SqlCommand cmd = new SqlCommand("select [id],[name],[cost] from [MachineParts]", con);
+            SqlCommand cmd = new SqlCommand("select [id],[name],[cost] from [MachineParts] where [cost] > 0", con);
             con.Open();
             SqlDataReader idr = cmd.ExecuteReader();
 
@@ -227,7 +227,7 @@ namespace AutoRep.Controllers
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
             SqlConnection con = new SqlConnection(connection);
-            SqlCommand cmd = new SqlCommand("select [id],[name] from [MachineParts]", con);
+            SqlCommand cmd = new SqlCommand("select [id],[name] from [MachineParts] where [cost] > 0", con);
             con.Open();
             SqlDataReader idr = cmd.ExecuteReader();
 
@@ -250,7 +250,7 @@ namespace AutoRep.Controllers
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
             SqlConnection con = new SqlConnection(connection);
-            SqlCommand cmd = new SqlCommand("select [id],[cost] from [MachineParts]", con);
+            SqlCommand cmd = new SqlCommand("select [id],[cost] from [MachineParts] where [cost] > 0", con);
             con.Open();
             SqlDataReader idr = cmd.ExecuteReader();
 
@@ -266,6 +266,29 @@ namespace AutoRep.Controllers
 
             con.Close();
             return machineParts.Sum(x => x.Cost);
+        }
+
+        public void ChangeMachinePartsCount(string[] MPIds)//тут надо чё-то поменять, ибо аутизм
+        {
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            SqlConnection con = new SqlConnection(connection);
+            SqlCommand cmd = new SqlCommand("select [id] from [MachineParts] where [cost] > 0", con);
+            con.Open();
+            SqlDataReader idr = cmd.ExecuteReader();
+
+            if (idr.HasRows)
+            {
+                while (idr.Read())
+                {
+                    if (MPIds.Contains(idr["id"].ToString()))
+                    {
+                        _context.MachineParts.Find(idr["id"].ToString()).Count--;
+                    }
+                }
+            }
+
+            _context.SaveChanges();
+            con.Close();
         }
 
         // GET: WorkC/Create
@@ -336,6 +359,9 @@ namespace AutoRep.Controllers
                     _context.Request.Remove(_context.Request.Find(work.MadeOnId));
                 }
                 await _context.SaveChangesAsync();
+
+                ChangeMachinePartsCount(work.MachinePartsIds);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(work);
