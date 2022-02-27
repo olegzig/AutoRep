@@ -393,7 +393,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Work work)
+        public async Task<IActionResult> Edit(int id, Work work, string submit)
         {
             GetUsersList();
             GetWorkTypeList();
@@ -405,8 +405,9 @@ namespace AutoRep.Controllers
 
             if (ModelState.IsValid)
             {
-                if(work.MachineParts != null)
-                    ChangeBackMachinePartsCount(work.MachineParts.Split(','));//that add machine parts counter, taht we ramoved before
+                //that add machine parts counter, taht we removed before
+                if (work.MachineParts != null && submit == null)
+                    ChangeBackMachinePartsCount(work.MachineParts.Split(','));
 
                 work.WorkType = string.Join(",", work.WorkTypeIds);
                 work.MachineParts = string.Join(",", work.MachinePartsIds);
@@ -429,8 +430,15 @@ namespace AutoRep.Controllers
                 }
                 ChangeMachinePartsCount(work.MachinePartsIds);//that edit machine parts counts after select machine parts
 
-                return View();
-                //return RedirectToAction(nameof(Index));
+                //if count < 0, we are undo all actions
+                if(_context.MachineParts.Any(x => x.Count < 0) && submit != "Я уверен в своём выборе!")
+                {
+                    ChangeBackMachinePartsCount(work.MachinePartsIds);
+                    ViewBag.JavaScriptFunction = "!";
+                    return View();
+                }
+
+                return RedirectToAction(nameof(Index));
             }
             return View(work);
         }

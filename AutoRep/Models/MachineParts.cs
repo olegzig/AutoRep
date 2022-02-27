@@ -12,7 +12,7 @@ namespace AutoRep.Models
 
         [Display(Name = "Количество на складе")]
         [Required(ErrorMessage = "Данная информация необходима")]
-        [Range(0, double.MaxValue, ErrorMessage = "Количество должно быть больше, либо равно нулю")]
+        //[Range(0, double.MaxValue, ErrorMessage = "Количество должно быть больше, либо равно нулю")]
         public int Count { get; set; }//работник который делает/сделает/записал
 
         [Display(Name = "Описание")]
