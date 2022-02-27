@@ -204,7 +204,7 @@ namespace AutoRep.Controllers
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
             SqlConnection con = new SqlConnection(connection);
-            SqlCommand cmd = new SqlCommand("select [id],[name],[cost] from [MachineParts] where [cost] > 0", con);
+            SqlCommand cmd = new SqlCommand("select [id],[name],[cost] from [MachineParts]", con);
             con.Open();
             SqlDataReader idr = cmd.ExecuteReader();
 
@@ -227,7 +227,7 @@ namespace AutoRep.Controllers
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
             SqlConnection con = new SqlConnection(connection);
-            SqlCommand cmd = new SqlCommand("select [id],[name] from [MachineParts] where [cost] > 0", con);
+            SqlCommand cmd = new SqlCommand("select [id],[name] from [MachineParts]", con);
             con.Open();
             SqlDataReader idr = cmd.ExecuteReader();
 
@@ -250,7 +250,7 @@ namespace AutoRep.Controllers
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
             SqlConnection con = new SqlConnection(connection);
-            SqlCommand cmd = new SqlCommand("select [id],[cost] from [MachineParts] where [cost] > 0", con);
+            SqlCommand cmd = new SqlCommand("select [id],[cost] from [MachineParts]", con);
             con.Open();
             SqlDataReader idr = cmd.ExecuteReader();
 
@@ -270,25 +270,22 @@ namespace AutoRep.Controllers
 
         public void ChangeMachinePartsCount(string[] MPIds)//тут надо чё-то поменять, ибо аутизм
         {
-            var connection = Configuration.GetConnectionString("DefaultConnection");
-            SqlConnection con = new SqlConnection(connection);
-            SqlCommand cmd = new SqlCommand("select [id] from [MachineParts] where [cost] > 0", con);
-            con.Open();
-            SqlDataReader idr = cmd.ExecuteReader();
 
-            if (idr.HasRows)
+            foreach(string x in MPIds)
             {
-                while (idr.Read())
-                {
-                    if (MPIds.Contains(idr["id"].ToString()))
-                    {
-                        _context.MachineParts.Find(idr["id"].ToString()).Count--;
-                    }
-                }
+                _context.MachineParts.First(z => z.Id == int.Parse(x)).Count--;
             }
 
             _context.SaveChanges();
-            con.Close();
+        }
+        public void ChangeBackMachinePartsCount(string[] MPIds)//тут надо чё-то поменять, ибо аутизм
+        {
+            foreach (string x in MPIds)
+            {
+                _context.MachineParts.First(z => z.Id == int.Parse(x)).Count++;
+            }
+
+            _context.SaveChanges();
         }
 
         // GET: WorkC/Create
@@ -360,7 +357,7 @@ namespace AutoRep.Controllers
                 }
                 await _context.SaveChangesAsync();
 
-                ChangeMachinePartsCount(work.MachinePartsIds);
+                ChangeMachinePartsCount(work.MachinePartsIds);//that edit machine parts counts after select machine parts
 
                 return RedirectToAction(nameof(Index));
             }
@@ -407,6 +404,9 @@ namespace AutoRep.Controllers
 
             if (ModelState.IsValid)
             {
+                if(work.MachineParts != null)
+                    ChangeBackMachinePartsCount(work.MachineParts.Split(','));//that add machine parts counter, taht we ramoved before
+
                 work.WorkType = string.Join(",", work.WorkTypeIds);
                 work.MachineParts = string.Join(",", work.MachinePartsIds);
                 work.Cost = GetmachinePartsCost(work.MachinePartsIds) + GetWorkTypeCost(work.WorkTypeIds);
@@ -426,6 +426,7 @@ namespace AutoRep.Controllers
                         throw;
                     }
                 }
+                ChangeMachinePartsCount(work.MachinePartsIds);//that edit machine parts counts after select machine parts
                 return RedirectToAction(nameof(Index));
             }
             return View(work);
