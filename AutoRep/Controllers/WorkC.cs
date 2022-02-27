@@ -204,7 +204,7 @@ namespace AutoRep.Controllers
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
             SqlConnection con = new SqlConnection(connection);
-            SqlCommand cmd = new SqlCommand("select [id],[name],[cost] from [MachineParts]", con);
+            SqlCommand cmd = new SqlCommand("select [id],[name],[cost],[count] from [MachineParts]", con);
             con.Open();
             SqlDataReader idr = cmd.ExecuteReader();
 
@@ -213,7 +213,7 @@ namespace AutoRep.Controllers
             {
                 while (idr.Read())
                 {
-                    machineParts.Add(new MachineParts { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) + " | " + Convert.ToString(idr["Cost"]) + " BYN " });
+                    machineParts.Add(new MachineParts { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) + " | " + Convert.ToString(idr["Cost"]) + " BYN " + " | " + Convert.ToString(idr["Count"]) + " ШТ. " });
                 }
             }
 
@@ -268,7 +268,8 @@ namespace AutoRep.Controllers
             return machineParts.Sum(x => x.Cost);
         }
 
-        public void ChangeMachinePartsCount(string[] MPIds)//тут надо чё-то поменять, ибо аутизм
+        //changes machine parts counts for Create() and Edit()
+        public void ChangeMachinePartsCount(string[] MPIds)
         {
 
             foreach(string x in MPIds)
@@ -278,7 +279,7 @@ namespace AutoRep.Controllers
 
             _context.SaveChanges();
         }
-        public void ChangeBackMachinePartsCount(string[] MPIds)//тут надо чё-то поменять, ибо аутизм
+        public void ChangeBackMachinePartsCount(string[] MPIds)
         {
             foreach (string x in MPIds)
             {
@@ -427,7 +428,9 @@ namespace AutoRep.Controllers
                     }
                 }
                 ChangeMachinePartsCount(work.MachinePartsIds);//that edit machine parts counts after select machine parts
-                return RedirectToAction(nameof(Index));
+
+                return View();
+                //return RedirectToAction(nameof(Index));
             }
             return View(work);
         }
