@@ -10,6 +10,30 @@
 <hr />
 
 <form asp-action="Create">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Внимание!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Некоторые детали которые вы использовали, имеются на складе в недостаточном количестве!
+                    Пожалуйста, используйте другие детали.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    <input type="submit" value="Я уверен в своём выборе!" name="submit" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal end -->
+
+
     <div class="row">
         <input type="hidden" asp-for="MadeOnId" value="@ViewBag.MadeOnId" />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -99,4 +123,10 @@
             );
         });
     </script>
+    @if (ViewBag.JavaScriptFunction != null)
+    {
+        <script type="text/javascript">
+            $('#myModal').modal('show')
+        </script>
+    }
 }

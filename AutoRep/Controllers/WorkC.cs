@@ -328,7 +328,7 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Work work)
+        public async Task<IActionResult> Create(Work work, string submit)
         {
             GetUsersList();
             GetWorkTypeList();
@@ -339,6 +339,10 @@ namespace AutoRep.Controllers
                 //string[] selectedWorkerString = Request.Form["SelectedWorker"].ToString().Split(' ');
                 //user.Id = Int32.Parse(selectedWorkerString[0]);
                 //work.Worker = user.Id;
+
+                //that add machine parts counter, taht we removed before
+                if (work.MachineParts != null && submit == null)
+                    ChangeBackMachinePartsCount(work.MachineParts.Split(','));
 
                 work.WorkType = string.Join(",", work.WorkTypeIds);
                 work.MachineParts = string.Join(",", work.MachinePartsIds);
@@ -352,13 +356,21 @@ namespace AutoRep.Controllers
                         _context.Request.Find(work.MadeOnId).Email,
                        "Автомастерская",
                         $"Здравствуйте.\n" +
-                        $"Уведомляем вас, что вы записаны к нам на {GetWorkTypeList().Find(x => x.Id == Convert.ToInt32(work.WorkType)).Name} к {GetUsersList().Find(x => x.Id == work.Worker).UserName} на {work.Date}.");
+                        $"Уведомляем вас, что вы записаны к нам к {GetUsersList().Find(x => x.Id == work.Worker).UserName} на {work.Date}.");
 
                     _context.Request.Remove(_context.Request.Find(work.MadeOnId));
                 }
                 await _context.SaveChangesAsync();
 
                 ChangeMachinePartsCount(work.MachinePartsIds);//that edit machine parts counts after select machine parts
+
+                //if count < 0, we are undo all actions
+                if (_context.MachineParts.Any(x => x.Count < 0) && submit != "Я уверен в своём выборе!")
+                {
+                    ChangeBackMachinePartsCount(work.MachinePartsIds);
+                    ViewBag.JavaScriptFunction = "!";
+                    return View();
+                }
 
                 return RedirectToAction(nameof(Index));
             }
