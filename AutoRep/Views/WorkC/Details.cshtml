@@ -4,11 +4,11 @@
     ViewData["Title"] = "Подробнее";
 }
 
-<h1>Подробнее</h1>
+<h1 id="dontPrint">Подробнее</h1>
 
 <div>
     <h4>Заказ</h4>
-    <hr />
+    <hr/>
     <dl class="row">
         <dt class="col-sm-2">
             Клиент
@@ -78,7 +78,8 @@
         </dd>
     </dl>
 </div>
-<div>
+<div id="dontP">
     <a asp-action="Edit" asp-route-id="@Model.Id">Изменить</a> |
+    <a href="javascript:window.print()">Печать</a> |
     <a asp-action="Index">Назад</a>
 </div>
