@@ -356,7 +356,7 @@ namespace AutoRep.Controllers
                         _context.Request.Find(work.MadeOnId).Email,
                        "Автомастерская",
                         $"Здравствуйте.\n" +
-                        $"Уведомляем вас, что вы записаны к нам к {GetUsersList().Find(x => x.Id == work.Worker).UserName} на {work.Date}.");
+                        $"Уведомляем вас, что вы записаны на {work.Date} к {GetUsersList().Find(x => x.Id == work.Worker).UserName}.");
 
                     _context.Request.Remove(_context.Request.Find(work.MadeOnId));
                 }

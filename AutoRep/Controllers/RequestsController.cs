@@ -1,5 +1,6 @@
 ﻿using AutoRep.Data;
 using AutoRep.Models;
+using AutoRep.Services;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -121,6 +122,29 @@ namespace AutoRep.Controllers
             return x;
         }
 
+        // make a viewbug of machineParts
+        public string GetmachinePartsListString(string[] MPIds)
+        {
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            SqlConnection con = new SqlConnection(connection);
+            SqlCommand cmd = new SqlCommand("select [id],[name] from [MachineParts]", con);
+            con.Open();
+            SqlDataReader idr = cmd.ExecuteReader();
+
+            List<MachineParts> machineParts = new List<MachineParts>();
+            if (idr.HasRows)
+            {
+                while (idr.Read())
+                {
+                    if (MPIds.Contains(idr["id"].ToString()))
+                        machineParts.Add(new MachineParts { Id = Convert.ToInt32(idr["Id"]), Name = Convert.ToString(idr["Name"]) });
+                }
+            }
+
+            con.Close();
+            return String.Join(", ", machineParts.Select(x => x.Name));
+        }
+
         // POST: Requests/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -135,6 +159,15 @@ namespace AutoRep.Controllers
                 request.WorkType = string.Join(",", request.WorkTypeIds);
                 _context.Add(request);
                 await _context.SaveChangesAsync();
+
+                //sending email
+                EmailService emailService = new EmailService();
+                await emailService.SendEmailAsync(
+                    request.Email,
+                   "Автомастерская",
+                    $"Здравствуйте {request.Name}.\n" +
+                    $"Уведомляем вас, что вы отправили запрос на {GetmachinePartsListString(request.WorkTypeIds)}.");
+
                 if (!User.Identity.IsAuthenticated)
                 {
                     ModelState.Clear();
