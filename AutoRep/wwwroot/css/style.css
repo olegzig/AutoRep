@@ -606,6 +606,7 @@ pre {
     -ms-flex-positive: 1;
     flex-grow: 1;
     max-width: 100%;
+    min-height: 100%;
 }
 
 .col-auto {
@@ -2697,8 +2698,9 @@ fieldset:disabled a.btn {
         }
 
 .btn-outline-primary {
-    color: #007bff;
-    border-color: #007bff;
+    color: #034b99;
+    border-color: #034b99;
+    border-width: 2px;
 }
 
     .btn-outline-primary:hover {
