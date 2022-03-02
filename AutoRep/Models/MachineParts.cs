@@ -1,4 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AutoRep.Models
 {
@@ -30,6 +34,25 @@ namespace AutoRep.Models
             CostDesc,
             CountAsc,
             CountDesc
+        }
+    }
+    public class YourEqualityComparer : IEqualityComparer<MachineParts>
+    {
+        public bool Equals([AllowNull] MachineParts x, [AllowNull] MachineParts y)
+        {
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode([DisallowNull] MachineParts obj)
+        {
+            unchecked
+            {
+                var hash = 17;
+                //same here, if you only want to get a hashcode on a, remove the line with b
+                hash = hash * 23 + obj.Id.GetHashCode();
+
+                return hash;
+            }
         }
     }
 }

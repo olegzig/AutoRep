@@ -268,6 +268,32 @@ namespace AutoRep.Controllers
             return machineParts.Sum(x => x.Cost);
         }
 
+        //make cost of machineparts
+        public bool IsMachinePartsListCountIsNull(string[] MPIds)
+        {
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            SqlConnection con = new SqlConnection(connection);
+            SqlCommand cmd = new SqlCommand("select [id],[count] from [MachineParts]", con);
+            con.Open();
+            SqlDataReader idr = cmd.ExecuteReader();
+
+            List<MachineParts> machineParts = new List<MachineParts>();
+            if (idr.HasRows)
+            {
+                while (idr.Read())
+                {
+                    if (MPIds.Contains(idr["id"].ToString()))
+                        if(Convert.ToDouble(idr["Count"]) < 0)
+                        {
+                            return true;
+                        }
+                }
+            }
+
+            con.Close();
+            return false;
+        }
+
         //changes machine parts counts for Create() and Edit()
         public void ChangeMachinePartsCount(string[] MPIds)
         {
@@ -343,6 +369,10 @@ namespace AutoRep.Controllers
                 //that add machine parts counter, taht we removed before
                 if (work.MachineParts != null && submit == null)
                     ChangeBackMachinePartsCount(work.MachineParts.Split(','));
+                if (work.MachineParts != null && submit == "Я уверен в своём выборе!")
+                    ChangeBackMachinePartsCount(work.MachineParts.Split(','));
+                if (work.MachineParts != null && IsMachinePartsListCountIsNull(work.MachinePartsIds))
+                    ChangeBackMachinePartsCount(work.MachineParts.Split(','));
 
                 work.WorkType = string.Join(",", work.WorkTypeIds);
                 work.MachineParts = string.Join(",", work.MachinePartsIds);
@@ -360,18 +390,18 @@ namespace AutoRep.Controllers
 
                     _context.Request.Remove(_context.Request.Find(work.MadeOnId));
                 }
-                await _context.SaveChangesAsync();
 
                 ChangeMachinePartsCount(work.MachinePartsIds);//that edit machine parts counts after select machine parts
 
                 //if count < 0, we are undo all actions
-                if (_context.MachineParts.Any(x => x.Count < 0) && submit != "Я уверен в своём выборе!")
+                if (IsMachinePartsListCountIsNull(work.MachinePartsIds) && submit != "Я уверен в своём выборе!")
                 {
                     ChangeBackMachinePartsCount(work.MachinePartsIds);
                     ViewBag.JavaScriptFunction = "!";
                     return View();
                 }
 
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(work);
@@ -420,6 +450,10 @@ namespace AutoRep.Controllers
                 //that add machine parts counter, taht we removed before
                 if (work.MachineParts != null && submit == null)
                     ChangeBackMachinePartsCount(work.MachineParts.Split(','));
+                if (work.MachineParts != null && submit == "Я уверен в своём выборе!")
+                    ChangeBackMachinePartsCount(work.MachineParts.Split(','));
+                if (work.MachineParts != null && !IsMachinePartsListCountIsNull(work.MachinePartsIds))
+                    ChangeBackMachinePartsCount(work.MachineParts.Split(','));
 
                 work.WorkType = string.Join(",", work.WorkTypeIds);
                 work.MachineParts = string.Join(",", work.MachinePartsIds);
@@ -443,13 +477,14 @@ namespace AutoRep.Controllers
                 ChangeMachinePartsCount(work.MachinePartsIds);//that edit machine parts counts after select machine parts
 
                 //if count < 0, we are undo all actions
-                if(_context.MachineParts.Any(x => x.Count < 0) && submit != "Я уверен в своём выборе!")
+                if (IsMachinePartsListCountIsNull(work.MachinePartsIds) && submit != "Я уверен в своём выборе!")
                 {
                     ChangeBackMachinePartsCount(work.MachinePartsIds);
                     ViewBag.JavaScriptFunction = "!";
                     return View();
                 }
-
+                
+                _context.Update(work);
                 return RedirectToAction(nameof(Index));
             }
             return View(work);
