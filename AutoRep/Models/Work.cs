@@ -30,6 +30,7 @@ namespace AutoRep.Models
         public string Client { get; set; }//Клиент и его контактные данные
 
         [Display(Name = "Мобильный телефон")]
+        [Phone(ErrorMessage = "Телефонный номер дожен состоять только из цифр")]
         [Required(ErrorMessage = "Данная информация необходима")]
         public string PhoneNumber { get; set; }//Клиент и его контактные данные
 
