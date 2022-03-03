@@ -323,3 +323,14 @@ select {
         cursor: default;
         background-color: white;
     }
+@media screen {
+    .forPrint {
+        display: none;
+    }
+}
+
+@media print {
+    .forPrint {
+        display: block;
+    }
+}
