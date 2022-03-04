@@ -28,6 +28,9 @@ namespace AutoRep.Models
         [Required(ErrorMessage = "Данная информация необходима")]
         public string Email { get; set; }
 
+        [Display(Name = "Сообщение")]
+        public string Message { get; set; }
+
         public enum SortState
         {
             ClientAsc,

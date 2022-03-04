@@ -263,12 +263,6 @@
                                         <span asp-validation-for="Name" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input asp-for="Email" class="form-control" placeholder="Электронная почта" />
-                                        <span asp-validation-for="Email" class="text-danger"></span>
-                                    </div>
-                                </div>
                                 @*<div class="col-md-6">
                                         <div class="form-group">
                                             <input asp-for="" class="form-control" />
@@ -283,7 +277,14 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Сообщение"></textarea> @*Наверное надо сделать*@
+                                        <input asp-for="Email" class="form-control" placeholder="Электронная почта" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <!--<textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Сообщение"></textarea>-->
+                                        <textarea cols="30" id="" rows="7" asp-for="Message" class="form-control" placeholder="Сообщение"> </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

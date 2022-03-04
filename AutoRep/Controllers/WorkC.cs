@@ -344,7 +344,8 @@ namespace AutoRep.Controllers
             ViewBag.MadeOnId = id;
             ViewBag.Email = work.Email;
             ViewBag.Phone = work.PhoneNumber;
-            ViewBag.Work = work.WorkType.Split(',');//пока нигде не используется!
+            ViewBag.Work = work.WorkType.Split(',');
+            ViewBag.Msg = work.Message;
 
             return View();
         }
