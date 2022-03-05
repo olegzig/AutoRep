@@ -1,0 +1,45 @@
+﻿@model AutoRep.Models.Work
+
+@{
+    ViewData["Title"] = "Статистика";
+}
+<h1>Статистика</h1>
+
+<hr />
+
+    <div id="myPieChart" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <!-- Identify where the chart should be drawn. -->
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", { packages: ["corechart"] });
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            $.ajax({
+                type: "POST",
+                url: "/Home/AjaxMethod",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    var data = google.visualization.arrayToDataTable(r);
+
+                    //Pie
+                    var options = {
+                        title: 'USA City Distribution'
+                    };
+                    var chart = new google.visualization.PieChart($("#chart")[0]);
+                    chart.draw(data, options);
+                },
+                failure: function (r) {
+                    alert(r.d);
+                },
+                error: function (r) {
+                    alert(r.d);
+                }
+            });
+        }
+    </script>
+}
