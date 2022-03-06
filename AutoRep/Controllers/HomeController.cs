@@ -118,6 +118,36 @@ namespace AutoRep.Controllers
 
         #endregion WorkerCountChart
 
+        #region MachinePartCountChart
+
+        public ActionResult VisualizeMachinePartCountResult()
+        {
+            return Json(MachinePartCountResult());
+        }
+
+        public List<MachineParts> MachinePartCountResult()
+        {
+            for (int i = 1; i < _context.MachineParts.Count(); i++)//i идём по списку work
+            {
+                if (_context.MachineParts.Any(x => x.Id == i))//если в work существует элемент i
+                {
+                    string a = _context.Work.First(x => x.Id == i).MachineParts;//записываем чё там
+                    for (int z = 0; z <= _context.MachineParts.Select(x => x.Id).Max(); z++)//z идём по worktype.id, c 0 до макс id
+                    {
+                        if (a.Contains(z.ToString()))//если есть - увеличиваем
+                        {
+                            _context.MachineParts.First(x => x.Id == z).count++;
+                        }
+                    }
+                }
+            }
+            List<MachineParts> lst = _context.MachineParts.ToList();
+
+            return lst;
+        }
+
+        #endregion WorkTypeCountChart
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

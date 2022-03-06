@@ -11,6 +11,7 @@
     <div id="chart1" class="form-group col" style="border: 1px solid #ccc"></div>
     <div id="chart2" class="form-group col" style="border: 1px solid #ccc"></div>
     <div id="chart3" class="form-group col" style="border: 1px solid #ccc"></div>
+    <div id="chart4" class="form-group col" style="border: 1px solid #ccc"></div>
 </div>
 
 @section Scripts {
@@ -58,6 +59,20 @@
                     });
                     google.charts.setOnLoadCallback(function () {
                         drawChart3(result);
+                    });
+                }
+            });
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: '@Url.Action("VisualizeMachinePartCountResult", "Home")',
+                success: function (result) {
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart4(result);
                     });
                 }
             });
@@ -109,7 +124,8 @@
 
             columnChart.draw(data, columnChartOptions);
             }
-            function drawChart3(result) {
+        function drawChart3(result)
+        {
                 var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Имя');
                 data.addColumn('number', 'Количество');
@@ -131,6 +147,29 @@
                     .getElementById('chart3'));
 
                 columnChart.draw(data, columnChartOptions);
-            }
+        }
+        function drawChart4(result) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Имя');
+            data.addColumn('number', 'Количество');
+            var dataArray = [];
+
+            $.each(result, function (i, obj) {
+                dataArray.push([obj.name, obj.count]);
+            });
+            data.addRows(dataArray);
+
+            var columnChartOptions = {
+                title: "Количество деталей на складе",
+                width: 1000,
+                height: 400,
+                bar: { groupWidth: "20%" },
+            };
+
+            var columnChart = new google.visualization.ColumnChart(document
+                .getElementById('chart4'));
+
+            columnChart.draw(data, columnChartOptions);
+        }
     </script>
 }

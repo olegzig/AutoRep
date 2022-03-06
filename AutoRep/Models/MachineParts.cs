@@ -12,19 +12,21 @@ namespace AutoRep.Models
 
         [Display(Name = "Наименование")]
         [Required(ErrorMessage = "Данная информация необходима")]
-        public string Name { get; set; }//Название детали
+        public string Name { get { return name; } set { name = value; } }
+        public string name;
 
         [Display(Name = "Количество на складе")]
         [Required(ErrorMessage = "Данная информация необходима")]
         [Range(0, double.MaxValue, ErrorMessage = "Количество должно быть больше, либо равно нулю")]
-        public int Count { get; set; }//работник который делает/сделает/записал
+        public int Count { get => count; set => count = value; }
+        public int count;
 
         [Display(Name = "Описание")]
-        public string Discription { get; set; }//Клиент и его контактные данные
+        public string Discription { get; set; }
 
         [Display(Name = "Стоимость")]
         [Required(ErrorMessage = "Данная информация необходима")]
-        public double Cost { get; set; }//время на которое записали работника
+        public double Cost { get; set; }
 
         public enum SortState
         {
