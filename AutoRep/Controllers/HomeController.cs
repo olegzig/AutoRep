@@ -60,7 +60,6 @@ namespace AutoRep.Controllers
         {
             return Json(WorKTypeCountResult());
         }
-
         public List<WorkType> WorKTypeCountResult()
         {
             for (int i = 1; i < _context.Work.Count(); i++)//i идём по списку work
@@ -81,6 +80,17 @@ namespace AutoRep.Controllers
 
             return lst;
         }
+
+        public ActionResult VisualizeWorKTypeCostResult()
+        {
+            return Json(WorKTypeCostResult());
+        }
+        public List<WorkType> WorKTypeCostResult()
+        {
+            List<WorkType> lst = _context.WorkType.ToList();
+            return lst;
+        }
+
 
         [HttpPost]
         [AllowAnonymous]

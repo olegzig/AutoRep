@@ -21,7 +21,8 @@ namespace AutoRep.Models
 
         [Display(Name = "Стоимость")]
         [Required(ErrorMessage = "Данная информация необходима")]
-        public double Cost { get; set; }//Стоимость работы
+        public double Cost { get { return cost; } set { cost = value; } }//Стоимость работы
+        public double cost;
 
         [NotMapped]
         [Display(Name = "Количество использований")]

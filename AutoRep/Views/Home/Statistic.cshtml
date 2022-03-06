@@ -5,34 +5,50 @@
 }
 <h1>Статистика</h1>
 
-<hr />
+<hr /> 
 
-<div id="columnchart_div" />
+<div class="row">
+        <div id="chart1" class="form-group col" style="border: 1px solid #ccc"></div>
+        <div id="chart2" class="form-group col" style="border: 1px solid #ccc"></div>
+</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>
+        google.charts.load('current', {
+            packages: ['corechart']
+        }).then(function () {
             $.ajax({
                 type: "POST",
                 dataType: "json",
                 contentType: "application/json",
                 url: '@Url.Action("VisualizeWorKTypeCountResult", "Home")',
                 success: function (result) {
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart1(result);
+                    });
+                }
+            });
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: '@Url.Action("VisualizeWorKTypeCostResult", "Home")',
+                success: function (result) {
                     google.charts.load('current', {
                         'packages': ['corechart']
                     });
                     google.charts.setOnLoadCallback(function () {
-                        drawChart(result);
+                        drawChart2(result);
                     });
                 }
             });
         });
 
-        function drawChart(result) {
+        function drawChart1(result) {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Наименование');
             data.addColumn('number', 'Раз использовано');
@@ -51,9 +67,32 @@
             };
 
             var columnChart = new google.visualization.ColumnChart(document
-                .getElementById('columnchart_div'));
+                .getElementById('chart1'));
 
             columnChart.draw(data, columnChartOptions);
         }
-    </script>
-}
+        function drawChart2(result) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Наименование');
+            data.addColumn('number', 'Стоимость');
+            var dataArray = [];
+
+            $.each(result, function (i, obj) {
+                dataArray.push([obj.name, obj.cost]);
+            });
+            data.addRows(dataArray);
+
+            var columnChartOptions = {
+                title: "Стоимость услуг",
+                width: 1000,
+                height: 400,
+                bar: { groupWidth: "20%" },
+            };
+
+            var columnChart = new google.visualization.ColumnChart(document
+                .getElementById('chart2'));
+
+            columnChart.draw(data, columnChartOptions);
+        }
+        </script>
+    }
