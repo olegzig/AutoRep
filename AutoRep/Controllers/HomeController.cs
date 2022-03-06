@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
@@ -42,40 +41,45 @@ namespace AutoRep.Controllers
             return View();
         }
 
-        [HttpPost]
-        public JsonResult AjaxMethod()
+        public ActionResult ColumnChart()
         {
-            string query = "SELECT ShipCity, COUNT(orderid) TotalOrders";
-            query += " FROM Orders WHERE ShipCountry = 'USA' GROUP BY ShipCity";
-            string constr = ConfigurationManager.ConnectionStrings["Constring"].ConnectionString;
-            List<object> chartData = new List<object>();
-            chartData.Add(new object[]
-                            {
-                            "ShipCity", "TotalOrders"
-                            });
-            using (SqlConnection con = new SqlConnection(constr))
+            return View();
+        }
+
+        public ActionResult PieChart()
+        {
+            return View();
+        }
+
+        public ActionResult LineChart()
+        {
+            return View();
+        }
+
+        public ActionResult VisualizeWorKTypeCountResult()
+        {
+            return Json(WorKTypeCountResult());
+        }
+
+        public List<WorkType> WorKTypeCountResult()
+        {
+            for (int i = 1; i < _context.Work.Count(); i++)//i идём по списку work
             {
-                using (SqlCommand cmd = new SqlCommand(query))
+                if (_context.Work.Any(x => x.Id == i))//если в work существует элемент i
                 {
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = con;
-                    con.Open();
-                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    string a = _context.Work.First(x => x.Id == i).WorkType;//записываем чё там
+                    for (int z = 0; z <= _context.WorkType.Select(x => x.Id).Max(); z++)//z идём по worktype.id, c 0 до макс id
                     {
-                        while (sdr.Read())
+                        if (a.Contains(z.ToString()))//если есть - увеличиваем
                         {
-                            chartData.Add(new object[]
-                            {
-                            sdr["ShipCity"], sdr["TotalOrders"]
-                            });
+                            _context.WorkType.First(x => x.Id == z).countusage++;
                         }
                     }
-
-                    con.Close();
                 }
             }
+            List<WorkType> lst = _context.WorkType.ToList();
 
-            return Json(chartData);
+            return lst;
         }
 
         [HttpPost]

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AutoRep.Models
 {
@@ -12,7 +13,8 @@ namespace AutoRep.Models
 
         [Display(Name = "Наименование")]
         [Required(ErrorMessage = "Данная информация необходима")]
-        public string Name { get; set; }//Название работы
+        public string Name { get { return name; } set { name = value; } }//Название работы
+        public string name;
 
         [Display(Name = "Описание")]
         public string Text { get; set; }//Описание работы
@@ -20,6 +22,10 @@ namespace AutoRep.Models
         [Display(Name = "Стоимость")]
         [Required(ErrorMessage = "Данная информация необходима")]
         public double Cost { get; set; }//Стоимость работы
+
+        [NotMapped]
+        [Display(Name = "Количество использований")]
+        public int countusage { get; set; }//Стоимость работы
 
         public enum SortState
         {

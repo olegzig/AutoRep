@@ -7,39 +7,53 @@
 
 <hr />
 
-    <div id="myPieChart" />
+<div id="columnchart_div" />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <!-- Identify where the chart should be drawn. -->
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.load("visualization", "1", { packages: ["corechart"] });
-        google.setOnLoadCallback(drawChart);
-        function drawChart() {
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
             $.ajax({
                 type: "POST",
-                url: "/Home/AjaxMethod",
-                data: '{}',
-                contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function (r) {
-                    var data = google.visualization.arrayToDataTable(r);
-
-                    //Pie
-                    var options = {
-                        title: 'USA City Distribution'
-                    };
-                    var chart = new google.visualization.PieChart($("#chart")[0]);
-                    chart.draw(data, options);
-                },
-                failure: function (r) {
-                    alert(r.d);
-                },
-                error: function (r) {
-                    alert(r.d);
+                contentType: "application/json",
+                url: '@Url.Action("VisualizeWorKTypeCountResult", "Home")',
+                success: function (result) {
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart(result);
+                    });
                 }
             });
+        });
+
+        function drawChart(result) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Наименование');
+            data.addColumn('number', 'Раз использовано');
+            var dataArray = [];
+
+            $.each(result, function (i, obj) {
+                dataArray.push([obj.name, obj.countusage ]);
+            });
+            data.addRows(dataArray);
+
+            var columnChartOptions = {
+                title: "Использование услуг",
+                width: 1000,
+                height: 400,
+                bar: { groupWidth: "20%" },
+            };
+
+            var columnChart = new google.visualization.ColumnChart(document
+                .getElementById('columnchart_div'));
+
+            columnChart.draw(data, columnChartOptions);
         }
     </script>
 }
