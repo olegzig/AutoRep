@@ -8,6 +8,7 @@ namespace AutoRep.Models
     // Add profile data for application users by adding properties to the SUser class
     public class SUser : IdentityUser
     {
+
         [Display(Name = "Id")]
         public override string Id { get => base.Id; set => base.Id = value; }
 
@@ -41,6 +42,11 @@ namespace AutoRep.Models
         {
             return Id.ToString() + " " + UserName;
         }
+
+        [NotMapped]
+        public int count { get; set; }
+        [NotMapped]
+        public string name{ get; set; }
 
         public enum SortState
         {

@@ -21,12 +21,14 @@ namespace AutoRep.Controllers
         private readonly ApplicationDbContext _context;
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration Configuration;
+        private readonly AuthContext _userContext;
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ApplicationDbContext context, AuthContext usercontext)
         {
             _context = context;
             _logger = logger;
             Configuration = config;
+            _userContext = usercontext;
         }
 
         [AllowAnonymous]
@@ -47,6 +49,7 @@ namespace AutoRep.Controllers
         {
             return Json(WorKTypeCountResult());
         }
+
         public List<WorkType> WorKTypeCountResult()
         {
             for (int i = 1; i < _context.Work.Count(); i++)//i идём по списку work
@@ -67,18 +70,53 @@ namespace AutoRep.Controllers
 
             return lst;
         }
-        #endregion
+
+        #endregion WorkTypeCountChart
+
         #region WorkTypeCostChart
+
         public ActionResult VisualizeWorKTypeCostResult()
         {
             return Json(WorKTypeCostResult());
         }
+
         public List<WorkType> WorKTypeCostResult()
         {
             List<WorkType> lst = _context.WorkType.ToList();
             return lst;
         }
-        #endregion
+
+        #endregion WorkTypeCostChart
+
+        #region WorkerCountChart
+
+        public ActionResult VisualizeWorkerCountResult()
+        {
+            return Json(WorkerCountResult());
+        }
+
+        public List<SUser> WorkerCountResult()
+        {
+            string[] idArr = _context.Work.Select(x => x.Worker).ToArray();
+
+            foreach (string i in idArr)
+            {
+                _userContext.Users.First(x => x.Id == i).count++;
+            }
+
+            string[] idArrForNames = _userContext.Users.Select(x => x.Id).ToArray();
+
+            foreach (string i in idArrForNames)
+            {
+                _userContext.Users.First(x => x.Id == i).name = _userContext.Users.First(x => x.Id == i).UserName;
+            }
+
+            List<SUser> lst = _userContext.Users.ToList();
+
+            return lst;
+        }
+
+        #endregion WorkerCountChart
 
         [HttpPost]
         [AllowAnonymous]
