@@ -148,6 +148,21 @@ namespace AutoRep.Controllers
 
         #endregion WorkTypeCountChart
 
+        #region WorkTypeCostChart
+
+        public ActionResult VisualizeMachinePartCostResult()
+        {
+            return Json(MachinePartsCostResult());
+        }
+
+        public List<MachineParts> MachinePartsCostResult()
+        {
+            List<MachineParts> lst = _context.MachineParts.ToList();
+            return lst;
+        }
+
+        #endregion WorkTypeCostChart
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

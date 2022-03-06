@@ -26,7 +26,8 @@ namespace AutoRep.Models
 
         [Display(Name = "Стоимость")]
         [Required(ErrorMessage = "Данная информация необходима")]
-        public double Cost { get; set; }
+        public double Cost { get => cost; set => cost = value; }
+        public double cost;
 
         public enum SortState
         {

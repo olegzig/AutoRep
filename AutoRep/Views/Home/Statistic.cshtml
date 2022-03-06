@@ -12,6 +12,7 @@
     <div id="chart2" class="form-group col" style="border: 1px solid #ccc"></div>
     <div id="chart3" class="form-group col" style="border: 1px solid #ccc"></div>
     <div id="chart4" class="form-group col" style="border: 1px solid #ccc"></div>
+    <div id="chart5" class="form-group col" style="border: 1px solid #ccc"></div>
 </div>
 
 @section Scripts {
@@ -73,6 +74,20 @@
                     });
                     google.charts.setOnLoadCallback(function () {
                         drawChart4(result);
+                    });
+                }
+            });
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: '@Url.Action("VisualizeMachinePartCostResult", "Home")',
+                success: function (result) {
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart5(result);
                     });
                 }
             });
@@ -168,6 +183,29 @@
 
             var columnChart = new google.visualization.ColumnChart(document
                 .getElementById('chart4'));
+
+            columnChart.draw(data, columnChartOptions);
+        }
+        function drawChart5(result) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Наименование');
+            data.addColumn('number', 'Стоимость (BYN)');
+            var dataArray = [];
+
+            $.each(result, function (i, obj) {
+                dataArray.push([obj.name, obj.cost]);
+            });
+            data.addRows(dataArray);
+
+            var columnChartOptions = {
+                title: "Стоимость деталей",
+                width: 1000,
+                height: 400,
+                bar: { groupWidth: "20%" },
+            };
+
+            var columnChart = new google.visualization.ColumnChart(document
+                .getElementById('chart5'));
 
             columnChart.draw(data, columnChartOptions);
         }
