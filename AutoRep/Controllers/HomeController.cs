@@ -41,20 +41,7 @@ namespace AutoRep.Controllers
             return View();
         }
 
-        public ActionResult ColumnChart()
-        {
-            return View();
-        }
-
-        public ActionResult PieChart()
-        {
-            return View();
-        }
-
-        public ActionResult LineChart()
-        {
-            return View();
-        }
+        #region WorkTypeCountChart
 
         public ActionResult VisualizeWorKTypeCountResult()
         {
@@ -80,7 +67,8 @@ namespace AutoRep.Controllers
 
             return lst;
         }
-
+        #endregion
+        #region WorkTypeCostChart
         public ActionResult VisualizeWorKTypeCostResult()
         {
             return Json(WorKTypeCostResult());
@@ -90,7 +78,7 @@ namespace AutoRep.Controllers
             List<WorkType> lst = _context.WorkType.ToList();
             return lst;
         }
-
+        #endregion
 
         [HttpPost]
         [AllowAnonymous]
