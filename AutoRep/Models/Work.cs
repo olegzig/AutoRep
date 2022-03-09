@@ -61,10 +61,6 @@ namespace AutoRep.Models
         [Display(Name = "Итоговая стоимость")]
         public double Cost { get; set; }
 
-        [Display(Name = "Сообщение")]
-        public string Message { get; set; }
-
-
         public enum SortState
         {
             ClientAsc,
