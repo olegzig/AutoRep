@@ -111,27 +111,29 @@ namespace AutoRep.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,Email,PhoneNumber,Password,ConfirmPassword,Role")] SUser user)
+        public async Task<IActionResult> Create(SUser user)
         {
             GetRolesList();
             if (ModelState.IsValid)
             {
                 //_context.Add(user);
                 //await _context.SaveChangesAsync();
-                var newUser = new SUser { UserName = user.UserName, Email = user.Email, PhoneNumber = user.PhoneNumber, Role = user.Role, Password = user.Password };
-                var result = await _userManager.CreateAsync(newUser, newUser.Password);
-                var result2 = await _userManager.AddToRoleAsync(newUser, _roleMananger.FindByIdAsync(user.Role).Result.Name);
-                if (result.Succeeded && result2.Succeeded)
+                var result = await _userManager.CreateAsync(user, user.Password);
+                if (result.Succeeded)
                 {
-                    return RedirectToAction(nameof(Index));
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    var result2 = await _userManager.AddToRoleAsync(user, _roleMananger.FindByIdAsync(user.Role).Result.Name);
+                    if (result.Succeeded && result2.Succeeded)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
                     foreach (var error2 in result2.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error2.Description);
                     }
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
             return View(user);

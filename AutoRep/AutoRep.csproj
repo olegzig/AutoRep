@@ -28,6 +28,10 @@
     <Compile Remove="Migrations\Auth\20220123172657_reqadd.Designer.cs" />
     <Compile Remove="Migrations\Auth\20220123205241_remake.cs" />
     <Compile Remove="Migrations\Auth\20220123205241_remake.Designer.cs" />
+    <Compile Remove="Migrations\Auth\20220310203146_InitialCreate.cs" />
+    <Compile Remove="Migrations\Auth\20220310203146_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\Auth\20220310212031_SomeShit.cs" />
+    <Compile Remove="Migrations\Auth\20220310212031_SomeShit.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,5 +64,7 @@
   <ItemGroup>
     <None Include="wwwroot\web.config" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
