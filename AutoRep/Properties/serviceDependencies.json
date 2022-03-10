@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "mssql1": {
+    "mssql4": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:DefaultConnection"
+      "connectionId": "ConnectionStrings:DbContext"
     },
     "mssql3": {
       "type": "mssql",
