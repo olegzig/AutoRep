@@ -4,13 +4,17 @@
       "type": "mssql",
       "connectionId": "ConnectionStrings:DefaultConnection"
     },
+    "mssql3": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:DbContext"
+    },
+    "mssql4": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:AutoRepDbContext"
+    },
     "mssql2": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:AuthContextConnection"
-    },
-    "mssql3": {
-      "type": "mssql",
-      "connectionId": "ConnectionStrings:AutoRepDbContext"
     }
   }
 }

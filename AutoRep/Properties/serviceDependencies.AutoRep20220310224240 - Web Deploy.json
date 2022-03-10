@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/autorepdbserver/databases/AutoRepDB",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:DefaultConnection",
+      "secretStore": "AzureAppSettings"
+    },
+    "mssql3": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/autorepdbserver/databases/AutoRep_dbDbContext",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:DbContext",
+      "secretStore": "AzureAppSettings"
+    },
+    "mssql4": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/autorepdbserver/databases/AutoRep_dbContext",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:AutoRepDbContext",
+      "secretStore": "AzureAppSettings"
+    },
+    "mssql2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/autorepdbserver/databases/AutoRep",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:AuthContextConnection",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
