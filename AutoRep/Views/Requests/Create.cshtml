@@ -22,7 +22,8 @@ else
 <hr />
 <form asp-action="Create">
     <div class="row">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div asp-validation-summary="ModelOnly" class="text-danger col"></div>
+        <div class="w-100"></div>
         <div class="form-group col">
             <label asp-for="WorkType" class="control-label"></label>
             <div>@Html.ListBoxFor(x => x.WorkTypeIds, new MultiSelectList(ViewBag.WorkTypeBag, "Id", "Name"), new { @class = "form-control", id = "multipleSelectWorkType", multiple = "multiple" })</div>

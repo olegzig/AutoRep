@@ -37,7 +37,8 @@
 
     <div class="row">
         <input type="hidden" asp-for="MadeOnId" value="@ViewBag.MadeOnId" />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div asp-validation-summary="ModelOnly" class="text-danger col"></div>
+        <div class="w-100"></div>
         <div class="form-group col">
             <label asp-for="Client" class="control-label"></label>
             <input asp-for="Client" class="form-control" value="@ViewBag.Name" />

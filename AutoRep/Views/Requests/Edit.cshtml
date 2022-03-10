@@ -11,7 +11,8 @@
 
 <form asp-action="Edit">
     <div class="row">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div asp-validation-summary="ModelOnly" class="text-danger col"></div>
+        <div class="w-100"></div>
         <input type="hidden" asp-for="Id" />
         <div class="form-group col">
             <label asp-for="WorkType" class="control-label"></label>
