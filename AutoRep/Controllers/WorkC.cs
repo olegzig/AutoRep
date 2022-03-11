@@ -380,6 +380,19 @@ namespace AutoRep.Controllers
                 work.MachineParts = string.Join(",", work.MachinePartsIds);
                 work.Cost = GetmachinePartsCost(work.MachinePartsIds) + GetWorkTypeCost(work.WorkTypeIds);
                 _context.Add(work);
+                
+
+                ChangeMachinePartsCount(work.MachinePartsIds);//that edit machine parts counts after select machine parts
+
+                //if count < 0, we are undo all actions
+                if (IsMachinePartsListCountIsNull(work.MachinePartsIds) && submit != "Я уверен в своём выборе!")
+                {
+                    ChangeBackMachinePartsCount(work.MachinePartsIds);
+                    ViewBag.JavaScriptFunction = "!";
+                    _context.Remove(work);
+                    return View();
+                }
+
                 //send email
                 if (work.MadeOnId != null)
                 {
@@ -391,16 +404,6 @@ namespace AutoRep.Controllers
                         $"Уведомляем вас, что вы записаны на {work.Date} к {GetUsersList().Find(x => x.Id == work.Worker).UserName}.");
 
                     _context.Request.Remove(_context.Request.Find(work.MadeOnId));
-                }
-
-                ChangeMachinePartsCount(work.MachinePartsIds);//that edit machine parts counts after select machine parts
-
-                //if count < 0, we are undo all actions
-                if (IsMachinePartsListCountIsNull(work.MachinePartsIds) && submit != "Я уверен в своём выборе!")
-                {
-                    ChangeBackMachinePartsCount(work.MachinePartsIds);
-                    ViewBag.JavaScriptFunction = "!";
-                    return View();
                 }
 
                 await _context.SaveChangesAsync();
