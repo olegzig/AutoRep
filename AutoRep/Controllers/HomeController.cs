@@ -127,17 +127,15 @@ namespace AutoRep.Controllers
 
         public List<MachineParts> MachinePartCountResult()
         {
-            for (int i = 1; i < _context.MachineParts.Count(); i++)//i идём по списку work
+            for (int i = 1; i < _context.MachineParts.Max(x => x.Id); i++)//i идём по списку Деталей
             {
-                var x = _context.MachineParts.Any(x => x.Id == i);
-                if (_context.Work.Any(x => x.Id == i))//если в work существует элемент i
+                if (_context.MachineParts.Any(x => x.Id == i))//если в деталях существует элемент i
                 {
-                    string a = _context.Work.First(x => x.Id == i).MachineParts;//записываем чё там
-                    for (int z = 0; z <= _context.MachineParts.Select(x => x.Id).Max(); z++)//z идём по worktype.id, c 0 до макс id
+                    foreach(Work z in _context.Work)
                     {
-                        if (a.Contains(z.ToString()))//если есть - увеличиваем
+                        if(z.MachineParts.Any(x => x == i))
                         {
-                            _context.MachineParts.First(x => x.Id == z).count++;
+                            _context.MachineParts.First(x => x.Id == i).count++;
                         }
                     }
                 }
