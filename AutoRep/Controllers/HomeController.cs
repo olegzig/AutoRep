@@ -129,7 +129,8 @@ namespace AutoRep.Controllers
         {
             for (int i = 1; i < _context.MachineParts.Count(); i++)//i идём по списку work
             {
-                if (_context.MachineParts.Any(x => x.Id == i))//если в work существует элемент i
+                var x = _context.MachineParts.Any(x => x.Id == i);
+                if (_context.Work.Any(x => x.Id == i))//если в work существует элемент i
                 {
                     string a = _context.Work.First(x => x.Id == i).MachineParts;//записываем чё там
                     for (int z = 0; z <= _context.MachineParts.Select(x => x.Id).Max(); z++)//z идём по worktype.id, c 0 до макс id

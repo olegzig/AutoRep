@@ -77,7 +77,7 @@ namespace AutoRep.Controllers
                 _ => works.OrderBy(x => x.Client),
             };
 
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(await works.AsNoTracking().ToPagedListAsync(pageNumber, pageSize));
         }

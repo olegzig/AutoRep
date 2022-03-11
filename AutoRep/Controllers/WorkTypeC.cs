@@ -38,7 +38,7 @@ namespace AutoRep.Controllers
                 WorkType.SortState.CostDesc => worksTypes.OrderByDescending(x => x.Cost),
                 _ => worksTypes.OrderBy(x => x.Name),
             };
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(await worksTypes.AsNoTracking().ToPagedListAsync(pageNumber, pageSize));
         }

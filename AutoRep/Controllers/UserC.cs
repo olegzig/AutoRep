@@ -48,7 +48,7 @@ namespace AutoRep.Controllers
                 Models.SUser.SortState.NameDesc => users.OrderByDescending(x => x.UserName),
                 _ => users.OrderBy(x => x.UserName),
             };
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(await users.AsNoTracking().ToPagedListAsync(pageNumber, pageSize));
         }

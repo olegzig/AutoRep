@@ -43,7 +43,7 @@ namespace AutoRep.Controllers
                 _ => requests.OrderBy(x => x.Name),
             };
 
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(await requests.AsNoTracking().ToPagedListAsync(pageNumber, pageSize));
             //return View(await requests.AsNoTracking().ToListAsync());
