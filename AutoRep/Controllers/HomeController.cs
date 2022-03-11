@@ -52,16 +52,15 @@ namespace AutoRep.Controllers
 
         public List<WorkType> WorKTypeCountResult()
         {
-            for (int i = 1; i < _context.Work.Count(); i++)//i идём по списку work
+            for (int i = 1; i <= _context.WorkType.Max(x => x.Id); i++)//i идём по списку типов работ
             {
-                if (_context.Work.Any(x => x.Id == i))//если в work существует элемент i
+                if (_context.WorkType.Any(x => x.Id == i))//если в типах работ существует элемент i
                 {
-                    string a = _context.Work.First(x => x.Id == i).WorkType;//записываем чё там
-                    for (int z = 0; z <= _context.WorkType.Select(x => x.Id).Max(); z++)//z идём по worktype.id, c 0 до макс id
+                    foreach (Work z in _context.Work.ToList())//пока в работе
                     {
-                        if (a.Contains(z.ToString()))//если есть - увеличиваем
+                        if (z.WorkType.Contains("," + i.ToString() + ",") || z.WorkType.Contains("," + i.ToString()) || z.WorkType.Contains(i.ToString() + ","))//если в списке деталей работы есть i
                         {
-                            _context.WorkType.First(x => x.Id == z).countusage++;
+                            _context.WorkType.First(x => x.Id == i).countusage++;//count++
                         }
                     }
                 }
@@ -127,15 +126,15 @@ namespace AutoRep.Controllers
 
         public List<MachineParts> MachinePartCountResult()
         {
-            for (int i = 1; i < _context.MachineParts.Max(x => x.Id); i++)//i идём по списку Деталей
+            for (int i = 1; i <= _context.MachineParts.Max(x => x.Id); i++)//i идём по списку Деталей
             {
                 if (_context.MachineParts.Any(x => x.Id == i))//если в деталях существует элемент i
                 {
-                    foreach(Work z in _context.Work)
+                    foreach(Work z in _context.Work.ToList())//пока в работе
                     {
-                        if(z.MachineParts.Any(x => x == i))
+                        if(z.MachineParts.Contains("," + i.ToString() + ",") || z.MachineParts.Contains("," + i.ToString()) || z.MachineParts.Contains(i.ToString() + ","))//если в списке деталей работы есть i
                         {
-                            _context.MachineParts.First(x => x.Id == i).count++;
+                            _context.MachineParts.First(x => x.Id == i).count++;//count++
                         }
                     }
                 }

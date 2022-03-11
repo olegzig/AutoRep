@@ -299,18 +299,24 @@ namespace AutoRep.Controllers
         public void ChangeMachinePartsCount(string[] MPIds)
         {
 
-            foreach(string x in MPIds)
+            foreach(string id in MPIds)
             {
-                _context.MachineParts.First(z => z.Id == int.Parse(x)).Count--;
+                if (_context.MachineParts.Any(x => x.Id.ToString() == id))
+                {
+                    _context.MachineParts.First(z => z.Id == int.Parse(id)).Count--;
+                }
             }
 
             _context.SaveChanges();
         }
         public void ChangeBackMachinePartsCount(string[] MPIds)
         {
-            foreach (string x in MPIds)
+            foreach (string id in MPIds)
             {
-                _context.MachineParts.First(z => z.Id == int.Parse(x)).Count++;
+                if (_context.MachineParts.Any(x => x.Id.ToString() == id))
+                {
+                    _context.MachineParts.First(z => z.Id == int.Parse(id)).Count++;
+                }
             }
 
             _context.SaveChanges();
