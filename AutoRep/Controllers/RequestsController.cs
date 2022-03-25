@@ -166,7 +166,7 @@ namespace AutoRep.Controllers
                     request.Email,
                    "Автомастерская",
                     $"Здравствуйте {request.Name}.\n" +
-                    $"Уведомляем вас, что вы отправили запрос на {GetmachinePartsListString(request.WorkTypeIds)}.");
+                    $"Уведомляем вас, что вы отправили запрос на {GetWorkTypeListString(request.WorkTypeIds)}.");
 
                 if (!User.Identity.IsAuthenticated)
                 {
